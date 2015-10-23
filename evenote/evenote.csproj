@@ -213,6 +213,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="APIs\DataBaseAPI.dll" />
+    <Content Include="APIs\DataBaseAPI.pdb" />
+    <Content Include="APIs\MySql.Data.dll" />
+    <Content Include="APIs\MySql.Data.Entity.EF5.dll" />
+    <Content Include="APIs\MySql.Data.Entity.EF6.dll" />
+    <Content Include="APIs\MySql.Fabric.Plugin.dll" />
+    <Content Include="APIs\MySql.Web.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
