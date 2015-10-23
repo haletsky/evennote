@@ -1,0 +1,24 @@
+﻿<Page x:Class="evenote.pages.menu_page"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:evenote.pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="700"
+      Title="menu_page" Initialized="Page_Initialized">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Background="#FFD1F0B8">
+            <Button x:Name="profile_btn" Content="Profile" VerticalAlignment="Top" Click="profile_btn_Click" Style="{DynamicResource MenuButtonStyle}"/>
+            <Button x:Name="notes_btn" Content="Notes" VerticalAlignment="Top" Click="notes_btn_Click" Style="{DynamicResource MenuButtonStyle}"/>
+            <Button x:Name="search_btn" Content="Search" VerticalAlignment="Top" Click="search_btn_Click" Style="{DynamicResource MenuButtonStyle}"/>         
+        </StackPanel>
+        <Frame x:Name="frame" Content="" Grid.Column="1" NavigationUIVisibility="Hidden" Focusable="False"/>
+
+    </Grid>
+</Page>

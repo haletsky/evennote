@@ -1,0 +1,16 @@
+﻿<Page x:Class="evenote.pages.search_page"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:evenote.pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="630"
+      Title="search_page">
+
+    <Grid>
+        <Label Content="Enter username:" Style="{DynamicResource LabelStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+        <TextBox x:Name="textBox" Style="{DynamicResource TextBoxStyle2}" HorizontalAlignment="Left" Height="30" Margin="142,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" VerticalContentAlignment="Center"/>
+        <Button x:Name="searchBtn" Style="{DynamicResource ButtonStyle1}" Content="Search" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="267,10,0,0" Click="searchBtn_Click" IsDefault="True"/>
+    </Grid>
+</Page>
