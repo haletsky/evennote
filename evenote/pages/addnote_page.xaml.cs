@@ -33,7 +33,7 @@ namespace evenote.pages
             if (titleTextBox.Text == "" || !datepicker.SelectedDate.HasValue) return;
             Notebook.Add(new Note(titleTextBox.Text, richTextBox.Document, datepicker.SelectedDate.Value));
             Notebook.notebook.Last().SaveToFile();
-            ((System.Windows.Application.Current.MainWindow as MainWindow).mainframe.Content as menu_page).frame.Source = new Uri("notes_page.xaml", UriKind.Relative);
+            ((Application.Current.MainWindow as MainWindow).mainframe.Content as menu_page).frame.Source = new Uri("notes_page.xaml", UriKind.Relative);
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
