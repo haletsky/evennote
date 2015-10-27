@@ -194,7 +194,7 @@
                                     <VisualState x:Name="Disabled"/>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
-                            <Rectangle x:Name="rectangle" Fill="#FFD1F0B8" RenderTransformOrigin="0.262,0.675" Stroke="#FFA1D37B" RadiusX="35" RadiusY="35" Width="70" Height="70" StrokeThickness="2"/>
+                            <Rectangle x:Name="rectangle" Fill="#FFD1F0B8" RenderTransformOrigin="0.262,0.675" Stroke="#FFA1D37B" RadiusX="30" RadiusY="30" Width="70" Height="70" StrokeThickness="1"/>
                             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Grid>
                         <ControlTemplate.Triggers>

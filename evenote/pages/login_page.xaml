@@ -15,6 +15,6 @@
         <TextBox x:Name="login" Text="login" Margin="50,85,50,192" HorizontalAlignment="Center" Width="200" Style="{DynamicResource TextBoxStyle2}" GotFocus="login_GotFocus" LostFocus="login_LostFocus"/>
         <PasswordBox x:Name="password" Password="password" Margin="50,125,50,152" HorizontalAlignment="Center" Width="200" Style="{DynamicResource PassBoxStyle}" LostFocus="password_LostFocus" GotFocus="password_GotFocus"/>
         <Button x:Name="button" Content="Log In" Style="{DynamicResource ButtonStyle1}" Height="30" Margin="105,180,105,90" HorizontalAlignment="Center" Width="90" Click="button_Click" IsDefault="True" />
-        <Image x:Name="image" HorizontalAlignment="Center" Source="/evenote;component/images/logo2.png" VerticalAlignment="Center" Height="52" Margin="0,-20,0,260"/>
+        <Image x:Name="image" HorizontalAlignment="Center" Source="/evenote;component/images/logo.png" VerticalAlignment="Center" Margin="0,0,0,300" Width="500"/>
     </Grid>
 </Page>

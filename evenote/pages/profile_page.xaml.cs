@@ -62,6 +62,7 @@ namespace evenote.pages
 
         private void logout_btn_Click(object sender, RoutedEventArgs e)
         {
+            (Application.Current.MainWindow as MainWindow).me.online = false;
             (Application.Current.MainWindow as MainWindow).ChangePage("pages/login_page.xaml");
             MyDataBase.ConnectToDB();
             MyDataBase.ChangeOnlineStatus((Application.Current.MainWindow as MainWindow).me.id);
