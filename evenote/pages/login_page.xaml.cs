@@ -13,11 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DataBaseAPI;
-using MySql.Data;
-using MySql.Data.MySqlClient;
-using System.Net;
-using System.Net.Sockets;
-using System.Net.NetworkInformation;
 
 namespace evenote.pages
 {
@@ -54,27 +49,26 @@ namespace evenote.pages
                 (Application.Current.MainWindow as MainWindow).ChangePage("pages/menu_page.xaml");
 
                 //Сохраняем данные о себе
-                (Application.Current.MainWindow as MainWindow).me = new User(MyDataBase.rdr[0].ToString(),
+                (Application.Current.MainWindow as MainWindow).me = new User(Convert.ToInt32(MyDataBase.rdr[0].ToString()),
                     MyDataBase.rdr[1].ToString(),
                     MyDataBase.rdr[3].ToString(),
                     MyDataBase.rdr[4] as byte[],
                     MyDataBase.rdr[5].ToString());
-
-                (Application.Current.MainWindow as MainWindow).me.online = 1;
-                (Application.Current.MainWindow as MainWindow).contextUser = (Application.Current.MainWindow as MainWindow).me;
             }
-            
+
+            (Application.Current.MainWindow as MainWindow).contextUser = (Application.Current.MainWindow as MainWindow).me;
+
             MyDataBase.rdr.Close();
 
             //Пишем что мы онлайн
-            MyDataBase.ExecuteCommand("UPDATE `evennote_db`.`users` SET `online`= 1 WHERE `idusers`= '" + (Application.Current.MainWindow as MainWindow).me.id + "'");
+            MyDataBase.ChangeOnlineStatus((Application.Current.MainWindow as MainWindow).me.id);
+            (Application.Current.MainWindow as MainWindow).me.online = true;
 
             //Отключаемся от БД
-            MyDataBase.rdr.Close();
             MyDataBase.CloseConnectToDB();
 
             //Считываем с диска существующие заметки
-            Notebook.OpenNotes();            
+            Notebook.OpenNotes();
         }
 
         //Просто методы для удобства интерфейса 
@@ -83,7 +77,7 @@ namespace evenote.pages
             if ((sender as TextBox).Text == "login")
                 (sender as TextBox).Text = "";
         }
-            
+
         private void login_LostFocus(object sender, RoutedEventArgs e)
         {
             if ((sender as TextBox).Text == "")

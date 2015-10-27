@@ -13,8 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DataBaseAPI;
-using MySql.Data;
-using MySql.Data.MySqlClient;
 
 namespace evenote.pages
 {
@@ -50,7 +48,7 @@ namespace evenote.pages
             while (MyDataBase.rdr.Read())
             {
                 //Сохраняем данные о пользователе
-                (Application.Current.MainWindow as MainWindow).contextUser = new User(MyDataBase.rdr[0].ToString(),
+                (Application.Current.MainWindow as MainWindow).contextUser = new User(Convert.ToInt32(MyDataBase.rdr[0].ToString()),
                     MyDataBase.rdr[1].ToString(),
                     MyDataBase.rdr[3].ToString(),
                     MyDataBase.rdr[4] as byte[],
@@ -58,7 +56,7 @@ namespace evenote.pages
                 
                 if (MyDataBase.rdr[6].ToString().Equals("True"))
                 {
-                    (Application.Current.MainWindow as MainWindow).contextUser.online = 1;
+                    (Application.Current.MainWindow as MainWindow).contextUser.online = true;
                 }
             }
 

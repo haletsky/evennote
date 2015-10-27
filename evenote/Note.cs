@@ -39,11 +39,11 @@ namespace evenote
         }
 
         //Доделать
-        public void SaveToFile()
+        public void SaveToFile(string pathnote)
         {
             try
             {
-                using (FileStream fs = new FileStream(String.Format("{1}{0}.note", Title, Config.path), FileMode.Create, FileAccess.ReadWrite))
+                using (FileStream fs = new FileStream(pathnote, FileMode.Create, FileAccess.ReadWrite))
                 {
                     /*
                     BinaryWriter kek = new BinaryWriter(fs);

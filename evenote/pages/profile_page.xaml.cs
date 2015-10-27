@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DataBaseAPI;
 
 namespace evenote.pages
 {
@@ -23,6 +24,14 @@ namespace evenote.pages
         public profile_page()
         {
             InitializeComponent();
+            if((Application.Current.MainWindow as MainWindow).contextUser == (Application.Current.MainWindow as MainWindow).me)
+            {
+                logout_btn.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                logout_btn.Visibility = Visibility.Hidden;
+            }
         }
 
         //Когда открываем страницу профиля  - заполняем данные о пользователе
@@ -33,7 +42,7 @@ namespace evenote.pages
             labelemail.Content = "Email: " + (Application.Current.MainWindow as MainWindow).contextUser.email;
             labeldatebirth.Content = "Date birth: " + (Application.Current.MainWindow as MainWindow).contextUser.datebirth.ToShortDateString();
 
-            if((Application.Current.MainWindow as MainWindow).contextUser.online == 0)
+            if((Application.Current.MainWindow as MainWindow).contextUser.online == false)
             {
                 labeloline.Content = "Offline";
             }
@@ -49,6 +58,14 @@ namespace evenote.pages
                 SolidColorBrush color = new SolidColorBrush(c);
                 labeloline.Foreground = color;
             }
+        }
+
+        private void logout_btn_Click(object sender, RoutedEventArgs e)
+        {
+            (Application.Current.MainWindow as MainWindow).ChangePage("pages/login_page.xaml");
+            MyDataBase.ConnectToDB();
+            MyDataBase.ChangeOnlineStatus((Application.Current.MainWindow as MainWindow).me.id);
+            MyDataBase.CloseConnectToDB();
         }
     }
 }

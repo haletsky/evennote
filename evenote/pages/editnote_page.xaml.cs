@@ -33,7 +33,7 @@ namespace evenote.pages
             if (titleTextBox.Text == "" || !datepicker.SelectedDate.HasValue) return;
             Notebook.notebook.RemoveAt(Notebook.notebook.IndexOf(Notebook.rememberThis));
             Notebook.Add(new Note(titleTextBox.Text, richTextBox.Document, datepicker.SelectedDate.Value));
-            Notebook.notebook.Last().SaveToFile();
+            Notebook.notebook.Last().SaveToFile(String.Format("{1}{0}.note", Notebook.notebook.Last().Title, Config.path));
             ((Application.Current.MainWindow as MainWindow).mainframe.Content as menu_page).frame.Source = new Uri("notes_page.xaml", UriKind.Relative);
         }
 

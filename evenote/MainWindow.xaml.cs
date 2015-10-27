@@ -16,8 +16,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using DataBaseAPI;
-using MySql.Data;
-using MySql.Data.MySqlClient;
 
 namespace evenote
 {
@@ -42,10 +40,10 @@ namespace evenote
 
         private void mainwindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if ((Application.Current.MainWindow as MainWindow).me != null)
+            if (me != null || me.online == false)
             {
                 MyDataBase.ConnectToDB();
-                MyDataBase.ExecuteCommand("UPDATE `evennote_db`.`users` SET `online`= 0 WHERE `idusers`= '" + (Application.Current.MainWindow as MainWindow).me.id + "'");
+                MyDataBase.ChangeOnlineStatus((Application.Current.MainWindow as MainWindow).me.id);
                 MyDataBase.CloseConnectToDB();
             }
         }

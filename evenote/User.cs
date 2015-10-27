@@ -13,16 +13,15 @@ namespace evenote
 {
     public class User
     {
-        public string id { get; set; }
+        public int id { get; set; }
         public string username { get; set; }
-        //public string password { get; set; }
         public string email { get; set; }
         public BitmapImage avatar { get; set; }
         public DateTime datebirth { get; set; }
 
-        public int online;
+        public bool online;
 
-        public User(string i, string un, string eml, byte[] icon, string db)
+        public User(int i, string un, string eml, byte[] icon, string db)
         {
             string[] date = db.Split(' ')[0].Split('.');
             
@@ -30,7 +29,7 @@ namespace evenote
             avatar = LoadImage(icon);
         }
 
-        //Метод для конвертации картинки из байтов в картинку.
+        //Метод для конвертации картинки из байтов.
         private static BitmapImage LoadImage(byte[] imageData)
         {
             if (imageData == null || imageData.Length == 0) return null;
