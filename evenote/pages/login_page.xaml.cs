@@ -47,13 +47,13 @@ namespace evenote.pages
             {
                 //Перенаправляем на главное меню
                 (Application.Current.MainWindow as MainWindow).ChangePage("pages/menu_page.xaml");
-
+                
                 //Сохраняем данные о себе
                 (Application.Current.MainWindow as MainWindow).me = new User(Convert.ToInt32(MyDataBase.rdr[0].ToString()),
                     MyDataBase.rdr[1].ToString(),
                     MyDataBase.rdr[3].ToString(),
                     MyDataBase.rdr[4] as byte[],
-                    MyDataBase.rdr[5].ToString());
+                    MyDataBase.rdr[5] as DateTime?);
             }
 
             (Application.Current.MainWindow as MainWindow).contextUser = (Application.Current.MainWindow as MainWindow).me;

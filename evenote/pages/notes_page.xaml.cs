@@ -36,14 +36,14 @@ namespace evenote.pages
         private void editnote_btn_Click(object sender, RoutedEventArgs e)
         {
             if (listView.SelectedItem == null) return;
-            Notebook.rememberThis = listView.SelectedItem as Note;
+            Notebook.rememberThis = listView.SelectedItem as NoteListItem;
             ((Application.Current.MainWindow as MainWindow).mainframe.Content as menu_page).frame.Source = new Uri("editnote_page.xaml", UriKind.Relative);
         }
 
         private void deletenote_btn_Click(object sender, RoutedEventArgs e)
         {
             if (listView.SelectedItem == null) return;
-            Notebook.Delete(listView.SelectedItem as Note);
+            Notebook.Delete((listView.SelectedItem as NoteListItem).Content as Note);
             listView.Items.Refresh();
         }
 

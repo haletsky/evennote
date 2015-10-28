@@ -21,11 +21,11 @@ namespace evenote
 
         public bool online;
 
-        public User(int i, string un, string eml, byte[] icon, string db)
+        public User(int i, string un, string eml, byte[] icon, DateTime? db)
         {
-            string[] date = db.Split(' ')[0].Split('.');
+            //string[] date = db.Split(' ')[0].Split('.');
             
-            id = i; username = un; email = eml; datebirth = new DateTime(Convert.ToInt32(date[2]), Convert.ToInt32(date[1]), Convert.ToInt32(date[0]));
+            id = i; username = un; email = eml; datebirth = db.Value;
             avatar = LoadImage(icon);
         }
 

@@ -52,7 +52,7 @@ namespace evenote.pages
                     MyDataBase.rdr[1].ToString(),
                     MyDataBase.rdr[3].ToString(),
                     MyDataBase.rdr[4] as byte[],
-                    MyDataBase.rdr[5].ToString());
+                    MyDataBase.rdr[5] as DateTime?);
                 
                 if (MyDataBase.rdr[6].ToString().Equals("True"))
                 {

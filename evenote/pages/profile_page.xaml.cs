@@ -62,6 +62,7 @@ namespace evenote.pages
 
         private void logout_btn_Click(object sender, RoutedEventArgs e)
         {
+            Notebook.notebook.RemoveRange(0, Notebook.notebook.Count);
             (Application.Current.MainWindow as MainWindow).me.online = false;
             (Application.Current.MainWindow as MainWindow).ChangePage("pages/login_page.xaml");
             MyDataBase.ConnectToDB();
