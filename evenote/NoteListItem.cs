@@ -8,18 +8,19 @@ using System.Windows.Documents;
 
 namespace evenote
 {
-    public class NoteListItem : ListBoxItem
+    public class NoteListItem : ListViewItem
     {
         public NoteListItem(Note n)
         {
-            Content = n;    
-            //
+            Content = n;
+            ContentStringFormat = "lel";
+            
         }
 
-        public string Title { get { return (Content as Note).Title; } set { } }
-        public DateTime DateNotice { get { return (Content as Note).DateNotice; } set { } }
-        public DateTime DateCreate { get { return (Content as Note).DateCreate; } set { } }
-        public FlowDocument Text { get { return (Content as Note).Text; } set { } }
+        public string Title { get { return (Content as Note).Title; } set { (Content as Note).Title = value; } }
+        public DateTime DateNotice { get { return (Content as Note).DateNotice; } set { (Content as Note).DateNotice = value; } }
+        public DateTime DateCreate { get { return (Content as Note).DateCreate; } set { (Content as Note).DateCreate = value;  } }
+        public FlowDocument Text { get { return (Content as Note).Text; } set { (Content as Note).Text = value; } }
 
     }
 }

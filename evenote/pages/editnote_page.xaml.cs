@@ -25,7 +25,7 @@ namespace evenote.pages
         public editnote_page()
         {
             InitializeComponent();
-            richTextBox.Document.Blocks.Remove(richTextBox.Document.Blocks.FirstBlock);
+            //richTextBox.Document.Blocks.Remove(richTextBox.Document.Blocks.LastBlock);
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -42,33 +42,19 @@ namespace evenote.pages
             titleTextBox.Text = Notebook.rememberThis.Title;
             datepicker.SelectedDate = Notebook.rememberThis.DateNotice;
 
-            for (int i = 0; i < Notebook.rememberThis.Text.Blocks.Count; i++)
+            using (MemoryStream mem = new MemoryStream())
             {
-                if (Notebook.rememberThis.Text.Blocks.ElementAt(i) is Paragraph)
-                {
-                    Paragraph p = new Paragraph();
+                TextRange range = new TextRange(Notebook.rememberThis.Text.ContentStart,
+                    Notebook.rememberThis.Text.ContentEnd);
+                range.Save(mem, DataFormats.XamlPackage);
+                mem.Position = 0;
 
-                    for(int j = 0; j < (Notebook.rememberThis.Text.Blocks.ElementAt(i) as Paragraph).Inlines.Count; j++)
-                    {
-                        p.Inlines.Add(new Run(((Notebook.rememberThis.Text.Blocks.ElementAt(i) as Paragraph).Inlines.ElementAt(j) as Run).Text));
-                    }                  
-                    
-                    richTextBox.Document.Blocks.Add(p);
-                }
-                else if (Notebook.rememberThis.Text.Blocks.ElementAt(i) is BlockUIContainer)
-                {
-                    Image im = new Image();
-                    im.Stretch = Stretch.None;
-                    im.Source = ((Notebook.rememberThis.Text.Blocks.ElementAt(i) as BlockUIContainer).Child as Image).Source;
-
-                    richTextBox.Document.Blocks.Add(new BlockUIContainer(im));
-                }
-                else if (Notebook.rememberThis.Text.Blocks.ElementAt(i) is List)
-                {
-
-                }
-            }
+                TextRange kange = new TextRange(richTextBox.Document.ContentStart,
+                    richTextBox.Document.ContentEnd);
+                kange.Load(mem, DataFormats.XamlPackage);
+            }             
         }
+    
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
@@ -88,12 +74,30 @@ namespace evenote.pages
             {
                 using (Stream s = openFileDialog1.OpenFile())
                 {
-                    Image i = new Image();
-                    i.Source = BitmapFrame.Create(s, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
-                    i.Stretch = Stretch.None;
-                    richTextBox.Document.Blocks.Add(new BlockUIContainer(i));
+                    Clipboard.SetImage(BitmapFrame.Create(new Uri(openFileDialog1.FileName)));
+                    richTextBox.Paste();
                 }
             }
+        }
+
+        private void richTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Color y = new Color();
+            y.A = 255;
+            y.R = 94;
+            y.G = 151;
+            y.B = 50;
+            menu.Background = new SolidColorBrush(y);
+        }
+
+        private void richTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            Color y = new Color();
+            y.A = 255;
+            y.R = 155;
+            y.G = 180;
+            y.B = 139;
+            menu.Background = new SolidColorBrush(y);
         }
     }
 }

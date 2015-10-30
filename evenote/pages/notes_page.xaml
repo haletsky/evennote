@@ -17,11 +17,10 @@
         <Button x:Name="editnote_btn" Content="Edit" HorizontalAlignment="Right" Style="{DynamicResource ButtonStyle1}" Margin="0,60,10,0" VerticalAlignment="Top" Click="editnote_btn_Click" Grid.Column="1"/>
         <Button x:Name="deletenote_btn" Content="Delete" HorizontalAlignment="Right" Style="{DynamicResource ButtonStyle1}" Margin="0,110,10,0" VerticalAlignment="Top" Click="deletenote_btn_Click" Grid.Column="1"/>
         <Button x:Name="sendnote_btn" Content="Send" HorizontalAlignment="Right" Style="{DynamicResource ButtonStyle1}" Margin="0,160,10,0" VerticalAlignment="Top" Click="sendnote_btn_Click" Grid.Column="1"/>
-        <ListView x:Name="listView" Margin="10,10,0,10" Foreground="#FF112700">
+        <ListView x:Name="listView" Margin="10,10,0,10" Foreground="#FF112700" SelectionMode="Single" IsHitTestVisible="True" IsTextSearchEnabled="False" Focusable="False" Initialized="listView_Initialized" LostFocus="listView_LostFocus">
             <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Title"/>
-                    <GridViewColumn Header="Date of create"/>
+                <GridView AllowsColumnReorder="False">
+                    <GridViewColumn Header="Name"/>
                 </GridView>
             </ListView.View>
         </ListView>

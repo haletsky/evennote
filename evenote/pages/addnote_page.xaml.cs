@@ -56,12 +56,30 @@ namespace evenote.pages
             {
                 using (Stream s = openFileDialog1.OpenFile())
                 {
-                    Image i = new Image();
-                    i.Source = BitmapFrame.Create(s, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
-                    i.Stretch = Stretch.None;
-                    richTextBox.Document.Blocks.Add(new BlockUIContainer(i));
+                    Clipboard.SetImage(BitmapFrame.Create(new Uri(openFileDialog1.FileName)));
+                    richTextBox.Paste();
                 }
             }
+        }
+
+        private void richTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Color y = new Color();
+            y.A = 255;
+            y.R = 94;
+            y.G = 151;
+            y.B = 50;
+            menu.Background = new SolidColorBrush(y);
+        }
+
+        private void richTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            Color y = new Color();
+            y.A = 255;
+            y.R = 155;
+            y.G = 180;
+            y.B = 139;
+            menu.Background = new SolidColorBrush(y);
         }
     }
 }

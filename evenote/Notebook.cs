@@ -33,7 +33,7 @@ namespace evenote
             }
         }
 
-        public static void Delete(Note n)
+        public static void Delete(NoteListItem n)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace evenote
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
 
-            notebook.Remove(new NoteListItem(n));
+            notebook.Remove(n);
         }
 
         public static Note Last()
