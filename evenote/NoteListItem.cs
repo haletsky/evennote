@@ -12,13 +12,10 @@ namespace evenote
     {
         public NoteListItem(Note n)
         {
-            Content = n;
-            ContentStringFormat = "lel";
-            
+            Content = n;        
         }
 
         public string Title { get { return (Content as Note).Title; } set { (Content as Note).Title = value; } }
-        public DateTime DateNotice { get { return (Content as Note).DateNotice; } set { (Content as Note).DateNotice = value; } }
         public DateTime DateCreate { get { return (Content as Note).DateCreate; } set { (Content as Note).DateCreate = value;  } }
         public FlowDocument Text { get { return (Content as Note).Text; } set { (Content as Note).Text = value; } }
 

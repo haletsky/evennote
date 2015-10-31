@@ -33,6 +33,7 @@ namespace evenote
             Config.ConfigureProgram();
             InitializeComponent();
 
+            /*
             XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText02);
             XmlNodeList stringElements = toastXml.GetElementsByTagName("text");
             stringElements[0].AppendChild(toastXml.CreateTextNode("Evennote"));
@@ -50,6 +51,7 @@ namespace evenote
 
             // Show the toast. Be sure to specify the AppUserModelId on your application's shortcut!
             ToastNotificationManager.CreateToastNotifier("Evennote").Show(toast);
+            
         }
 
         private void ToastActivated(ToastNotification sender, object e)
@@ -58,6 +60,7 @@ namespace evenote
             {
                 Activate();
             });
+            */
         }
 
         public void ChangePage(string src)

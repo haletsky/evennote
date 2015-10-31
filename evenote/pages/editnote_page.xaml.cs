@@ -30,17 +30,26 @@ namespace evenote.pages
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            if (titleTextBox.Text == "" || !datepicker.SelectedDate.HasValue) return;
-            Notebook.RemoveAt(Notebook.IndexOf(Notebook.rememberThis));
-            Notebook.Add(new Note(titleTextBox.Text, richTextBox.Document, datepicker.SelectedDate.Value));
+            if (titleTextBox.Text == "") return;
+
+            DateTime temp = Notebook.rememberThis.DateCreate;
+            if (titleTextBox.Text != Notebook.rememberThis.Title)
+            {
+                Notebook.Delete(Notebook.rememberThis);
+            }
+            else
+            {            
+                Notebook.RemoveAt(Notebook.IndexOf(Notebook.rememberThis));
+            }
+            Notebook.Add(new Note(titleTextBox.Text, richTextBox.Document, temp));
             Notebook.Last().SaveToFile(String.Format("{1}{0}.note", Notebook.Last().Title, Config.path));
+            File.SetCreationTime(String.Format("{1}{0}.note", Notebook.Last().Title, Config.path), temp);
             ((Application.Current.MainWindow as MainWindow).mainframe.Content as menu_page).frame.Source = new Uri("notes_page.xaml", UriKind.Relative);
         }
 
         private void Page_Initialized(object sender, EventArgs e)
         {
             titleTextBox.Text = Notebook.rememberThis.Title;
-            datepicker.SelectedDate = Notebook.rememberThis.DateNotice;
 
             using (MemoryStream mem = new MemoryStream())
             {

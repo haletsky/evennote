@@ -23,8 +23,6 @@ namespace evenote
 
         public User(int i, string un, string eml, byte[] icon, DateTime? db)
         {
-            //string[] date = db.Split(' ')[0].Split('.');
-            
             id = i; username = un; email = eml; datebirth = db.Value;
             avatar = LoadImage(icon);
         }

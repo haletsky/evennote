@@ -30,8 +30,8 @@ namespace evenote.pages
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            if (titleTextBox.Text == "" || !datepicker.SelectedDate.HasValue) return;
-            Notebook.Add(new Note(titleTextBox.Text, richTextBox.Document, datepicker.SelectedDate.Value));
+            if (titleTextBox.Text == "") return;
+            Notebook.Add(new Note(titleTextBox.Text, richTextBox.Document, DateTime.Now));
 
             Notebook.Last().SaveToFile(String.Format("{1}{0}.note", Notebook.Last().Title, Config.path));
 
