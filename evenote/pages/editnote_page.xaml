@@ -10,16 +10,22 @@
 
     <Grid>
         <Label x:Name="titleLabel" Content="Title:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Style="{DynamicResource LabelStyle}" Padding="0,5,5,5"/>
-        <TextBox x:Name="titleTextBox" HorizontalAlignment="Left" Margin="55,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Style="{DynamicResource TextBoxStyle2}" Width="120"/>
+        <TextBox x:Name="titleTextBox" HorizontalAlignment="Left" Margin="54,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Style="{DynamicResource TextBoxStyle2}" Width="120"/>
         <Label x:Name="dateLabel" Content="Date notice:" HorizontalAlignment="Right" Margin="0,10,143,0" VerticalAlignment="Top" Style="{DynamicResource LabelStyle}"/>    
-        <RichTextBox x:Name="richTextBox" Margin="10,80,10,50" Style="{DynamicResource RichTextBoxStyle}" GotFocus="richTextBox_GotFocus" LostFocus="richTextBox_LostFocus" />
+        <RichTextBox x:Name="richTextBox" Margin="10,80,10,50" Style="{DynamicResource RichTextBoxStyle}" />
         <Button x:Name="button" Content="Save" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{DynamicResource ButtonStyle1}" Margin="0,0,10,10" Click="button_Click"/>
         <DatePicker x:Name="datepicker" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,15,10,0" Width="128"/>
-        <Menu x:Name="menu" VerticalAlignment="Top" Height="25" Margin="10,55,10,0" Background="#FF9BB48B" Foreground="{x:Null}">
-            <Button Content="Image" Click="Button_Click_1" Style="{DynamicResource TextEditButton}" />
-            <Button Content="B" Command="EditingCommands.ToggleBold" Style="{DynamicResource TextEditButton}"/>
-            <Button Content="I" FontStyle="Italic" Command="EditingCommands.ToggleItalic" Style="{DynamicResource TextEditButton}"/>
-            <Button Content="U" Command="EditingCommands.ToggleUnderline" Style="{DynamicResource TextEditButton}"/>
-        </Menu>
+
+
+        <ToolBar x:Name="toolBar" VerticalAlignment="Top" Height="35" Background="#FFF0F0F0" Margin="0,46,0,0">
+            <Button Content="Img" Click="Button_Click_1" Style="{DynamicResource MenuItemStyle}"/>
+            <Button FontStyle="Oblique" Command="EditingCommands.ToggleBold" Style="{DynamicResource MenuItemStyle}">B</Button>
+            <Button FontStyle="Italic" Command="EditingCommands.ToggleItalic" Style="{DynamicResource MenuItemStyle}">i</Button>
+            <Button Content="U" Command="EditingCommands.ToggleUnderline" Style="{DynamicResource MenuItemStyle}"/>
+            <Button Content="Cut" Command="Cut" ToolTip="Cut selection to Windows Clipboard." Style="{DynamicResource MenuItemStyle}"/>
+            <Button Content="Copy" Command="Copy" ToolTip="Copy selection to Windows Clipboard." Style="{DynamicResource MenuItemStyle}"/>
+            <Button Content="Paste" Command="Paste" ToolTip="Paste from Windows Clipboard." Style="{DynamicResource MenuItemStyle}"/>
+        </ToolBar>
+        
     </Grid>
 </Page>
