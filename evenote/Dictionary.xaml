@@ -321,14 +321,14 @@
         <Grid>
             
             <Border BorderThickness="0" CornerRadius="5" Name="border"
-                    TextBlock.Foreground="Black" Background="Transparent" Margin="10" Padding="10" Height="50"/>
+                    TextBlock.Foreground="Black" Background="Transparent" Margin="10" Padding="10" Height="50" BorderBrush="#FF829E6D"/>
             <Image Source="images/icon.png" Margin="15,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Uniform" Width="40" Height="40"/>
             <TextBlock Foreground="#FF112700" Margin="60,10,10,10" Padding="10" Text="{Binding Path=Title, RelativeSource={RelativeSource TemplatedParent}}" FontWeight="Bold" FontFamily="Microsoft YaHei UI Light" FontSize="21.333"/>
             <TextBlock Foreground="#FF5E9732" Margin="10" Padding="10" Text="{Binding Path=GetShortDate, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI Light"/>
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter TargetName="border" Property="Background" Value="#FFF0F0F0"></Setter>
+                <Setter TargetName="border" Property="BorderThickness" Value="1"></Setter>
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
                 <Setter TargetName="border" Property="Background" Value="#FFD1F0B8"></Setter>
