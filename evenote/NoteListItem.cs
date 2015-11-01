@@ -12,12 +12,18 @@ namespace evenote
     {
         public NoteListItem(Note n)
         {
-            Content = n;        
+            Content = n;
+            this.Template = (ControlTemplate)this.FindResource("TryListViewItemWork");
+        }
+
+        public NoteListItem()
+        {
+            this.Template = (ControlTemplate)this.FindResource("TryListViewItemWork");
         }
 
         public string Title { get { return (Content as Note).Title; } set { (Content as Note).Title = value; } }
         public DateTime DateCreate { get { return (Content as Note).DateCreate; } set { (Content as Note).DateCreate = value;  } }
         public FlowDocument Text { get { return (Content as Note).Text; } set { (Content as Note).Text = value; } }
-
+        public string GetShortDate { get { return DateCreate.ToShortDateString() + " " + DateCreate.ToShortTimeString(); } }
     }
 }
