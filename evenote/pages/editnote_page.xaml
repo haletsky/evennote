@@ -10,7 +10,7 @@
 
     <Grid Background="#FFF0F0F0">
         <Label x:Name="titleLabel" Content="Title:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Style="{DynamicResource LabelStyle}" Padding="0,5,5,5"/>
-        <TextBox x:Name="titleTextBox" HorizontalAlignment="Left" Margin="54,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Style="{DynamicResource TextBoxStyle2}" Width="120"/>
+        <TextBox x:Name="titleTextBox" HorizontalAlignment="Left" Margin="54,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Style="{DynamicResource TextBoxStyle2}" Width="120" BorderThickness="0,0,0,1" Background="{x:Null}"/>
         <RichTextBox x:Name="richTextBox" Margin="0,85,0,0" Style="{DynamicResource RichTextBoxStyle}" />
 
         <ToolBar x:Name="toolBar" VerticalAlignment="Top" Height="35" Background="#FFF0F0F0" Margin="0,50,-12,0">
