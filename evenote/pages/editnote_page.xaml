@@ -14,15 +14,39 @@
         <RichTextBox x:Name="richTextBox" Margin="0,85,0,0" Style="{DynamicResource RichTextBoxStyle}" />
 
         <ToolBar x:Name="toolBar" VerticalAlignment="Top" Height="35" Background="#FFF0F0F0" Margin="0,50,-12,0">
-            <Button x:Name="button" Content="Save" Style="{DynamicResource MenuItemStyle}" Click="button_Click"/>
-            <Button Content="Img" Click="Button_Click_1" Style="{DynamicResource MenuItemStyle}"/>
-            <Button FontStyle="Oblique" Command="EditingCommands.ToggleBold" Style="{DynamicResource MenuItemStyle}">B</Button>
-            <Button FontStyle="Italic" Command="EditingCommands.ToggleItalic" Style="{DynamicResource MenuItemStyle}">i</Button>
-            <Button Content="U" Command="EditingCommands.ToggleUnderline" Style="{DynamicResource MenuItemStyle}"/>
-            <Button Content="Cut" Command="Cut" ToolTip="Cut selection to Windows Clipboard." Style="{DynamicResource MenuItemStyle}"/>
-            <Button Content="Copy" Command="Copy" ToolTip="Copy selection to Windows Clipboard." Style="{DynamicResource MenuItemStyle}"/>
-            <Button Content="Paste" Command="Paste" ToolTip="Paste from Windows Clipboard." Style="{DynamicResource MenuItemStyle}"/>
+            <Button x:Name="save_button" ToolTip="Save this note to default directory." Style="{DynamicResource MenuItemStyle}" Click="save_button_Click">
+                <Image Source="/evenote;component/images/saveicon.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20"/>
+            </Button>
+            <Button x:Name="open_button" ToolTip="Open note from directory." Style="{DynamicResource MenuItemStyle}" Click="open_button_Click">
+                <Image Source="/evenote;component/images/openicon.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20"/>
+            </Button>
+            <Separator Opacity="0.5"/>
+            <Button Command="Cut" ToolTip="Cut selection to Windows Clipboard." Style="{DynamicResource MenuItemStyle}">
+                <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="/evenote;component/images/cuticon.png" Width="20" Height="20" />
+            </Button>
+            <Button Command="Copy" ToolTip="Copy selection to Windows Clipboard." Style="{DynamicResource MenuItemStyle}">
+                <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="/evenote;component/images/copyicon.png" Width="20" Height="20" />
+            </Button>
+            <Button Command="Paste" ToolTip="Paste from Windows Clipboard." Style="{DynamicResource MenuItemStyle}">
+                <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="/evenote;component/images/pasteicon.png" Width="20" Height="20" />
+            </Button>
+            <Separator Opacity="0.5" />
+            <Button Command="EditingCommands.ToggleBold" ToolTip="Bold text." Style="{DynamicResource MenuItemStyle}">
+                <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="/evenote;component/images/boldicon.png" Width="20" Height="20" />
+            </Button>
+            <Button Command="EditingCommands.ToggleItalic" ToolTip="Italic text." Style="{DynamicResource MenuItemStyle}">
+                <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="/evenote;component/images/italiicon.png" Width="20" Height="20" />
+            </Button>
+            <Button Command="EditingCommands.ToggleUnderline" ToolTip="Underline text." Style="{DynamicResource MenuItemStyle}">
+                <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="/evenote;component/images/ulicon.png" Width="20" Height="20" />
+            </Button>
+            <Separator Opacity="0.5"/>
+            <Button Content="1." Command="EditingCommands.ToggleNumbering" ToolTip="Create numbering list." Style="{DynamicResource MenuItemStyle}"/>
+            <Button Content="●" Command="EditingCommands.ToggleBullets" ToolTip="Create unnumbering list." Style="{DynamicResource MenuItemStyle}"/>
+            <Separator Opacity="0.5"/>
+            <Button Click="open_image_button" ToolTip="Add image." Style="{DynamicResource MenuItemStyle}">
+                <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="/evenote;component/images/imageicon.png" Width="20" Height="20" />
+            </Button>
         </ToolBar>
-        
     </Grid>
 </Page>

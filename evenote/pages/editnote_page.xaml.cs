@@ -25,30 +25,12 @@ namespace evenote.pages
         public editnote_page()
         {
             InitializeComponent();
-            //richTextBox.Document.Blocks.Remove(richTextBox.Document.Blocks.LastBlock);
-        }
-
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            if (titleTextBox.Text == "") return;
-
-            DateTime temp = Notebook.rememberThis.DateCreate;
-            if (titleTextBox.Text != Notebook.rememberThis.Title)
-            {
-                Notebook.Delete(Notebook.rememberThis);
-            }
-            else
-            {            
-                Notebook.RemoveAt(Notebook.IndexOf(Notebook.rememberThis));
-            }
-            Notebook.Add(new Note(titleTextBox.Text, richTextBox.Document, temp));
-            Notebook.Last().SaveToFile(String.Format("{1}{0}.note", Notebook.Last().Title, Config.path));
-            File.SetCreationTime(String.Format("{1}{0}.note", Notebook.Last().Title, Config.path), temp);
-            ((Application.Current.MainWindow as MainWindow).mainframe.Content as menu_page).frame.Source = new Uri("notes_page.xaml", UriKind.Relative);
         }
 
         private void Page_Initialized(object sender, EventArgs e)
         {
+            richTextBox.Document.Blocks.Remove(richTextBox.Document.Blocks.LastBlock);
+            if (Notebook.rememberThis == null) return;
             titleTextBox.Text = Notebook.rememberThis.Title;
 
             using (MemoryStream mem = new MemoryStream())
@@ -61,11 +43,40 @@ namespace evenote.pages
                 TextRange kange = new TextRange(richTextBox.Document.ContentStart,
                     richTextBox.Document.ContentEnd);
                 kange.Load(mem, DataFormats.XamlPackage);
-            }             
+            }
         }
-    
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void open_button_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            openFileDialog1.Filter = @"Evennote File(*.note)|*.note";
+
+            openFileDialog1.RestoreDirectory = true;
+
+            if (openFileDialog1.ShowDialog() == true)
+            {
+                Note newtemp = new Note();
+                newtemp.OpenFromFile(openFileDialog1.FileName);
+
+                titleTextBox.Text = newtemp.Title;
+
+                using (MemoryStream mem = new MemoryStream())
+                {
+                    TextRange range = new TextRange(newtemp.Text.ContentStart,
+                        newtemp.Text.ContentEnd);
+                    range.Save(mem, DataFormats.XamlPackage);
+                    mem.Position = 0;
+
+                    TextRange kange = new TextRange(richTextBox.Document.ContentStart,
+                        richTextBox.Document.ContentEnd);
+                    kange.Load(mem, DataFormats.XamlPackage);
+                }
+            }
+        }
+
+        private void open_image_button(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             openFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
@@ -88,6 +99,31 @@ namespace evenote.pages
                     Clipboard.Clear();
                 }
             }
+        }
+
+        private void save_button_Click(object sender, RoutedEventArgs e)
+        {
+            if (titleTextBox.Text == "") return;
+
+            DateTime temp = DateTime.Now;
+
+            if (Notebook.rememberThis != null)
+            {
+                temp = Notebook.rememberThis.DateCreate;
+                if (titleTextBox.Text != Notebook.rememberThis.Title)
+                {
+                    Notebook.Delete(Notebook.rememberThis);
+                }
+                else
+                {
+                    Notebook.RemoveAt(Notebook.IndexOf(Notebook.rememberThis));
+                }
+            }
+
+            Notebook.Add(new Note(titleTextBox.Text, richTextBox.Document, temp));
+            Notebook.Last().SaveToFile(String.Format("{1}{0}.note", Notebook.Last().Title, Config.path));
+            File.SetCreationTime(String.Format("{1}{0}.note", Notebook.Last().Title, Config.path), temp);
+            ((Application.Current.MainWindow as MainWindow).mainframe.Content as menu_page).frame.Source = new Uri("notes_page.xaml", UriKind.Relative);
         }
     }
 }

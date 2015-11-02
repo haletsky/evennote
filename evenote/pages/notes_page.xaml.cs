@@ -30,14 +30,14 @@ namespace evenote.pages
 
         private void addnote_btn_Click(object sender, RoutedEventArgs e)
         {
-            ((Application.Current.MainWindow as MainWindow).mainframe.Content as menu_page).frame.Source = new Uri("addnote_page.xaml", UriKind.Relative);
+            Notebook.rememberThis = null;
+            ((Application.Current.MainWindow as MainWindow).mainframe.Content as menu_page).frame.Source = new Uri("editnote_page.xaml", UriKind.Relative);
         }
 
         private void editnote_btn_Click(object sender, RoutedEventArgs e)
         {
             if (Notebook.rememberThis == null) return;
             ((Application.Current.MainWindow as MainWindow).mainframe.Content as menu_page).frame.Source = new Uri("editnote_page.xaml", UriKind.Relative);
-            //listView.SelectedIndex = -1;
         }
 
         private void deletenote_btn_Click(object sender, RoutedEventArgs e)
