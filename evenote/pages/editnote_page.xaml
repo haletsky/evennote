@@ -10,7 +10,7 @@
 
     <Grid Background="#FFF0F0F0">
         <Label x:Name="titleLabel" Content="Title:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Style="{DynamicResource LabelStyle}" Padding="0,5,5,5"/>
-        <TextBox x:Name="titleTextBox" HorizontalAlignment="Left" Margin="54,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Style="{DynamicResource TextBoxStyle2}" Width="120" BorderThickness="0,0,0,1" Background="{x:Null}"/>
+        <TextBox x:Name="titleTextBox" HorizontalAlignment="Left" Margin="54,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Style="{DynamicResource TextBoxStyle}" Width="120" BorderThickness="0,0,0,1" Background="{x:Null}"/>
         <RichTextBox x:Name="richTextBox" Margin="0,85,0,0" Style="{DynamicResource RichTextBoxStyle}" />
 
         <ToolBar x:Name="toolBar" VerticalAlignment="Top" Height="35" Background="#FFF0F0F0" Margin="0,50,-12,0">
@@ -20,7 +20,7 @@
             <Button x:Name="open_button" ToolTip="Open note from directory." Style="{DynamicResource MenuItemStyle}" Click="open_button_Click">
                 <Image Source="/evenote;component/images/openicon.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20"/>
             </Button>
-            <Separator Opacity="0.5"/>
+            <Separator/>
             <Button Command="Cut" ToolTip="Cut selection to Windows Clipboard." Style="{DynamicResource MenuItemStyle}">
                 <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="/evenote;component/images/cuticon.png" Width="20" Height="20" />
             </Button>
@@ -30,7 +30,7 @@
             <Button Command="Paste" ToolTip="Paste from Windows Clipboard." Style="{DynamicResource MenuItemStyle}">
                 <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="/evenote;component/images/pasteicon.png" Width="20" Height="20" />
             </Button>
-            <Separator Opacity="0.5" />
+            <Separator />
             <Button Command="EditingCommands.ToggleBold" ToolTip="Bold text." Style="{DynamicResource MenuItemStyle}">
                 <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="/evenote;component/images/boldicon.png" Width="20" Height="20" />
             </Button>
@@ -40,10 +40,10 @@
             <Button Command="EditingCommands.ToggleUnderline" ToolTip="Underline text." Style="{DynamicResource MenuItemStyle}">
                 <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="/evenote;component/images/ulicon.png" Width="20" Height="20" />
             </Button>
-            <Separator Opacity="0.5"/>
+            <Separator/>
             <Button Content="1." Command="EditingCommands.ToggleNumbering" ToolTip="Create numbering list." Style="{DynamicResource MenuItemStyle}"/>
             <Button Content="●" Command="EditingCommands.ToggleBullets" ToolTip="Create unnumbering list." Style="{DynamicResource MenuItemStyle}"/>
-            <Separator Opacity="0.5"/>
+            <Separator/>
             <Button Click="open_image_button" ToolTip="Add image." Style="{DynamicResource MenuItemStyle}">
                 <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="/evenote;component/images/imageicon.png" Width="20" Height="20" />
             </Button>

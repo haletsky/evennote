@@ -7,6 +7,6 @@
         mc:Ignorable="d"
         Title="Even note" Height="450" Width="700" MinWidth="600" MinHeight="350" WindowStartupLocation="CenterScreen" Closing="mainwindow_Closing">
     <Grid>
-        <Frame x:Name="mainframe" NavigationUIVisibility="Hidden" Source="pages/login_page.xaml" Focusable="False"/>
+        <Frame x:Name="mainframe" NavigationUIVisibility="Hidden" Source="pages/login_page.xaml" Focusable="False" JournalOwnership="UsesParentJournal"/>
     </Grid>
 </Window>

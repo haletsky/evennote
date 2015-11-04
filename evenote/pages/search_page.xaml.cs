@@ -38,7 +38,7 @@ namespace evenote.pages
 
             //Подключение к своей базе данных
             MyDataBase.ConnectToDB();
-            if (MyDataBase.ExecuteCommand("SELECT * FROM users WHERE users.username = " + "'" + textBox.Text + "'") == 1) return;
+            MyDataBase.ExecuteCommand("SELECT * FROM users WHERE users.username = " + "'" + textBox.Text + "'");
 
             if (MyDataBase.rdr.HasRows == false)
             {

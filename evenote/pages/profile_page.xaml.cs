@@ -24,7 +24,7 @@ namespace evenote.pages
         public profile_page()
         {
             InitializeComponent();
-            if((Application.Current.MainWindow as MainWindow).contextUser == (Application.Current.MainWindow as MainWindow).me)
+            if ((Application.Current.MainWindow as MainWindow).contextUser == (Application.Current.MainWindow as MainWindow).me)
             {
                 logout_btn.Visibility = Visibility.Visible;
             }
@@ -37,12 +37,13 @@ namespace evenote.pages
         //Когда открываем страницу профиля  - заполняем данные о пользователе
         private void Grid_Initialized(object sender, EventArgs e)
         {
-            image.Fill = new ImageBrush((Application.Current.MainWindow as MainWindow).contextUser.avatar);
+            if ((Application.Current.MainWindow as MainWindow).contextUser.avatar != null)
+                image.Fill = new ImageBrush((Application.Current.MainWindow as MainWindow).contextUser.avatar);
             labelname.Content = (Application.Current.MainWindow as MainWindow).contextUser.username;
             labelemail.Content = "Email: " + (Application.Current.MainWindow as MainWindow).contextUser.email;
             labeldatebirth.Content = "Date birth: " + (Application.Current.MainWindow as MainWindow).contextUser.datebirth.ToShortDateString();
 
-            if((Application.Current.MainWindow as MainWindow).contextUser.online == false)
+            if ((Application.Current.MainWindow as MainWindow).contextUser.online == false)
             {
                 labeloline.Content = "Offline";
             }
@@ -68,6 +69,7 @@ namespace evenote.pages
             MyDataBase.ConnectToDB();
             MyDataBase.ChangeOnlineStatus((Application.Current.MainWindow as MainWindow).me.id);
             MyDataBase.CloseConnectToDB();
+            (Application.Current.MainWindow as MainWindow).me = null;
         }
     }
 }

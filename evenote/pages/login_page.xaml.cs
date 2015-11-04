@@ -29,11 +29,19 @@ namespace evenote.pages
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            //Подключение к своей базе данных
-            MyDataBase.ConnectToDB();
+            try
+            {
+                //Подключение к своей базе данных
+                MyDataBase.ConnectToDB();
 
-            //Проверяем совпадают ли имя и пароли
-            MyDataBase.ExecuteCommand("SELECT * FROM users WHERE users.username = '" + login.Text + "' AND users.userpass = '" + password.Password + "'");
+                //Проверяем совпадают ли имя и пароли
+                MyDataBase.ExecuteCommand("SELECT * FROM users WHERE users.username = '" + login.Text + "' AND users.userpass = '" + password.Password + "'");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message); return;
+            }
+
             if (MyDataBase.rdr.HasRows == false)
             {
                 MessageBox.Show("Login or password is incorrect.");
@@ -96,5 +104,9 @@ namespace evenote.pages
                 (sender as PasswordBox).Password = "";
         }
 
+        private void signUp_button_Click(object sender, RoutedEventArgs e)
+        {
+            (Application.Current.MainWindow as MainWindow).ChangePage("pages/regist_page.xaml");
+        }
     }
 }

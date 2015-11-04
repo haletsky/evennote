@@ -12,9 +12,10 @@
 
 
     <Grid>
-        <TextBox x:Name="login" Text="login" Margin="50,85,50,192" HorizontalAlignment="Center" Width="200" Style="{DynamicResource TextBoxStyle2}" GotFocus="login_GotFocus" LostFocus="login_LostFocus"/>
+        <TextBox x:Name="login" Text="login" Margin="50,85,50,192" HorizontalAlignment="Center" Width="200" Style="{DynamicResource TextBoxStyle}" GotFocus="login_GotFocus" LostFocus="login_LostFocus"/>
         <PasswordBox x:Name="password" Password="password" Margin="50,125,50,152" HorizontalAlignment="Center" Width="200" Style="{DynamicResource PassBoxStyle}" LostFocus="password_LostFocus" GotFocus="password_GotFocus"/>
-        <Button x:Name="button" Content="Log In" Style="{DynamicResource ButtonStyle1}" Height="30" Margin="105,180,105,90" HorizontalAlignment="Center" Width="90" Click="button_Click" IsDefault="True" />
+        <Button x:Name="button" Content="Log In" Style="{DynamicResource ButtonStyle}" Height="30" HorizontalAlignment="Center" Width="90" Click="button_Click" IsDefault="True" Margin="0,100,105,0" />
+        <Button x:Name="signUp_button" Content="Sign Up" Style="{DynamicResource ButtonStyle}" Height="30" HorizontalAlignment="Center" Width="90" Click="signUp_button_Click" Margin="105,100,0,0" />
         <Image x:Name="image" HorizontalAlignment="Center" Source="/evenote;component/images/logo.png" VerticalAlignment="Center" Margin="0,0,0,300" Width="500"/>
     </Grid>
 </Page>

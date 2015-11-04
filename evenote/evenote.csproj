@@ -79,6 +79,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -114,6 +115,9 @@
     </Compile>
     <Compile Include="pages\profile_page.xaml.cs">
       <DependentUpon>profile_page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\regist_page.xaml.cs">
+      <DependentUpon>regist_page.xaml</DependentUpon>
     </Compile>
     <Compile Include="pages\search_page.xaml.cs">
       <DependentUpon>search_page.xaml</DependentUpon>
@@ -152,6 +156,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="pages\profile_page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\regist_page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

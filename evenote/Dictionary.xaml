@@ -6,7 +6,7 @@
     <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF8AA777"/>
     <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF5E9732"/>
 
-    <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
+    <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -44,7 +44,7 @@
                                         </ColorAnimationUsingKeyFrames>
                                         <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle">
                                             <EasingColorKeyFrame KeyTime="0" Value="#FFA1D37B"/>
-                                            <!--<EasingColorKeyFrame KeyTime="0:0:0.1" Value="#FF5E9732"/>-->
+                                            <!--<EasingColorKeyFrame KeyTime="0:0:0.1" Value="#FF829E6D"/>-->
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -69,7 +69,7 @@
         <Setter Property="Foreground" Value="#FF2C5A08"/>
     </Style>
 
-    <Style x:Key="TextBoxStyle2" TargetType="{x:Type TextBox}">
+    <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
         <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
         <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
@@ -166,11 +166,11 @@
                                 <VisualState x:Name="Normal">
                                     <Storyboard>
                                         <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle">
-                                            <EasingColorKeyFrame KeyTime="0:0:0.35" Value="#FFD1F0B8"/>
+                                            <EasingColorKeyFrame KeyTime="0:0:0.3" Value="#FFD1F0B8"/>
                                             <EasingColorKeyFrame KeyTime="0" Value="#FFB8E199"/>
                                         </ColorAnimationUsingKeyFrames>
                                         <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle">
-                                            <EasingColorKeyFrame KeyTime="0:0:0.35" Value="#FFD1F0B8"/>
+                                            <EasingColorKeyFrame KeyTime="0:0:0.3" Value="#FFD1F0B8"/>
                                             <EasingColorKeyFrame KeyTime="0" Value="#FFA1D37B"/>
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>
@@ -179,18 +179,23 @@
                                     <Storyboard>
                                         <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle">
                                             <EasingColorKeyFrame KeyTime="0" Value="#FFD1F0B8"/>
-                                            <EasingColorKeyFrame KeyTime="0:0:0.35" Value="#FFB8E199"/>
+                                            <EasingColorKeyFrame KeyTime="0:0:0.3" Value="#FFB8E199"/>
                                         </ColorAnimationUsingKeyFrames>
                                         <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle">
                                             <EasingColorKeyFrame KeyTime="0" Value="#FFD1F0B8"/>
-                                            <EasingColorKeyFrame KeyTime="0:0:0.35" Value="#FFA1D37B"/>
+                                            <EasingColorKeyFrame KeyTime="0:0:0.3" Value="#FFA1D37B"/>
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
                                     <Storyboard>
                                         <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle">
-                                            <EasingColorKeyFrame KeyTime="0" Value="#FFF4F4F5"/>
+                                            <EasingColorKeyFrame KeyTime="0" Value="#FFA1D37B"/>
+                                            <EasingColorKeyFrame KeyTime="0:0:0.1" Value="#FFD1F0B8"/>
+                                        </ColorAnimationUsingKeyFrames>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle">
+                                            <EasingColorKeyFrame KeyTime="0" Value="#FFB8E199"/>
+                                            <EasingColorKeyFrame KeyTime="0:0:0.1" Value="#FFD1F0B8"/>
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>

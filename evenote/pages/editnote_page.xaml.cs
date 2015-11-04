@@ -92,12 +92,11 @@ namespace evenote.pages
 
             if (openFileDialog1.ShowDialog() == true)
             {
-                using (Stream s = openFileDialog1.OpenFile())
-                {
-                    Clipboard.SetImage(BitmapFrame.Create(new Uri(openFileDialog1.FileName)));
-                    richTextBox.Paste();
-                    Clipboard.Clear();
-                }
+                var temp = Clipboard.GetDataObject();
+                Clipboard.SetImage(BitmapFrame.Create(new Uri(openFileDialog1.FileName)));
+                richTextBox.Paste();
+                Clipboard.Clear();
+                Clipboard.SetDataObject(temp);
             }
         }
 

@@ -1,0 +1,32 @@
+﻿<Page x:Class="evenote.pages.regist_page"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:evenote.pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="630"
+      Title="regist_page">
+
+    <Grid>
+        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Unique username:" Foreground="Gray" Margin="0,0,410,300" FontFamily="Microsoft YaHei UI Light" FontSize="13.333" HorizontalContentAlignment="Right" Width="200"/>
+        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Unique email:" Foreground="Gray" Margin="0,0,410,200" FontFamily="Microsoft YaHei UI Light" FontSize="13.333" HorizontalContentAlignment="Right" Width="200"/>
+        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Input password:" Foreground="Gray" Margin="0,0,410,100" FontFamily="Microsoft YaHei UI Light" FontSize="13.333" HorizontalContentAlignment="Right" Width="200"/>
+        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Repeat this password:" Foreground="Gray" Margin="0,0,410,0" FontFamily="Microsoft YaHei UI Light" FontSize="13.333" Width="200" HorizontalContentAlignment="Right"/>
+        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Your date of birth:" Foreground="Gray" Margin="0,100,410,0" FontFamily="Microsoft YaHei UI Light" FontSize="13.333" Width="200" HorizontalContentAlignment="Right"/>
+        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Image for your profile:" Foreground="Gray" Margin="0,200,410,0" FontFamily="Microsoft YaHei UI Light" FontSize="13.333" Width="200" HorizontalContentAlignment="Right"/>
+
+        <TextBox x:Name="login" Text="login" Margin="0,0,0,300" HorizontalAlignment="Center" Width="200" Style="{DynamicResource TextBoxStyle}" GotFocus="login_GotFocus" LostFocus="login_LostFocus"/>
+        <TextBox x:Name="email" Text="email" Margin="0,0,0,200" HorizontalAlignment="Center" Width="200" Style="{DynamicResource TextBoxStyle}" GotFocus="login_GotFocus" LostFocus="login_LostFocus" Tag="email"/>
+
+        <PasswordBox x:Name="password" Password="password" Margin="0,0,0,100" HorizontalAlignment="Center" Width="200" Style="{DynamicResource PassBoxStyle}" LostFocus="password_LostFocus" GotFocus="password_GotFocus"/>
+        <PasswordBox x:Name="repeat_password" Password="password" Margin="0" HorizontalAlignment="Center" Width="200" Style="{DynamicResource PassBoxStyle}" LostFocus="password_LostFocus" GotFocus="password_GotFocus"/>
+        <DatePicker x:Name="datepicker" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,0" Width="200" FirstDayOfWeek="Monday"/>
+
+        <Label x:Name="imagelabel" Margin="322,200,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Choose image" HorizontalContentAlignment="Stretch" Width="298" Foreground="#FF2C5A08" FontFamily="Microsoft YaHei UI Light" FontSize="13.333"/>
+        <Button x:Name="selectbutton" Margin="0,200,100,0" Style="{DynamicResource ButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Select" Click="selectbutton_Click"/>
+
+        <Button x:Name="button" Content="Done" Style="{DynamicResource ButtonStyle}" Height="30" HorizontalAlignment="Center" Width="90" Click="button_Click" IsDefault="True" Margin="0,300,0,0" />
+
+    </Grid>
+</Page>
