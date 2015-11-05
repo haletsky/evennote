@@ -30,7 +30,7 @@ namespace evenote
 
         public MainWindow()
         {
-            Config.ConfigureProgram();
+            //Config.ConfigureProgram();
             InitializeComponent();
 
             /*

@@ -21,5 +21,15 @@ namespace evenote
 
             path = String.Format("C:\\Users\\{0}\\Documents\\evennote\\", Environment.UserName);
         }
+
+        public static void SetUserDirectory(string user)
+        {
+            if (!Directory.Exists(String.Format("C:\\Users\\{0}\\Documents\\evennote\\{1}\\", Environment.UserName, user)))
+            {
+                Directory.CreateDirectory(String.Format("C:\\Users\\{0}\\Documents\\evennote\\{1}\\", Environment.UserName, user));
+            }
+
+            path = String.Format("C:\\Users\\{0}\\Documents\\evennote\\{1}\\", Environment.UserName, user);
+        }
     }
 }

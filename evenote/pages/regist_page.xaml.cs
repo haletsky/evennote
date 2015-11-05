@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using DataBaseAPI;
 using Microsoft.Win32;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace evenote.pages
 {
@@ -33,10 +34,14 @@ namespace evenote.pages
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
+            Regex x = new Regex(@"^\w+@\w+[.]\w+$");
 
-            if (login.Text == "login" || password.Password == "password" || password.Password != repeat_password.Password || datepicker.SelectedDate == null || email.Text == "email"){
+            if (login.Text == "login" || password.Password == "password" || password.Password != repeat_password.Password || datepicker.SelectedDate == null || email.Text == "e@mail.com" || !x.IsMatch(email.Text))
+            {
+                MessageBox.Show("Something wrong!", "Error!");
                 return;
             }
+
 
             MyDataBase.ConnectToDB();
 
@@ -114,6 +119,22 @@ namespace evenote.pages
                     fs.Close();
                 }                
             }
+        }
+
+        private void login_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+        }
+
+        private bool IsTextAllowed(string text)
+        {
+            Regex regex = new Regex("[^A-Za-z0-9_]+"); //regex that matches disallowed text
+            return !regex.IsMatch(text);
+        }
+
+        private void backbutton_Click(object sender, RoutedEventArgs e)
+        {
+            (Application.Current.MainWindow as MainWindow).ChangePage("pages/login_page.xaml");
         }
     }
 }

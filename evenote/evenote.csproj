@@ -216,15 +216,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\avatar.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="APIs\DataBaseAPI.dll" />
     <Content Include="APIs\MySql.Data.dll" />
     <Content Include="APIs\MySql.Data.Entity.EF5.dll" />
     <Content Include="APIs\MySql.Data.Entity.EF6.dll" />
     <Content Include="APIs\MySql.Fabric.Plugin.dll" />
     <Content Include="APIs\MySql.Web.dll" />
+    <Resource Include="images\default_avatar.png" />
     <Resource Include="images\saveicon.png" />
     <Resource Include="images\openicon.png" />
     <Resource Include="images\cuticon.png" />

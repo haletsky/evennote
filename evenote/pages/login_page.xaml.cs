@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DataBaseAPI;
+using System.Text.RegularExpressions;
 
 namespace evenote.pages
 {
@@ -75,6 +76,8 @@ namespace evenote.pages
             //Отключаемся от БД
             MyDataBase.CloseConnectToDB();
 
+            Config.SetUserDirectory(login.Text);
+
             //Считываем с диска существующие заметки
             Notebook.OpenNotes();
         }
@@ -107,6 +110,17 @@ namespace evenote.pages
         private void signUp_button_Click(object sender, RoutedEventArgs e)
         {
             (Application.Current.MainWindow as MainWindow).ChangePage("pages/regist_page.xaml");
+        }
+
+        private void login_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+        }
+
+        private bool IsTextAllowed(string text)
+        {
+            Regex regex = new Regex("[^A-Za-z0-9_]+"); //regex that matches disallowed text
+            return !regex.IsMatch(text);
         }
     }
 }

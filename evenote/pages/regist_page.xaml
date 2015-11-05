@@ -9,6 +9,9 @@
       Title="regist_page">
 
     <Grid>
+        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="use letters, numbers and underscore" Foreground="Gray" Margin="420,0,0,300" FontFamily="Microsoft YaHei UI Light" FontSize="10.667" Width="200"/>
+        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="use letters, numbers and underscore" Foreground="Gray" Margin="420,0,0,100" FontFamily="Microsoft YaHei UI Light" FontSize="10.667" Width="200"/>
+        
         <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Unique username:" Foreground="Gray" Margin="0,0,410,300" FontFamily="Microsoft YaHei UI Light" FontSize="13.333" HorizontalContentAlignment="Right" Width="200"/>
         <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Unique email:" Foreground="Gray" Margin="0,0,410,200" FontFamily="Microsoft YaHei UI Light" FontSize="13.333" HorizontalContentAlignment="Right" Width="200"/>
         <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Input password:" Foreground="Gray" Margin="0,0,410,100" FontFamily="Microsoft YaHei UI Light" FontSize="13.333" HorizontalContentAlignment="Right" Width="200"/>
@@ -16,17 +19,18 @@
         <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Your date of birth:" Foreground="Gray" Margin="0,100,410,0" FontFamily="Microsoft YaHei UI Light" FontSize="13.333" Width="200" HorizontalContentAlignment="Right"/>
         <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Image for your profile:" Foreground="Gray" Margin="0,200,410,0" FontFamily="Microsoft YaHei UI Light" FontSize="13.333" Width="200" HorizontalContentAlignment="Right"/>
 
-        <TextBox x:Name="login" Text="login" Margin="0,0,0,300" HorizontalAlignment="Center" Width="200" Style="{DynamicResource TextBoxStyle}" GotFocus="login_GotFocus" LostFocus="login_LostFocus"/>
-        <TextBox x:Name="email" Text="email" Margin="0,0,0,200" HorizontalAlignment="Center" Width="200" Style="{DynamicResource TextBoxStyle}" GotFocus="login_GotFocus" LostFocus="login_LostFocus" Tag="email"/>
+        <TextBox x:Name="login" Text="login" Margin="0,0,0,300" HorizontalAlignment="Center" Width="200" Style="{DynamicResource TextBoxStyle}" GotFocus="login_GotFocus" LostFocus="login_LostFocus" PreviewTextInput="login_PreviewTextInput"/>
+        <TextBox x:Name="email" Text="e@mail.com" Margin="0,0,0,200" HorizontalAlignment="Center" Width="200" Style="{DynamicResource TextBoxStyle}" GotFocus="login_GotFocus" LostFocus="login_LostFocus" Tag="email"/>
 
-        <PasswordBox x:Name="password" Password="password" Margin="0,0,0,100" HorizontalAlignment="Center" Width="200" Style="{DynamicResource PassBoxStyle}" LostFocus="password_LostFocus" GotFocus="password_GotFocus"/>
-        <PasswordBox x:Name="repeat_password" Password="password" Margin="0" HorizontalAlignment="Center" Width="200" Style="{DynamicResource PassBoxStyle}" LostFocus="password_LostFocus" GotFocus="password_GotFocus"/>
+        <PasswordBox x:Name="password" Password="password" Margin="0,0,0,100" HorizontalAlignment="Center" Width="200" Style="{DynamicResource PassBoxStyle}" LostFocus="password_LostFocus" GotFocus="password_GotFocus" PreviewTextInput="login_PreviewTextInput"/>
+        <PasswordBox x:Name="repeat_password" Password="password" Margin="0" HorizontalAlignment="Center" Width="200" Style="{DynamicResource PassBoxStyle}" LostFocus="password_LostFocus" GotFocus="password_GotFocus" PreviewTextInput="login_PreviewTextInput"/>
         <DatePicker x:Name="datepicker" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,0" Width="200" FirstDayOfWeek="Monday"/>
 
         <Label x:Name="imagelabel" Margin="322,200,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Choose image" HorizontalContentAlignment="Stretch" Width="298" Foreground="#FF2C5A08" FontFamily="Microsoft YaHei UI Light" FontSize="13.333"/>
-        <Button x:Name="selectbutton" Margin="0,200,100,0" Style="{DynamicResource ButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Select" Click="selectbutton_Click"/>
+        <Button x:Name="selectbutton" Margin="0,200,100,0" Style="{DynamicResource ButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Select" Click="selectbutton_Click" Width="90" Height="30"/>
 
-        <Button x:Name="button" Content="Done" Style="{DynamicResource ButtonStyle}" Height="30" HorizontalAlignment="Center" Width="90" Click="button_Click" IsDefault="True" Margin="0,300,0,0" />
+        <Button x:Name="button" Content="Done" Style="{DynamicResource ButtonStyle}" Height="30" HorizontalAlignment="Center" Width="90" Click="button_Click" IsDefault="True" Margin="100,300,0,0" />
+        <Button x:Name="backbutton" Content="Back" Style="{DynamicResource ButtonStyle}" Height="30" HorizontalAlignment="Center" Width="90" Click="backbutton_Click" Margin="0,300,100,0" IsCancel="True" />
 
     </Grid>
 </Page>

@@ -16,7 +16,7 @@
         <Button x:Name="logout_btn" Content="Log out" Style="{DynamicResource ButtonStyle}" Click="logout_btn_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,350,0,0"/>
         <Rectangle x:Name="image" HorizontalAlignment="Center" Height="200" Margin="0,10,0,0" Stroke="#FF364F3E" VerticalAlignment="Top" Width="200" RadiusX="200" RadiusY="200">
             <Rectangle.Fill>
-                <ImageBrush ImageSource="/evenote;component/images/avatar.png" Stretch="None"/>
+                <ImageBrush ImageSource="/evenote;component/images/default_avatar.png"/>
             </Rectangle.Fill>
         </Rectangle>
     </Grid>
