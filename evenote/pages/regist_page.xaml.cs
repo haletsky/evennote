@@ -42,35 +42,14 @@ namespace evenote.pages
                 return;
             }
 
-
-            MyDataBase.ConnectToDB();
-
-            MyDataBase.ExecuteCommand("SELECT * FROM users WHERE users.username = '" + login.Text + "' OR users.email = '" + email.Text + "'");
-             
-            if (MyDataBase.rdr.HasRows)
-            {
-                MessageBox.Show("This user already exist.");
-                return;
-            }
-
-            MyDataBase.rdr.Close();
-            MyDataBase.AddWithValue("@avatar", image);  
-            MyDataBase.ExecuteCommand(
-                "INSERT INTO `evennote_db`.`users` (`username`, `userpass`, `email`, `avatar`, `datebirth`)" + 
-                "VALUES ('" + login.Text + "', '" + password.Password + "', '" + email.Text + "', @avatar, '" 
-                + datepicker.SelectedDate.Value.Year + "-"
-                + datepicker.SelectedDate.Value.Month + "-"
-                + datepicker.SelectedDate.Value.Day + "');");
-
-            MyDataBase.rdr.Close();
-            MyDataBase.CloseConnectToDB();
+            Evennote.Registration(login.Text, password.Password, datepicker.SelectedDate.Value, email.Text, image);
 
             (Application.Current.MainWindow as MainWindow).ChangePage("pages/login_page.xaml");
         }
 
         private void login_GotFocus(object sender, RoutedEventArgs e)
         {
-            if ((sender as TextBox).Text == "login" || (sender as TextBox).Text == "email")
+            if ((sender as TextBox).Text == "login" || (sender as TextBox).Text == "e@mail.com")
                 (sender as TextBox).Text = "";
         }
 
@@ -78,7 +57,7 @@ namespace evenote.pages
         {
             if ((sender as TextBox).Text == "")
             {
-                if((sender as TextBox).Tag as string == "email")(sender as TextBox).Text = "email";
+                if((sender as TextBox).Tag as string == "email")(sender as TextBox).Text = "e@mail.com";
                 else (sender as TextBox).Text = "login";
             }
         }
@@ -97,28 +76,17 @@ namespace evenote.pages
 
         private void selectbutton_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
-
-            openFileDialog1.Filter = @"Bitmap File(*.bmp)|*.bmp|" +
-                @"GIF File(*.gif)|*.gif|" +
-                @"JPEG File(*.jpg)|*.jpg|" +
-                @"TIF File(*.tif)|*.tif|" +
-                @"PNG File(*.png)|*.png";
-
-            openFileDialog1.FilterIndex = 3;
-            openFileDialog1.RestoreDirectory = true;
-
-            if (openFileDialog1.ShowDialog() == true)
+            try
             {
-                imagelabel.Content = openFileDialog1.FileName;
-                using (FileStream fs = new FileStream(openFileDialog1.FileName, FileMode.Open, FileAccess.Read))
+                using (FileStream fs = new FileStream(Evennote.OpenImageInWindow().ToString().Remove(0, 8), FileMode.Open, FileAccess.Read))
                 {
+                    imagelabel.Content = fs.Name.Split('\\').Last();
                     image = new byte[fs.Length];
                     fs.Read(image, 0, (int)fs.Length);
                     fs.Close();
-                }                
+                }
             }
+            catch { }
         }
 
         private void login_PreviewTextInput(object sender, TextCompositionEventArgs e)

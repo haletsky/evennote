@@ -29,40 +29,14 @@ namespace evenote.pages
         private void searchBtn_Click(object sender, RoutedEventArgs e)
         {
             //Если пользователь ищет сам себя, просто перенаправляем его на страницу своего профиля.
-            if (textBox.Text == (Application.Current.MainWindow as MainWindow).me.username)
+            if (textBox.Text == Evennote.user.username)
             {
-                (Application.Current.MainWindow as MainWindow).contextUser = (Application.Current.MainWindow as MainWindow).me;
+                Evennote.contextUser = Evennote.user;
                 ((Application.Current.MainWindow as MainWindow).mainframe.Content as menu_page).frame.Source = new Uri("profile_page.xaml", UriKind.Relative);
                 return;
             }
 
-            //Подключение к своей базе данных
-            MyDataBase.ConnectToDB();
-            MyDataBase.ExecuteCommand("SELECT * FROM users WHERE users.username = " + "'" + textBox.Text + "'");
-
-            if (MyDataBase.rdr.HasRows == false)
-            {
-                MessageBox.Show("Никого не найдено.");
-                return;
-            }
-            while (MyDataBase.rdr.Read())
-            {
-                //Сохраняем данные о пользователе
-                (Application.Current.MainWindow as MainWindow).contextUser = new User(Convert.ToInt32(MyDataBase.rdr[0].ToString()),
-                    MyDataBase.rdr[1].ToString(),
-                    MyDataBase.rdr[3].ToString(),
-                    MyDataBase.rdr[4] as byte[],
-                    MyDataBase.rdr[5] as DateTime?);
-                
-                if (MyDataBase.rdr[6].ToString().Equals("True"))
-                {
-                    (Application.Current.MainWindow as MainWindow).contextUser.online = true;
-                }
-            }
-
-            //Отключаемся от БД
-            MyDataBase.rdr.Close();
-            MyDataBase.CloseConnectToDB();
+            Evennote.contextUser = Evennote.GetUserData(textBox.Text);
 
             ((Application.Current.MainWindow as MainWindow).mainframe.Content as menu_page).frame.Source = new Uri("profile_page.xaml", UriKind.Relative);
         }

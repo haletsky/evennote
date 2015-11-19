@@ -32,54 +32,15 @@ namespace evenote.pages
         {
             try
             {
-                //Подключение к своей базе данных
-                MyDataBase.ConnectToDB();
-
-                //Проверяем совпадают ли имя и пароли
-                MyDataBase.ExecuteCommand("SELECT * FROM users WHERE users.username = '" + login.Text + "' AND users.userpass = '" + password.Password + "'");
+                Evennote.Authorization(login.Text, password.Password);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message); return;
+                MessageBox.Show(ex.Message);
             }
 
-            if (MyDataBase.rdr.HasRows == false)
-            {
-                MessageBox.Show("Login or password is incorrect.");
-                MyDataBase.rdr.Close();
-                MyDataBase.CloseConnectToDB();
-                return;
-            }
-
-            //Читаем данные
-            while (MyDataBase.rdr.Read())
-            {
-                //Перенаправляем на главное меню
-                (Application.Current.MainWindow as MainWindow).ChangePage("pages/menu_page.xaml");
-                
-                //Сохраняем данные о себе
-                (Application.Current.MainWindow as MainWindow).me = new User(Convert.ToInt32(MyDataBase.rdr[0].ToString()),
-                    MyDataBase.rdr[1].ToString(),
-                    MyDataBase.rdr[3].ToString(),
-                    MyDataBase.rdr[4] as byte[],
-                    MyDataBase.rdr[5] as DateTime?);
-            }
-
-            (Application.Current.MainWindow as MainWindow).contextUser = (Application.Current.MainWindow as MainWindow).me;
-
-            MyDataBase.rdr.Close();
-
-            //Пишем что мы онлайн
-            MyDataBase.ChangeOnlineStatus((Application.Current.MainWindow as MainWindow).me.id);
-            (Application.Current.MainWindow as MainWindow).me.online = true;
-
-            //Отключаемся от БД
-            MyDataBase.CloseConnectToDB();
-
-            Config.SetUserDirectory(login.Text);
-
-            //Считываем с диска существующие заметки
-            Notebook.OpenNotes();
+            //Перенаправляем на главное меню
+            (Application.Current.MainWindow as MainWindow).ChangePage("pages/menu_page.xaml");
         }
 
         //Просто методы для удобства интерфейса 

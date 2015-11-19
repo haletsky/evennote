@@ -25,9 +25,6 @@ namespace evenote
     /// </summary>
     public partial class MainWindow : Window
     {
-        public User me;
-        public User contextUser;
-
         public MainWindow()
         {
             //Config.ConfigureProgram();
@@ -60,6 +57,18 @@ namespace evenote
             {
                 Activate();
             });
+            
+
+            MyDataBase.ConnectToDB();
+
+            MyDataBase.ExecuteCommand("SELECT `notes`.`note` FROM `notes` JOIN `users` ON (`users`.`idusers` = `notes`.`iduser`) WHERE `users`.`idusers` = 1;");
+
+            while (MyDataBase.rdr.Read())
+            {
+                MessageBox.Show(MyDataBase.rdr[0].GetType().ToString());
+            }
+            MyDataBase.rdr.Close();
+            MyDataBase.CloseConnectToDB();
             */
         }
 
@@ -70,10 +79,10 @@ namespace evenote
 
         private void mainwindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (me != null && me.online == true)
+            if (Evennote.user != null && Evennote.user.online == true)
             {
                 MyDataBase.ConnectToDB();
-                MyDataBase.ChangeOnlineStatus((Application.Current.MainWindow as MainWindow).me.id);
+                MyDataBase.ChangeOnlineStatus(Evennote.user.id);
                 MyDataBase.CloseConnectToDB();
             }
         }

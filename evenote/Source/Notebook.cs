@@ -21,9 +21,9 @@ namespace evenote
             notebook.Add(new NoteListItem(n));
         }
 
-        public static void OpenNotes()
+        public static void LoadNotes()
         {
-            string[] notes = Directory.GetFiles(Config.path);
+            string[] notes = Directory.GetFiles(Evennote.path);
 
             for (int i = 0; i < notes.Length; i++)
             {
@@ -37,7 +37,7 @@ namespace evenote
         {
             try
             {
-                File.Delete(String.Format("{0}{1}.note", Config.path, n.Title));
+                File.Delete(String.Format("{0}{1}.note", Evennote.path, n.Title));
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
 

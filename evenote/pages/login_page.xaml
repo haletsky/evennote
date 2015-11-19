@@ -12,10 +12,12 @@
 
 
     <Grid>
-        <TextBox x:Name="login" Text="login" Margin="50,85,50,192" HorizontalAlignment="Center" Width="200" Style="{DynamicResource TextBoxStyle}" GotFocus="login_GotFocus" LostFocus="login_LostFocus" PreviewTextInput="login_PreviewTextInput"/>
-        <PasswordBox x:Name="password" Password="password" Margin="50,125,50,152" HorizontalAlignment="Center" Width="200" Style="{DynamicResource PassBoxStyle}" LostFocus="password_LostFocus" GotFocus="password_GotFocus" PreviewTextInput="login_PreviewTextInput"/>
-        <Button x:Name="button" Content="Log In" Style="{DynamicResource ButtonStyle}" Height="30" HorizontalAlignment="Center" Width="90" Click="button_Click" IsDefault="True" Margin="0,100,105,0" />
-        <Button x:Name="signUp_button" Content="Sign Up" Style="{DynamicResource ButtonStyle}" Height="30" HorizontalAlignment="Center" Width="90" Click="signUp_button_Click" Margin="105,100,0,0" />
-        <Image x:Name="image" HorizontalAlignment="Center" Source="/evenote;component/images/logo.png" VerticalAlignment="Center" Margin="0,0,0,300" Width="500"/>
+        <TextBox x:Name="login" Text="login" Margin="0,0,0,100" HorizontalAlignment="Center" Width="200" Style="{DynamicResource TextBoxStyle}" GotFocus="login_GotFocus" LostFocus="login_LostFocus" PreviewTextInput="login_PreviewTextInput"/>
+        <PasswordBox x:Name="password" Password="password" HorizontalAlignment="Center" Width="200" Style="{DynamicResource PassBoxStyle}" LostFocus="password_LostFocus" GotFocus="password_GotFocus" PreviewTextInput="login_PreviewTextInput"/>
+        <Button x:Name="button" Content="Log In" Style="{DynamicResource ButtonStyle}" Height="30" HorizontalAlignment="Center" Width="90" Click="button_Click" IsDefault="True" Margin="0,100,110,0" />
+        <Button x:Name="signUp_button" Content="Sign Up" Style="{DynamicResource ButtonStyle}" Height="30" HorizontalAlignment="Center" Width="90" Click="signUp_button_Click" Margin="110,100,0,0" />
+        <Image x:Name="image" HorizontalAlignment="Center" Source="/evenote;component/images/icon.png" VerticalAlignment="Center" Margin="0,0,0,300" Width="100"/>
+        <Label Content="Bogdan Khaletsky" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontFamily="Microsoft YaHei UI Light" Foreground="Gray" FontSize="16"/>
+        <Label Content="even;note" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Verdana" Foreground="#FFB6D69B" FontSize="53.333" Margin="0,0,0,300" Visibility="Hidden"/>
     </Grid>
 </Page>

@@ -31,6 +31,5 @@
 
         <Button x:Name="button" Content="Done" Style="{DynamicResource ButtonStyle}" Height="30" HorizontalAlignment="Center" Width="90" Click="button_Click" IsDefault="True" Margin="100,300,0,0" />
         <Button x:Name="backbutton" Content="Back" Style="{DynamicResource ButtonStyle}" Height="30" HorizontalAlignment="Center" Width="90" Click="backbutton_Click" Margin="0,300,100,0" IsCancel="True" />
-
     </Grid>
 </Page>

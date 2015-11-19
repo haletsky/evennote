@@ -57,15 +57,14 @@ namespace evenote.pages
 
             if (openFileDialog1.ShowDialog() == true)
             {
-                Note newtemp = new Note();
-                newtemp.OpenFromFile(openFileDialog1.FileName);
+                Note temp = Evennote.OpenNote(openFileDialog1.FileName);
 
-                titleTextBox.Text = newtemp.Title;
+                titleTextBox.Text = temp.Title;
 
                 using (MemoryStream mem = new MemoryStream())
                 {
-                    TextRange range = new TextRange(newtemp.Text.ContentStart,
-                        newtemp.Text.ContentEnd);
+                    TextRange range = new TextRange(temp.Text.ContentStart,
+                        temp.Text.ContentEnd);
                     range.Save(mem, DataFormats.XamlPackage);
                     mem.Position = 0;
 
@@ -78,26 +77,14 @@ namespace evenote.pages
 
         private void open_image_button(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            BitmapFrame image = Evennote.OpenImageInWindow();
+            if (image == null) return;
 
-            openFileDialog1.Filter = @"Bitmap File(*.bmp)|*.bmp|" +
-                @"GIF File(*.gif)|*.gif|" +
-                @"JPEG File(*.jpg)|*.jpg|" +
-                @"TIF File(*.tif)|*.tif|" +
-                @"PNG File(*.png)|*.png";
-
-            openFileDialog1.FilterIndex = 3;
-            openFileDialog1.RestoreDirectory = true;
-
-            if (openFileDialog1.ShowDialog() == true)
-            {
-                var temp = Clipboard.GetDataObject();
-                Clipboard.SetImage(BitmapFrame.Create(new Uri(openFileDialog1.FileName)));
-                richTextBox.Paste();
-                Clipboard.Clear();
-                Clipboard.SetDataObject(temp);
-            }
+            var temp = Clipboard.GetDataObject();
+            Clipboard.SetImage(image);
+            richTextBox.Paste();
+            Clipboard.Clear();
+            Clipboard.SetDataObject(temp);
         }
 
         private void save_button_Click(object sender, RoutedEventArgs e)
@@ -120,8 +107,8 @@ namespace evenote.pages
             }
 
             Notebook.Add(new Note(titleTextBox.Text, richTextBox.Document, temp));
-            Notebook.Last().SaveToFile(String.Format("{1}{0}.note", Notebook.Last().Title, Config.path));
-            File.SetCreationTime(String.Format("{1}{0}.note", Notebook.Last().Title, Config.path), temp);
+            Notebook.Last().SaveToFile(String.Format("{1}{0}.note", Notebook.Last().Title, Evennote.path));
+            File.SetCreationTime(String.Format("{1}{0}.note", Notebook.Last().Title, Evennote.path), temp);
             ((Application.Current.MainWindow as MainWindow).mainframe.Content as menu_page).frame.Source = new Uri("notes_page.xaml", UriKind.Relative);
         }
     }

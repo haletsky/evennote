@@ -34,7 +34,7 @@ namespace evenote.pages
 
         private void profile_btn_Click(object sender, RoutedEventArgs e)
         {
-            (Application.Current.MainWindow as MainWindow).contextUser = (Application.Current.MainWindow as MainWindow).me;
+            Evennote.contextUser = Evennote.user;
             if (!(frame.Content is profile_page))
             {
                 frame.Source = new Uri("profile_page.xaml", UriKind.Relative);

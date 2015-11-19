@@ -24,7 +24,7 @@ namespace evenote.pages
         public profile_page()
         {
             InitializeComponent();
-            if ((Application.Current.MainWindow as MainWindow).contextUser == (Application.Current.MainWindow as MainWindow).me)
+            if (Evennote.contextUser == Evennote.user)
             {
                 logout_btn.Visibility = Visibility.Visible;
             }
@@ -37,13 +37,14 @@ namespace evenote.pages
         //Когда открываем страницу профиля  - заполняем данные о пользователе
         private void Grid_Initialized(object sender, EventArgs e)
         {
-            if ((Application.Current.MainWindow as MainWindow).contextUser.avatar != null)
-                image.Fill = new ImageBrush((Application.Current.MainWindow as MainWindow).contextUser.avatar);
-            labelname.Content = (Application.Current.MainWindow as MainWindow).contextUser.username;
-            labelemail.Content = "Email: " + (Application.Current.MainWindow as MainWindow).contextUser.email;
-            labeldatebirth.Content = "Date birth: " + (Application.Current.MainWindow as MainWindow).contextUser.datebirth.ToShortDateString();
+            if (Evennote.contextUser.avatar != null)
+                image.Fill = new ImageBrush(Evennote.contextUser.avatar);
 
-            if ((Application.Current.MainWindow as MainWindow).contextUser.online == false)
+            labelname.Content = Evennote.contextUser.username;
+            labelemail.Content = "Email: " + Evennote.contextUser.email;
+            labeldatebirth.Content = "Date birth: " + Evennote.contextUser.datebirth.ToShortDateString();
+
+            if (Evennote.contextUser.online == false)
             {
                 labeloline.Content = "Offline";
             }
@@ -64,12 +65,12 @@ namespace evenote.pages
         private void logout_btn_Click(object sender, RoutedEventArgs e)
         {
             Notebook.notebook.RemoveRange(0, Notebook.notebook.Count);
-            (Application.Current.MainWindow as MainWindow).me.online = false;
+            Evennote.user.online = false;
             (Application.Current.MainWindow as MainWindow).ChangePage("pages/login_page.xaml");
             MyDataBase.ConnectToDB();
-            MyDataBase.ChangeOnlineStatus((Application.Current.MainWindow as MainWindow).me.id);
+            MyDataBase.ChangeOnlineStatus(Evennote.user.id);
             MyDataBase.CloseConnectToDB();
-            (Application.Current.MainWindow as MainWindow).me = null;
+            Evennote.user = null;
         }
     }
 }
