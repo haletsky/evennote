@@ -14,14 +14,19 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
+using DataBaseAPI;
 
 namespace evenote.pages
-{
-    /// <summary>
-    /// Interaction logic for notes_page.xaml
-    /// </summary>
-    public partial class notes_page : Page
     {
+        /// <summary>
+        /// Interaction logic for notes_page.xaml
+        /// </summary>
+        public partial class notes_page : Page
+        {
+            //
+            List<NoteListItem> noteListItems = new List<NoteListItem>();
+
         public notes_page()
         {
             InitializeComponent();
@@ -43,27 +48,35 @@ namespace evenote.pages
         private void deletenote_btn_Click(object sender, RoutedEventArgs e)
         {
             if (Notebook.rememberThis == null) return;
-            Notebook.Delete(Notebook.rememberThis as NoteListItem);
-            listView.Items.Refresh();
+            Notebook.Delete(Notebook.rememberThis);
+            SyncListView();
         }
 
         private void sendnote_btn_Click(object sender, RoutedEventArgs e)
         {
-           
-            
+            Dispatcher.BeginInvoke(new ThreadStart(Evennote.SyncNotes)); //Executes the specified delegate asynchronously with the specified arguments, at the specified priority, on the thread that the Dispatcher was created on.
         }
 
         private void listView_Initialized(object sender, EventArgs e)
         {
-            listView.ItemsSource = Notebook.notebook;
-
+            SyncListView();
+            listView.ItemsSource = noteListItems;
         }
 
         private void listView_LostFocus(object sender, RoutedEventArgs e)
         {
-            Notebook.rememberThis = listView.SelectedItem as NoteListItem;
+            Notebook.rememberThis = (listView.SelectedItem as NoteListItem).Content as Note;
             listView.SelectedIndex = -1;
+        }
+
+        public void SyncListView()
+        {
+            noteListItems.Clear();
+            foreach (Note x in Notebook.notebook)
+            {
+                noteListItems.Add(new NoteListItem(x));
+            }
+            listView.Items.Refresh();
         }
     }
 }
-

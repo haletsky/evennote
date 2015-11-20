@@ -9,6 +9,8 @@ using System.IO;
 using System.Windows.Media.Imaging;
 using System.Windows.Documents;
 using Microsoft.Win32;
+using evenote.pages;
+
 
 namespace evenote
 {
@@ -17,7 +19,7 @@ namespace evenote
         public static User user;
         public static User contextUser;
         public static string path;
-        
+
         public static void SetUserDirectory(string username)
         {
             if (!Directory.Exists(String.Format("C:\\Users\\{0}\\Documents\\evennote\\", Environment.UserName)))
@@ -31,9 +33,11 @@ namespace evenote
             }
 
             path = String.Format("C:\\Users\\{0}\\Documents\\evennote\\{1}\\", Environment.UserName, username);
+
+            Directory.CreateDirectory(path + ".del");
         }
 
-        public static void Authorization(string username, string password)
+        public static bool Authorization(string username, string password)
         {
             //Подключение к своей базе данных
             MyDataBase.ConnectToDB();
@@ -46,7 +50,7 @@ namespace evenote
                 //Надо сделать throwException
                 MyDataBase.rdr.Close();
                 MyDataBase.CloseConnectToDB();
-                return;
+                return false;
             }
 
             //Читаем данные
@@ -65,22 +69,23 @@ namespace evenote
             MyDataBase.rdr.Close();
 
             //Пишем что мы онлайн
-            MyDataBase.ChangeOnlineStatus(user.id);
+            MyDataBase.SetOnlineUser(user.id);
             user.online = true;
 
             //Отключаемся от БД
             MyDataBase.CloseConnectToDB();
 
-            //Создаем пользовательский каталог, если его нет
             SetUserDirectory(username);
 
             //Считываем с диска существующие заметки
             Notebook.LoadNotes();
+
+            return true;
         }
 
         public static User GetUserData(string username)
         {
-            User temp= null;
+            User temp = null;
             //Подключение к своей базе данных
             MyDataBase.ConnectToDB();
             MyDataBase.ExecuteCommand("SELECT * FROM users WHERE users.username = " + "'" + username + "'");
@@ -108,11 +113,11 @@ namespace evenote
             //Отключаемся от БД
             MyDataBase.rdr.Close();
             MyDataBase.CloseConnectToDB();
-        
+
             return temp;
         }
 
-        public static void Registration(string username, string password, DateTime birth, string email, byte[] avatar)
+        public static bool Registration(string username, string password, DateTime birth, string email, byte[] avatar)
         {
             MyDataBase.ConnectToDB();
 
@@ -121,7 +126,7 @@ namespace evenote
             if (MyDataBase.rdr.HasRows)
             {
                 MessageBox.Show("This user already exist.");
-                return;
+                return false;
             }
 
             MyDataBase.rdr.Close();
@@ -135,6 +140,8 @@ namespace evenote
 
             MyDataBase.rdr.Close();
             MyDataBase.CloseConnectToDB();
+
+            return true;
         }
 
         public static Note OpenNote(string pathnote)
@@ -186,10 +193,133 @@ namespace evenote
             openFileDialog1.RestoreDirectory = true;
 
             if (openFileDialog1.ShowDialog() == true)
-            {               
-                return BitmapFrame.Create(new Uri(openFileDialog1.FileName));   
+            {
+                return BitmapFrame.Create(new Uri(openFileDialog1.FileName));
             }
             return null;
+        }
+
+        public static void SyncNotes()
+        {
+            MyDataBase.ConnectToDB();
+
+            string[] notes = Directory.GetFiles(path + ".del\\");
+
+            for (int i = 0; i < notes.Length; i++)
+            {
+                MyDataBase.ExecuteCommand("DELETE FROM `evennote_db`.`notes` WHERE `iduser`='" + Evennote.user.id + "' AND `title`='" + notes[i].Split('\\').Last().Split('.').First() + "';");
+                //Разбиваем путь по слэшам, берем имя файла с расширением. Разюиваем имя файла и вытягиваем имя заметки.
+                File.Delete(path + ".del\\" + notes[i].Split('\\').Last());
+                MyDataBase.rdr.Close();
+            }
+            MyDataBase.ExecuteCommand("SELECT idnote, title, note, dateCreate, dateChanged FROM notes WHERE notes.iduser = " + user.id + ";");
+
+            int idnote = -1;
+            List<Note> fromDB = new List<Note>();
+
+            while (MyDataBase.rdr.Read())
+            {
+                Note buf = new Note();
+                using (MemoryStream mem = new MemoryStream((byte[])MyDataBase.rdr[2]))
+                {
+                    TextRange textRange = new TextRange(
+                        buf.Text.ContentStart,
+                        buf.Text.ContentEnd);
+                    textRange.Load(mem, DataFormats.XamlPackage);
+
+                    buf.Id = (int)MyDataBase.rdr[0];
+                    buf.Title = (string)MyDataBase.rdr[1];
+                    buf.DateCreate = new DateTime((long)MyDataBase.rdr[3]);
+                    buf.DateChanged = new DateTime((long)MyDataBase.rdr[4]);
+
+                    fromDB.Add(buf);
+                }
+            }
+            MyDataBase.rdr.Close();
+
+            Notebook.notebook.ForEach(delegate (Note x) //коллекция локальных заметок
+            {
+                bool flag = true;
+                foreach (Note y in fromDB) //коллекция заметок из бд
+                {                  
+                    if (y.Title == x.Title)
+                    {
+                        y.DateChanged = y.DateChanged.ToLocalTime();
+                        y.DateCreate = y.DateCreate.ToLocalTime();
+                        flag = false;
+                        //Время взятое из БД почему то не равняется времени локальному, хотя все базовые значения совпадают. 
+
+                        if (DateTime.Compare(x.DateChanged, y.DateChanged) < 0)
+                        {
+                            //select
+                            y.SaveToFile(String.Format("{0}{1}.note", path, y.Title));
+                            File.SetCreationTime(String.Format("{0}{1}.note", path, y.Title), y.DateCreate.ToLocalTime());
+                            File.SetLastWriteTime(String.Format("{0}{1}.note", path, y.Title), y.DateChanged.ToLocalTime());
+                            Notebook.Delete(x);
+                            Notebook.Add(y);
+                            break;
+                        }
+                        else if (DateTime.Compare(x.DateChanged, y.DateChanged) > 0)
+                        {
+                            //update
+                            idnote = y.Id;
+                            
+                            using (MemoryStream mem = new MemoryStream())
+                            {
+                                TextRange textRange = new TextRange(
+                                    x.Text.ContentStart,
+                                    x.Text.ContentEnd);
+                                textRange.Save(mem, DataFormats.XamlPackage);
+
+                                MyDataBase.AddWithValue("@notefile", mem.ToArray());
+                                MyDataBase.ExecuteCommand("UPDATE notes SET note = @notefile, dateChanged = '" + x.DateChanged.ToUniversalTime().Ticks + "' WHERE notes.idnote = " + idnote);
+                            }
+                            break;
+                        }
+                    }
+                }
+
+                //Добавляем новую заметку в БД
+                if (flag)
+                {
+                    using (MemoryStream mem = new MemoryStream())
+                    {
+                        TextRange textRange = new TextRange(
+                            x.Text.ContentStart,
+                            x.Text.ContentEnd);
+                        textRange.Save(mem, DataFormats.XamlPackage);
+
+                        DateTime cR = x.DateCreate.ToUniversalTime();
+                        DateTime cH = x.DateChanged.ToUniversalTime();
+
+                        MyDataBase.AddWithValue("@notefile", mem.ToArray());
+                        MyDataBase.ExecuteCommand("INSERT INTO `evennote_db`.`notes` (`iduser`, `title`, `note`, `dateCreate`, `dateChanged`) VALUES (" + user.id + ", '" + x.Title + "', @noteFile, " + cR.Ticks + ", " + cH.Ticks + ");");
+                    }
+                }
+            });
+
+            foreach (Note y in fromDB) //коллекция заметок из бд
+            {
+                bool flag = true;
+                Notebook.notebook.ForEach(delegate (Note x) //коллекция локальных заметок
+                {
+                    if (y.Title == x.Title)
+                    {
+                        flag = false;
+                    }
+                });
+
+                if (flag)
+                {
+                    Notebook.notebook.Add(y);
+                    y.SaveToFile(String.Format("{0}{1}.note", Evennote.path, y.Title));
+                    File.SetCreationTime(String.Format("{0}{1}.note", Evennote.path, y.Title), y.DateCreate);
+                    File.SetLastWriteTime(String.Format("{0}{1}.note", Evennote.path, y.Title), y.DateChanged);
+                    (((Application.Current.MainWindow as MainWindow).mainframe.Content as menu_page).frame.Content as notes_page).SyncListView();
+                }
+            }
+            MyDataBase.rdr.Close();
+            MyDataBase.CloseConnectToDB();
         }
     }
 }

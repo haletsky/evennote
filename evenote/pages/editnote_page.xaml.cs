@@ -105,9 +105,19 @@ namespace evenote.pages
                     Notebook.RemoveAt(Notebook.IndexOf(Notebook.rememberThis));
                 }
             }
-
-            Notebook.Add(new Note(titleTextBox.Text, richTextBox.Document, temp));
-            Notebook.Last().SaveToFile(String.Format("{1}{0}.note", Notebook.Last().Title, Evennote.path));
+            else
+            {
+                foreach (Note x in Notebook.notebook)
+                {
+                    if (titleTextBox.Text == x.Title)
+                    {
+                        MessageBox.Show("Note with same title already exist.");
+                        return;
+                    }
+                }
+            }
+            Notebook.Add(new Note(titleTextBox.Text, richTextBox.Document, temp, DateTime.Now));
+            Notebook.Last().SaveToFile(String.Format("{0}{1}.note", Evennote.path, Notebook.Last().Title));
             File.SetCreationTime(String.Format("{1}{0}.note", Notebook.Last().Title, Evennote.path), temp);
             ((Application.Current.MainWindow as MainWindow).mainframe.Content as menu_page).frame.Source = new Uri("notes_page.xaml", UriKind.Relative);
         }

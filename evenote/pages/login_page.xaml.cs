@@ -37,6 +37,7 @@ namespace evenote.pages
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                return;
             }
 
             //Перенаправляем на главное меню

@@ -13,12 +13,12 @@ namespace evenote
     //Класс-коллекция заметок
     public static class Notebook
     {
-        public static List<NoteListItem> notebook = new List<NoteListItem>();
-        public static NoteListItem rememberThis = null;
+        public static List<Note> notebook = new List<Note>();
+        public static Note rememberThis = null;
 
         public static void Add(Note n)
         {
-            notebook.Add(new NoteListItem(n));
+            notebook.Add(n);
         }
 
         public static void LoadNotes()
@@ -29,15 +29,15 @@ namespace evenote
             {
                 Note n = new Note();
                 n.OpenFromFile(notes[i]);
-                Add(n);
+                notebook.Add(n);
             }
         }
 
-        public static void Delete(NoteListItem n)
+        public static void Delete(Note n)
         {
             try
             {
-                File.Delete(String.Format("{0}{1}.note", Evennote.path, n.Title));
+                File.Move(String.Format("{0}{1}.note", Evennote.path, n.Title), String.Format("{0}{1}\\{2}.note", Evennote.path, ".del", n.Title));
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
 
@@ -46,7 +46,7 @@ namespace evenote
 
         public static Note Last()
         {
-            return notebook.Last().Content as Note;
+            return notebook.Last();
         }
 
         public static void RemoveAt(int index)
@@ -54,7 +54,7 @@ namespace evenote
             notebook.RemoveAt(index);
         }
 
-        public static int IndexOf(NoteListItem n)   
+        public static int IndexOf(Note n)   
         {
             return notebook.IndexOf(n);
         }

@@ -78,11 +78,11 @@ namespace evenote
         }
 
         private void mainwindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
+            {
             if (Evennote.user != null && Evennote.user.online == true)
             {
                 MyDataBase.ConnectToDB();
-                MyDataBase.ChangeOnlineStatus(Evennote.user.id);
+                MyDataBase.SetOfflineUser(Evennote.user.id);
                 MyDataBase.CloseConnectToDB();
             }
         }

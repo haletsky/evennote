@@ -23,7 +23,9 @@ namespace evenote
 
         public string Title { get { return (Content as Note).Title; } set { (Content as Note).Title = value; } }
         public DateTime DateCreate { get { return (Content as Note).DateCreate; } set { (Content as Note).DateCreate = value;  } }
+        public DateTime DateChanged { get { return (Content as Note).DateChanged; } set { (Content as Note).DateChanged = value; } }
         public FlowDocument Text { get { return (Content as Note).Text; } set { (Content as Note).Text = value; } }
-        public string GetShortDate { get { return DateCreate.ToShortDateString() + " " + DateCreate.ToShortTimeString(); } }
+        public string GetShortDateCreate { get { return DateCreate.ToShortDateString() + " " + DateCreate.ToShortTimeString(); } }
+        public string GetShortDateChanged { get { return DateChanged.ToShortDateString() + " " + DateChanged.ToShortTimeString(); } }
     }
 }

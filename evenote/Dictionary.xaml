@@ -324,12 +324,16 @@
 
     <ControlTemplate x:Key="TryListViewItemWork" TargetType="{x:Type local:NoteListItem}">
         <Grid>
-            
             <Border BorderThickness="0" CornerRadius="5" Name="border"
-                    TextBlock.Foreground="Black" Background="Transparent" Margin="10,10,10,0" Padding="10" Height="50"/>
-            <Image Source="images/icon.png" Margin="15,20,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Uniform" Width="40" Height="40"/>
-            <TextBlock Foreground="#FF112700" Margin="60,10,10,10" Padding="10" Text="{Binding Path=Title, RelativeSource={RelativeSource TemplatedParent}}" FontWeight="Bold" FontFamily="Microsoft YaHei UI Light" FontSize="21.333"/>
-            <TextBlock Foreground="#FF5E9732" Margin="10" Padding="10" Text="{Binding Path=GetShortDate, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI Light"/>
+                    TextBlock.Foreground="Black" Background="Transparent" Margin="10,10,10,0" Height="50"/>
+            <Image Source="images/icon.png" Margin="15,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Uniform" Width="40" Height="40"/>
+            <TextBlock Foreground="#FF112700" Margin="70,20,10,10" Text="{Binding Path=Title, RelativeSource={RelativeSource TemplatedParent}}" FontWeight="Bold" FontFamily="Microsoft YaHei UI Light" FontSize="21.333"/>
+            
+            <TextBlock Foreground="#FF464646" Margin="0,15,20,0" Text="{Binding Path=GetShortDateCreate, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI Light"/>
+            <TextBlock Foreground="#FF5E9732" Margin="0,40,20,0" Text="{Binding Path=GetShortDateChanged, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI Light"/>
+
+            <TextBlock Text="Created:" Foreground="#FF464646" Margin="0,15,110,0" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI Light"/>
+            <TextBlock Text="Changed:" Foreground="#FF5E9732" Margin="0,40,110,0" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI Light"/>
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsSelected" Value="True">

@@ -37,6 +37,11 @@ namespace evenote.pages
             }
 
             Evennote.contextUser = Evennote.GetUserData(textBox.Text);
+            if(Evennote.contextUser == null)
+            {
+                MessageBox.Show("User " + textBox.Text + " not exist!");
+                return;
+            }
 
             ((Application.Current.MainWindow as MainWindow).mainframe.Content as menu_page).frame.Source = new Uri("profile_page.xaml", UriKind.Relative);
         }
