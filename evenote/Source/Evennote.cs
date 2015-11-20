@@ -212,6 +212,7 @@ namespace evenote
                 File.Delete(path + ".del\\" + notes[i].Split('\\').Last());
                 MyDataBase.rdr.Close();
             }
+
             MyDataBase.ExecuteCommand("SELECT idnote, title, note, dateCreate, dateChanged FROM notes WHERE notes.iduser = " + user.id + ";");
 
             int idnote = -1;
@@ -272,7 +273,7 @@ namespace evenote
                                 textRange.Save(mem, DataFormats.XamlPackage);
 
                                 MyDataBase.AddWithValue("@notefile", mem.ToArray());
-                                MyDataBase.ExecuteCommand("UPDATE notes SET note = @notefile, dateChanged = '" + x.DateChanged.ToUniversalTime().Ticks + "' WHERE notes.idnote = " + idnote);
+                                MyDataBase.ExecuteCommand("UPDATE notes SET note = @notefile, dateChanged = '" + x.DateChanged.Ticks + "' WHERE notes.idnote = " + idnote);
                             }
                             break;
                         }
@@ -311,8 +312,11 @@ namespace evenote
 
                 if (flag)
                 {
-                    Notebook.notebook.Add(y);
+                    y.DateChanged = y.DateChanged.ToLocalTime();
+                    y.DateCreate = y.DateCreate.ToLocalTime();
                     y.SaveToFile(String.Format("{0}{1}.note", Evennote.path, y.Title));
+                    Notebook.notebook.Add(y);
+                    
                     File.SetCreationTime(String.Format("{0}{1}.note", Evennote.path, y.Title), y.DateCreate);
                     File.SetLastWriteTime(String.Format("{0}{1}.note", Evennote.path, y.Title), y.DateChanged);
                     (((Application.Current.MainWindow as MainWindow).mainframe.Content as menu_page).frame.Content as notes_page).SyncListView();
