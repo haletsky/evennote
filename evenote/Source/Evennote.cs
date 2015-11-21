@@ -201,6 +201,7 @@ namespace evenote
 
         public static void SyncNotes()
         {
+            //Удаление заметок из бд и из системы.
             MyDataBase.ConnectToDB();
 
             string[] notes = Directory.GetFiles(path + ".del\\");
@@ -214,6 +215,8 @@ namespace evenote
             }
 
             MyDataBase.ExecuteCommand("SELECT idnote, title, note, dateCreate, dateChanged FROM notes WHERE notes.iduser = " + user.id + ";");
+
+            //написать проверки о наличии данных
 
             int idnote = -1;
             List<Note> fromDB = new List<Note>();
@@ -245,24 +248,30 @@ namespace evenote
                 {                  
                     if (y.Title == x.Title)
                     {
-                        y.DateChanged = y.DateChanged;
-                        y.DateCreate = y.DateCreate;
                         flag = false;
                         //Время взятое из БД почему то не равняется времени локальному, хотя все базовые значения совпадают. 
 
                         if (DateTime.Compare(x.DateChanged, y.DateChanged) < 0)
                         {
-                            //select
-                            y.SaveToFile(String.Format("{0}{1}.note", path, y.Title));
-                            File.SetCreationTime(String.Format("{0}{1}.note", path, y.Title), y.DateCreate);
-                            File.SetLastWriteTime(String.Format("{0}{1}.note", path, y.Title), y.DateChanged);
-                            //Notebook.Delete(x);
-                            Notebook.Add(y);
+                            //Когда на бд новая заметка, а у нас старая
+                            
+                            x.DateChanged = y.DateChanged;
+                            x.DateCreate = y.DateCreate;
+                            
+                            x.Text = y.Text;
+                                                        
+                            x.SaveToFile(String.Format("{0}{1}.note", Evennote.path, x.Title));
+
+                            File.SetCreationTime(String.Format("{0}{1}.note", Evennote.path, x.Title), x.DateCreate);
+                            File.SetLastWriteTime(String.Format("{0}{1}.note", Evennote.path, x.Title), x.DateChanged);
+
+                            (((Application.Current.MainWindow as MainWindow).mainframe.Content as menu_page).frame.Content as notes_page).SyncListView();
                             break;
                         }
                         else if (DateTime.Compare(x.DateChanged, y.DateChanged) > 0)
                         {
-                            //update
+                            //Когда на бд старая заметка, а у нас новая
+
                             idnote = y.Id;
                             
                             using (MemoryStream mem = new MemoryStream())
@@ -299,6 +308,7 @@ namespace evenote
                 }
             });
 
+            //Когда у нас нет локальных заметок, и есть заметки в БД.
             foreach (Note y in fromDB) //коллекция заметок из бд
             {
                 bool flag = true;
@@ -312,8 +322,6 @@ namespace evenote
 
                 if (flag)
                 {
-                    y.DateChanged = y.DateChanged;
-                    y.DateCreate = y.DateCreate;
                     y.SaveToFile(String.Format("{0}{1}.note", Evennote.path, y.Title));
                     Notebook.notebook.Add(y);
                     
@@ -322,6 +330,7 @@ namespace evenote
                     (((Application.Current.MainWindow as MainWindow).mainframe.Content as menu_page).frame.Content as notes_page).SyncListView();
                 }
             }
+
             MyDataBase.rdr.Close();
             MyDataBase.CloseConnectToDB();
         }
