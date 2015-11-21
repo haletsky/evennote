@@ -245,8 +245,8 @@ namespace evenote
                 {                  
                     if (y.Title == x.Title)
                     {
-                        y.DateChanged = y.DateChanged.ToLocalTime();
-                        y.DateCreate = y.DateCreate.ToLocalTime();
+                        y.DateChanged = y.DateChanged;
+                        y.DateCreate = y.DateCreate;
                         flag = false;
                         //Время взятое из БД почему то не равняется времени локальному, хотя все базовые значения совпадают. 
 
@@ -254,9 +254,9 @@ namespace evenote
                         {
                             //select
                             y.SaveToFile(String.Format("{0}{1}.note", path, y.Title));
-                            File.SetCreationTime(String.Format("{0}{1}.note", path, y.Title), y.DateCreate.ToLocalTime());
-                            File.SetLastWriteTime(String.Format("{0}{1}.note", path, y.Title), y.DateChanged.ToLocalTime());
-                            Notebook.Delete(x);
+                            File.SetCreationTime(String.Format("{0}{1}.note", path, y.Title), y.DateCreate);
+                            File.SetLastWriteTime(String.Format("{0}{1}.note", path, y.Title), y.DateChanged);
+                            //Notebook.Delete(x);
                             Notebook.Add(y);
                             break;
                         }
@@ -290,8 +290,8 @@ namespace evenote
                             x.Text.ContentEnd);
                         textRange.Save(mem, DataFormats.XamlPackage);
 
-                        DateTime cR = x.DateCreate.ToUniversalTime();
-                        DateTime cH = x.DateChanged.ToUniversalTime();
+                        DateTime cR = x.DateCreate;
+                        DateTime cH = x.DateChanged;
 
                         MyDataBase.AddWithValue("@notefile", mem.ToArray());
                         MyDataBase.ExecuteCommand("INSERT INTO `evennote_db`.`notes` (`iduser`, `title`, `note`, `dateCreate`, `dateChanged`) VALUES (" + user.id + ", '" + x.Title + "', @noteFile, " + cR.Ticks + ", " + cH.Ticks + ");");
@@ -312,8 +312,8 @@ namespace evenote
 
                 if (flag)
                 {
-                    y.DateChanged = y.DateChanged.ToLocalTime();
-                    y.DateCreate = y.DateCreate.ToLocalTime();
+                    y.DateChanged = y.DateChanged;
+                    y.DateCreate = y.DateCreate;
                     y.SaveToFile(String.Format("{0}{1}.note", Evennote.path, y.Title));
                     Notebook.notebook.Add(y);
                     
