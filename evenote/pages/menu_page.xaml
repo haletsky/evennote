@@ -13,7 +13,7 @@
             <ColumnDefinition Width="70"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Background="#FFD1F0B8">
+        <StackPanel Background="#336b87">
             <StackPanel.Effect>
                 <DropShadowEffect Direction="0" ShadowDepth="1" Opacity="0.35" BlurRadius="6"/>
             </StackPanel.Effect>

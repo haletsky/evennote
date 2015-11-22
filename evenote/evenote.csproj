@@ -50,7 +50,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>images\icon.ico</ApplicationIcon>
+    <ApplicationIcon>images\notesynched.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DataBaseAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -220,6 +220,10 @@
     <Content Include="APIs\MySql.Data.Entity.EF6.dll" />
     <Content Include="APIs\MySql.Fabric.Plugin.dll" />
     <Content Include="APIs\MySql.Web.dll" />
+    <Resource Include="images\notesynched.ico" />
+    <Resource Include="images\notelocal.png" />
+    <Resource Include="images\noteneedsync.png" />
+    <Resource Include="images\notesynched.png" />
     <Resource Include="images\default_avatar.png" />
     <Resource Include="images\saveicon.png" />
     <Resource Include="images\openicon.png" />
@@ -230,8 +234,6 @@
     <Resource Include="images\boldicon.png" />
     <Resource Include="images\italiicon.png" />
     <Resource Include="images\ulicon.png" />
-    <Resource Include="images\icon.png" />
-    <Resource Include="images\icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

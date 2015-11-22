@@ -3,8 +3,24 @@
                     xmlns:local="clr-namespace:evenote">
 
     <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
-    <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF8AA777"/>
-    <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF5E9732"/>
+    <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#99763626"/>
+    <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF763626"/>
+
+    <!--
+    A2EB96
+    72C765
+    3C8D2F
+    16520D
+    020D00
+    -->
+
+    <!--
+    A2EB96
+    72C765
+    3C8D2F
+    16520D
+    020D00
+    -->
 
     <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Template">
@@ -15,49 +31,30 @@
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal">
                                     <Storyboard>
-                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle">
-                                            <EasingColorKeyFrame KeyTime="0" Value="#FFD1F0B8"/>
-                                        </ColorAnimationUsingKeyFrames>
                                         <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle">
-                                            <EasingColorKeyFrame KeyTime="0" Value="#FF829E6D"/>
-                                            <EasingColorKeyFrame KeyTime="0:0:0.15" Value="#FFB6D69B"/>
+                                            <EasingColorKeyFrame KeyTime="0" Value="#2a3132"/>
+                                            <EasingColorKeyFrame KeyTime="0:0:0.15" Value="#772a3132"/>
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
-                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle">
-                                            <EasingColorKeyFrame KeyTime="0" Value="#FFD1F0B8"/>
-                                            <!--<EasingColorKeyFrame KeyTime="0:0:0.15" Value="#FFA1D37B"/>-->
-                                        </ColorAnimationUsingKeyFrames>
                                         <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle">
-                                            <EasingColorKeyFrame KeyTime="0" Value="#FFB6D69B"/>
-                                            <EasingColorKeyFrame KeyTime="0:0:0.15" Value="#FF829E6D"/>
+                                            <EasingColorKeyFrame KeyTime="0" Value="#772a3132"/>
+                                            <EasingColorKeyFrame KeyTime="0:0:0.15" Value="#2a3132"/>
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
                                     <Storyboard>
-                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle">
-                                            <EasingColorKeyFrame KeyTime="0" Value="#FF2C5A08"/>
-                                            <!--<EasingColorKeyFrame KeyTime="0:0:0.2" Value="#FF6FFF00"/>-->
-                                        </ColorAnimationUsingKeyFrames>
                                         <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle">
-                                            <EasingColorKeyFrame KeyTime="0" Value="#FFA1D37B"/>
-                                            <!--<EasingColorKeyFrame KeyTime="0:0:0.1" Value="#FF829E6D"/>-->
-                                        </ColorAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Disabled">
-                                    <Storyboard>
-                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle">
-                                            <EasingColorKeyFrame KeyTime="0" Value="#FFD1F0B8"/>
+                                            <EasingColorKeyFrame KeyTime="0" Value="#336b87"/>
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <Rectangle x:Name="rectangle" Fill="#FFF4F4F5" RenderTransformOrigin="0.262,0.675" Stroke="Black" RadiusX="3" RadiusY="3" Width="90" Height="30"/>
+                        <Rectangle x:Name="rectangle" Fill="#90AFC5" RenderTransformOrigin="0.262,0.675" Stroke="Black" RadiusX="3" RadiusY="3" Width="90" Height="30"/>
                         <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -74,7 +71,7 @@
         </Setter>
         <Setter Property="FontFamily" Value="Microsoft YaHei UI Light"/>
         <Setter Property="FontSize" Value="16"/>
-        <Setter Property="Foreground" Value="#FF2C5A08"/>
+        <Setter Property="Foreground" Value="#FF2A3132"/>
     </Style>
 
     <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
@@ -159,7 +156,7 @@
     <Style x:Key="LabelStyle" TargetType="Label">
         <Setter Property="FontFamily" Value="Microsoft YaHei UI Light"/>
         <Setter Property="FontSize" Value="16"/>
-        <Setter Property="Foreground" Value="#FF112700"/>
+        <Setter Property="Foreground" Value="#2a3132"/>
         <Setter Property="Height" Value="30"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
@@ -174,43 +171,43 @@
                                 <VisualState x:Name="Normal">
                                     <Storyboard>
                                         <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle">
-                                            <EasingColorKeyFrame KeyTime="0:0:0.3" Value="#FFD1F0B8"/>
-                                            <EasingColorKeyFrame KeyTime="0" Value="#FFB8E199"/>
+                                            <EasingColorKeyFrame KeyTime="0:0:0.3" Value="#336b87"/>
+                                            <EasingColorKeyFrame KeyTime="0" Value="#5590AFC5"/>
                                         </ColorAnimationUsingKeyFrames>
                                         <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle">
-                                            <EasingColorKeyFrame KeyTime="0:0:0.3" Value="#FFD1F0B8"/>
-                                            <EasingColorKeyFrame KeyTime="0" Value="#FFA1D37B"/>
+                                            <EasingColorKeyFrame KeyTime="0:0:0.3" Value="#336b87"/>
+                                            <EasingColorKeyFrame KeyTime="0" Value="#90AFC5"/>
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
                                         <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle">
-                                            <EasingColorKeyFrame KeyTime="0" Value="#FFD1F0B8"/>
-                                            <EasingColorKeyFrame KeyTime="0:0:0.3" Value="#FFB8E199"/>
+                                            <EasingColorKeyFrame KeyTime="0" Value="#336b87"/>
+                                            <EasingColorKeyFrame KeyTime="0:0:0.3" Value="#5590AFC5"/>
                                         </ColorAnimationUsingKeyFrames>
                                         <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle">
-                                            <EasingColorKeyFrame KeyTime="0" Value="#FFD1F0B8"/>
-                                            <EasingColorKeyFrame KeyTime="0:0:0.3" Value="#FFA1D37B"/>
+                                            <EasingColorKeyFrame KeyTime="0" Value="#336b87"/>
+                                            <EasingColorKeyFrame KeyTime="0:0:0.3" Value="#90AFC5"/>
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
                                     <Storyboard>
                                         <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle">
-                                            <EasingColorKeyFrame KeyTime="0" Value="#FFA1D37B"/>
-                                            <EasingColorKeyFrame KeyTime="0:0:0.1" Value="#FFD1F0B8"/>
+                                            <EasingColorKeyFrame KeyTime="0" Value="#90AFC5"/>
+                                            <EasingColorKeyFrame KeyTime="0:0:0.1" Value="#336b87"/>
                                         </ColorAnimationUsingKeyFrames>
                                         <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle">
-                                            <EasingColorKeyFrame KeyTime="0" Value="#FFB8E199"/>
-                                            <EasingColorKeyFrame KeyTime="0:0:0.1" Value="#FFD1F0B8"/>
+                                            <EasingColorKeyFrame KeyTime="0" Value="#5590AFC5"/>
+                                            <EasingColorKeyFrame KeyTime="0:0:0.1" Value="#336b87"/>
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Disabled"/>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <Rectangle x:Name="rectangle" Fill="#FFD1F0B8" RenderTransformOrigin="0.262,0.675" Stroke="#FFE2F2D6" RadiusX="3" RadiusY="3" Width="70" Height="70" StrokeThickness="1"/>
+                        <Rectangle x:Name="rectangle" Fill="#90AFC5" RenderTransformOrigin="0.262,0.675" Stroke="#5590AFC5" RadiusX="3" RadiusY="3" Width="70" Height="70" StrokeThickness="1"/>
                         <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -225,7 +222,7 @@
         </Setter>
         <Setter Property="FontFamily" Value="Microsoft YaHei UI Light"/>
         <Setter Property="FontSize" Value="16"/>
-        <Setter Property="Foreground" Value="#FF112700"/>
+        <Setter Property="Foreground" Value="#DED"/>
     </Style>
 
     <Style x:Key="MenuItemStyle" TargetType="{x:Type Button}">
@@ -334,20 +331,25 @@
         <Grid>
             <Border BorderThickness="0" CornerRadius="5" Name="border"
                     TextBlock.Foreground="Black" Background="Transparent" Margin="10,10,10,0" Height="50"/>
-            <Image Source="images/icon.png" Margin="15,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Uniform" Width="40" Height="40"/>
-            <TextBlock Foreground="#FF112700" Margin="70,20,10,10" Text="{Binding Path=Title, RelativeSource={RelativeSource TemplatedParent}}" FontWeight="Bold" FontFamily="Microsoft YaHei UI Light" FontSize="21.333"/>
+            <Image Source="{Binding Path=Backuped, RelativeSource={RelativeSource TemplatedParent}}" Margin="15,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Uniform" Width="40" Height="40"/>
+            <TextBlock x:Name="Title" Foreground="#FF112700" Margin="70,20,10,10" Text="{Binding Path=Title, RelativeSource={RelativeSource TemplatedParent}}" FontWeight="Bold" FontFamily="Microsoft YaHei UI Light" FontSize="21.333"/>
+
+            <TextBlock x:Name="CreatedLabel" Foreground="#FF464646" Margin="0,15,20,0" Text="{Binding Path=GetShortDateCreate, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI Light"/>
+            <TextBlock x:Name="ChangedLabel" Foreground="#FF5E9732" Margin="0,40,20,0" Text="{Binding Path=GetShortDateChanged, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI Light"/>
+
+            <TextBlock x:Name="CreatedText" Text="Created:" Foreground="#FF464646" Margin="0,15,110,0" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI Light"/>
+            <TextBlock x:Name="ChangedText" Text="Changed:" Foreground="#FF5E9732" Margin="0,40,110,0" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI Light"/>
+
             
-            <TextBlock Foreground="#FF464646" Margin="0,15,20,0" Text="{Binding Path=GetShortDateCreate, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI Light"/>
-            <TextBlock Foreground="#FF5E9732" Margin="0,40,20,0" Text="{Binding Path=GetShortDateChanged, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI Light"/>
-
-            <TextBlock Text="Created:" Foreground="#FF464646" Margin="0,15,110,0" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI Light"/>
-            <TextBlock Text="Changed:" Foreground="#FF5E9732" Margin="0,40,110,0" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI Light"/>
-
-            <TextBlock Text="{Binding Path=Backuped, RelativeSource={RelativeSource TemplatedParent}}" Foreground="#FF626A63" Margin="0,27,0,0" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="12"/>
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsSelected" Value="True">
-                <Setter TargetName="border" Property="Background" Value="#FFD1F0B8"></Setter>
+                <Setter TargetName="border" Property="Background" Value="#DDB25139"></Setter>
+                <Setter TargetName="CreatedText" Property="Foreground" Value="#DED"/>
+                <Setter TargetName="ChangedText" Property="Foreground" Value="LawnGreen"/>
+                <Setter TargetName="CreatedLabel" Property="Foreground" Value="#DED"/>
+                <Setter TargetName="ChangedLabel" Property="Foreground" Value="LawnGreen"/>
+                <Setter TargetName="Title" Property="Foreground" Value="#DED"/>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

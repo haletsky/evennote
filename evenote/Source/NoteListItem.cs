@@ -29,23 +29,23 @@ namespace evenote
         */
         public string Backuped {
             get {
-                if (Evennote.OfflineMode) return "";
+                if (Evennote.OfflineMode) return @"images\notelocal.png";
                 (Content as Note).RefreshNoteState(Evennote.user.id);
                 if((Content as Note).Backuped == -2)
                 {
-                    return "LOCAL NOTE";
+                    return @"images\notelocal.png";
                 }
                 else if((Content as Note).Backuped == -1)
                 {
-                    return "NEED SYNC";
+                    return @"images\noteneedsync.png";
                 }
                 else if ((Content as Note).Backuped == 0)
                 {
-                    return "SYNCHED";
+                    return @"images\notesynched.png";
                 }
                 else if ((Content as Note).Backuped == 1)
                 {
-                    return "NEED SYNC";
+                    return @"images\noteneedsync.png";
                 }
                 return "";
             }
