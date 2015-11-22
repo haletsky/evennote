@@ -9,8 +9,8 @@
       Title="search_page">
 
     <Grid>
-        <Label Content="username:" Style="{DynamicResource LabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,260,100"/>
-        <TextBox x:Name="textBox" Style="{DynamicResource TextBoxStyle}" HorizontalAlignment="Center" Height="30" Margin="0,0,50,100" TextWrapping="Wrap" VerticalAlignment="Center" Width="120" VerticalContentAlignment="Center"/>
-        <Button x:Name="searchBtn" Style="{DynamicResource ButtonStyle}" Content="Search" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="220,0,50,100" Click="searchBtn_Click" IsDefault="True"/>
+        <Label Content="username:" Style="{DynamicResource LabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,260,50"/>
+        <TextBox x:Name="textBox" Style="{DynamicResource TextBoxStyle}" HorizontalAlignment="Center" Height="30" Margin="0,0,50,50" TextWrapping="Wrap" VerticalAlignment="Center" Width="120" VerticalContentAlignment="Center"/>
+        <Button x:Name="searchBtn" Style="{DynamicResource ButtonStyle}" Content="Search" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="220,0,50,50" Click="searchBtn_Click" IsDefault="True"/>
     </Grid>
 </Page>

@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:evenote.pages"
-      xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="630"
       Title="editnote_page" Initialized="Page_Initialized">
@@ -12,9 +11,7 @@
     <Grid Background="#FFF0F0F0">
         <Label x:Name="titleLabel" Content="Title:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Style="{DynamicResource LabelStyle}" Padding="0,5,5,5"/>
         <TextBox x:Name="titleTextBox" HorizontalAlignment="Left" Margin="54,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Style="{DynamicResource TextBoxStyle}" Width="120" BorderThickness="0,0,0,1" Background="{x:Null}"/>
-        <RichTextBox Background="{Binding ElementName=colorpicker, Path=SelectedColor.Value}" x:Name="richTextBox" Margin="0,85,0,0" Style="{DynamicResource RichTextBoxStyle}" />
-        
-        <xctk:ColorPicker x:Name="colorpicker" Width="50" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0" BorderThickness="0" AvailableColorsSortingMode="HueSaturationBrightness" ColorMode="ColorCanvas" SelectedColorChanged="colorpicker_SelectedColorChanged" />
+        <RichTextBox x:Name="richTextBox" Margin="0,85,0,0" Style="{DynamicResource RichTextBoxStyle}" />
         
         <ToolBar x:Name="toolBar" VerticalAlignment="Top" Height="35" Background="#FFF0F0F0" Margin="0,50,-12,0">
             <Button x:Name="save_button" ToolTip="Save this note to default directory." Style="{DynamicResource MenuItemStyle}" Click="save_button_Click">

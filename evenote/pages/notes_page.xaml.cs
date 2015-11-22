@@ -31,6 +31,7 @@ namespace evenote.pages
         {
             InitializeComponent();
             Notebook.rememberThis = null;
+            RefreshStatusBackup();
         }
 
         private void addnote_btn_Click(object sender, RoutedEventArgs e)
@@ -55,6 +56,7 @@ namespace evenote.pages
         private void sendnote_btn_Click(object sender, RoutedEventArgs e)
         {
             Dispatcher.BeginInvoke(new ThreadStart(Evennote.SyncNotes)); //Executes the specified delegate asynchronously with the specified arguments, at the specified priority, on the thread that the Dispatcher was created on.
+            RefreshStatusBackup();
         }
 
         private void listView_Initialized(object sender, EventArgs e)
@@ -76,7 +78,12 @@ namespace evenote.pages
             {
                 noteListItems.Add(new NoteListItem(x));
             }
-            listView.Items.Refresh();
+            listView.Items.Refresh();        
+        }
+
+        public void RefreshStatusBackup()
+        {
+            statusBackup.Content = String.Format("Backup: {0}", Evennote.GetCountNotesFromDB());
         }
     }
 }
