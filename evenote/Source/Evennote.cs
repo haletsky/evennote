@@ -10,7 +10,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Documents;
 using Microsoft.Win32;
 using evenote.pages;
-
+using System.Windows.Media;
 
 namespace evenote
 {
@@ -19,6 +19,12 @@ namespace evenote
         public static User user;
         public static User contextUser;
         public static string path;
+
+        public static bool AutoLogin { get; set; }
+        public static Color ColorNote { get; set; }
+        public static string ConfigUserFile { get; set; }
+        public static string ConfigFile { get { return String.Format("C:\\Users\\{0}\\Documents\\evennote\\config.ini", Environment.UserName); } }
+        public static string DeleteDirectory { get; set; }
 
         public static void SetUserDirectory(string username)
         {
@@ -34,7 +40,22 @@ namespace evenote
 
             path = String.Format("C:\\Users\\{0}\\Documents\\evennote\\{1}\\", Environment.UserName, username);
 
-            Directory.CreateDirectory(path + ".del");
+            ConfigUserFile = path + "user.ini";
+            DeleteDirectory = path + ".del";
+
+            if (!File.Exists(ConfigUserFile))
+            {
+                StreamWriter x = File.CreateText(ConfigUserFile);
+                x.Close();
+            }
+            else
+            {
+                ColorNote = new Color();
+                //Color.xFile.ReadAllText(ConfigUserFile);
+
+            }
+
+            Directory.CreateDirectory(DeleteDirectory);
         }
 
         public static bool Authorization(string username, string password)
@@ -74,11 +95,6 @@ namespace evenote
 
             //Отключаемся от БД
             MyDataBase.CloseConnectToDB();
-
-            SetUserDirectory(username);
-
-            //Считываем с диска существующие заметки
-            Notebook.LoadNotes();
 
             return true;
         }
@@ -194,6 +210,13 @@ namespace evenote
 
             if (openFileDialog1.ShowDialog() == true)
             {
+                FileInfo s = new FileInfo(openFileDialog1.FileName);
+                if(s.Length > 1000000)
+                {
+                    MessageBox.Show("Image size can't be over 1mb.");
+                    return null;
+                }
+                
                 return BitmapFrame.Create(new Uri(openFileDialog1.FileName));
             }
             return null;
@@ -204,13 +227,14 @@ namespace evenote
             //Удаление заметок из бд и из системы.
             MyDataBase.ConnectToDB();
 
-            string[] notes = Directory.GetFiles(path + ".del\\");
+            string[] notes = Directory.GetFiles(DeleteDirectory);
 
             for (int i = 0; i < notes.Length; i++)
             {
                 MyDataBase.ExecuteCommand("DELETE FROM `evennote_db`.`notes` WHERE `iduser`='" + Evennote.user.id + "' AND `title`='" + notes[i].Split('\\').Last().Split('.').First() + "';");
                 //Разбиваем путь по слэшам, берем имя файла с расширением. Разюиваем имя файла и вытягиваем имя заметки.
-                File.Delete(path + ".del\\" + notes[i].Split('\\').Last());
+                File.Delete(notes[i]);
+
                 MyDataBase.rdr.Close();
             }
 
@@ -245,27 +269,25 @@ namespace evenote
             {
                 bool flag = true;
                 foreach (Note y in fromDB) //коллекция заметок из бд
-                {                  
+                {
                     if (y.Title == x.Title)
                     {
                         flag = false;
-                        //Время взятое из БД почему то не равняется времени локальному, хотя все базовые значения совпадают. 
 
                         if (DateTime.Compare(x.DateChanged, y.DateChanged) < 0)
                         {
                             //Когда на бд новая заметка, а у нас старая
-                            
+
                             x.DateChanged = y.DateChanged;
                             x.DateCreate = y.DateCreate;
-                            
+
                             x.Text = y.Text;
-                                                        
+
                             x.SaveToFile(String.Format("{0}{1}.note", Evennote.path, x.Title));
 
                             File.SetCreationTime(String.Format("{0}{1}.note", Evennote.path, x.Title), x.DateCreate);
                             File.SetLastWriteTime(String.Format("{0}{1}.note", Evennote.path, x.Title), x.DateChanged);
 
-                            (((Application.Current.MainWindow as MainWindow).mainframe.Content as menu_page).frame.Content as notes_page).SyncListView();
                             break;
                         }
                         else if (DateTime.Compare(x.DateChanged, y.DateChanged) > 0)
@@ -273,7 +295,7 @@ namespace evenote
                             //Когда на бд старая заметка, а у нас новая
 
                             idnote = y.Id;
-                            
+
                             using (MemoryStream mem = new MemoryStream())
                             {
                                 TextRange textRange = new TextRange(
@@ -324,15 +346,53 @@ namespace evenote
                 {
                     y.SaveToFile(String.Format("{0}{1}.note", Evennote.path, y.Title));
                     Notebook.notebook.Add(y);
-                    
+
                     File.SetCreationTime(String.Format("{0}{1}.note", Evennote.path, y.Title), y.DateCreate);
                     File.SetLastWriteTime(String.Format("{0}{1}.note", Evennote.path, y.Title), y.DateChanged);
-                    (((Application.Current.MainWindow as MainWindow).mainframe.Content as menu_page).frame.Content as notes_page).SyncListView();
+
                 }
             }
 
             MyDataBase.rdr.Close();
             MyDataBase.CloseConnectToDB();
+
+            (((Application.Current.MainWindow as MainWindow).mainframe.Content as menu_page).frame.Content as notes_page).SyncListView();
+        }
+
+        public static void SetConfigurateFile()
+        {
+            StreamWriter sw = File.CreateText(ConfigFile);
+            sw.Close();
+        }
+
+        public static string ReadConfigFile() { 
+            return File.ReadAllText(ConfigFile);
+        }
+
+        public static void WriteConfigFile(string data)
+        {
+            File.WriteAllText(ConfigFile, user.username + " " + data);
+        }
+
+        public static int GetCountNotesFromDB()
+        {
+            MyDataBase.ConnectToDB();
+
+            MyDataBase.ExecuteCommand("SELECT COUNT(idnote) FROM evennote_db.notes WHERE notes.iduser = "+ user.id +";");
+
+            if (!MyDataBase.rdr.HasRows) return 0;
+
+            int x = 0;
+
+            while (MyDataBase.rdr.Read())
+            {
+                x = Convert.ToInt32((long)MyDataBase.rdr[0]);
+            }
+
+            MyDataBase.rdr.Close();
+            MyDataBase.CloseConnectToDB();
+
+            return x;
         }
     }
 }

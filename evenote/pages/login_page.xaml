@@ -7,17 +7,15 @@
       xmlns:evenote="clr-namespace:evenote" x:Class="evenote.pages.login_page"
       mc:Ignorable="d" 
       d:DesignHeight="419" d:DesignWidth="700"
-      Title="login_page">
-
-
+      Title="login_page" Initialized="Page_Initialized">
 
     <Grid>
         <TextBox x:Name="login" Text="login" Margin="0,0,0,100" HorizontalAlignment="Center" Width="200" Style="{DynamicResource TextBoxStyle}" GotFocus="login_GotFocus" LostFocus="login_LostFocus" PreviewTextInput="login_PreviewTextInput"/>
         <PasswordBox x:Name="password" Password="password" HorizontalAlignment="Center" Width="200" Style="{DynamicResource PassBoxStyle}" LostFocus="password_LostFocus" GotFocus="password_GotFocus" PreviewTextInput="login_PreviewTextInput"/>
-        <Button x:Name="button" Content="Log In" Style="{DynamicResource ButtonStyle}" Height="30" HorizontalAlignment="Center" Width="90" Click="button_Click" IsDefault="True" Margin="0,100,110,0" />
-        <Button x:Name="signUp_button" Content="Sign Up" Style="{DynamicResource ButtonStyle}" Height="30" HorizontalAlignment="Center" Width="90" Click="signUp_button_Click" Margin="110,100,0,0" />
+        <Button x:Name="button" Content="Log In" Style="{DynamicResource ButtonStyle}" Height="30" HorizontalAlignment="Center" Width="90" Click="button_Click" IsDefault="True" Margin="0,150,110,0" />
+        <Button x:Name="signUp_button" Content="Sign Up" Style="{DynamicResource ButtonStyle}" Height="30" HorizontalAlignment="Center" Width="90" Click="signUp_button_Click" Margin="110,150,0,0" />
         <Image x:Name="image" HorizontalAlignment="Center" Source="/evenote;component/images/icon.png" VerticalAlignment="Center" Margin="0,0,0,300" Width="100"/>
-        <Label Content="Bogdan Khaletsky" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontFamily="Microsoft YaHei UI Light" Foreground="Gray" FontSize="16"/>
-        <Label Content="even;note" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Verdana" Foreground="#FFB6D69B" FontSize="53.333" Margin="0,0,0,300" Visibility="Hidden"/>
+        <Label Content="by Bogdan Khaletsky" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontFamily="Microsoft YaHei UI Light" Foreground="Gray" FontSize="16"/>
+        <CheckBox x:Name="checkBox" Content="Remember me" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI Light" Margin="0,75,0,0" Unchecked="checkBox_Unchecked" Checked="checkBox_Checked"/>
     </Grid>
 </Page>

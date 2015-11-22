@@ -67,6 +67,8 @@ namespace evenote.pages
             Notebook.notebook.RemoveRange(0, Notebook.notebook.Count);
             Evennote.user.online = false;
             (Application.Current.MainWindow as MainWindow).ChangePage("pages/login_page.xaml");
+            Evennote.AutoLogin = false;
+            System.IO.File.Delete(Evennote.ConfigFile);
             MyDataBase.ConnectToDB();
             MyDataBase.ChangeOnlineStatus(Evennote.user.id);
             MyDataBase.CloseConnectToDB();

@@ -14,9 +14,12 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Background="#FFD1F0B8">
+            <StackPanel.Effect>
+                <DropShadowEffect Direction="0" ShadowDepth="1" Opacity="0.35" BlurRadius="6"/>
+            </StackPanel.Effect>
             <Button x:Name="profile_btn" Content="Profile" VerticalAlignment="Top" Click="profile_btn_Click" Style="{DynamicResource MenuButtonStyle}"/>
             <Button x:Name="notes_btn" Content="Notes" VerticalAlignment="Top" Click="notes_btn_Click" Style="{DynamicResource MenuButtonStyle}"/>
-            <Button x:Name="search_btn" Content="Search" VerticalAlignment="Top" Click="search_btn_Click" Style="{DynamicResource MenuButtonStyle}"/>         
+            <Button x:Name="search_btn" Content="Search" VerticalAlignment="Top" Click="search_btn_Click" Style="{DynamicResource MenuButtonStyle}"/>
         </StackPanel>
         <Frame x:Name="frame" Content="" Grid.Column="1" NavigationUIVisibility="Hidden" Focusable="False" JournalOwnership="UsesParentJournal"/>
 

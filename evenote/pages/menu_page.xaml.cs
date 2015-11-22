@@ -22,9 +22,8 @@ namespace evenote.pages
     {
         public menu_page()
         {
-            InitializeComponent();
+            InitializeComponent();           
         }
-
 
         //Методы смены интерфейса
         private void notes_btn_Click(object sender, RoutedEventArgs e)

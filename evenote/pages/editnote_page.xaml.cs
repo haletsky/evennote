@@ -121,5 +121,15 @@ namespace evenote.pages
             File.SetCreationTime(String.Format("{1}{0}.note", Notebook.Last().Title, Evennote.path), temp);
             ((Application.Current.MainWindow as MainWindow).mainframe.Content as menu_page).frame.Source = new Uri("notes_page.xaml", UriKind.Relative);
         }
+
+        private void colorpickerbtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void colorpicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            //File.AppendAllText(Evennote.ConfigUserFile, Evennote.ColorNote.ToString());
+        }
     }
 }

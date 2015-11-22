@@ -334,6 +334,8 @@
 
             <TextBlock Text="Created:" Foreground="#FF464646" Margin="0,15,110,0" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI Light"/>
             <TextBlock Text="Changed:" Foreground="#FF5E9732" Margin="0,40,110,0" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI Light"/>
+
+            <TextBlock Text="{Binding Path=Backuped, RelativeSource={RelativeSource TemplatedParent}}" Foreground="#FF626A63" Margin="0,27,0,0" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="12"/>
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsSelected" Value="True">

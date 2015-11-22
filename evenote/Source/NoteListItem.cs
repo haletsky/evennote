@@ -21,6 +21,34 @@ namespace evenote
             this.Template = (ControlTemplate)this.FindResource("TryListViewItemWork");
         }
 
+        /*
+        -2 на бд нет заметки
+        -1 на бд старая заметка
+        0 заметки равны
+        1 на бд новая заметка
+        */
+        public string Backuped {
+            get {
+                (Content as Note).RefreshNoteState(Evennote.user.id);
+                if((Content as Note).Backuped == -2)
+                {
+                    return "LOCAL NOTE";
+                }
+                else if((Content as Note).Backuped == -1)
+                {
+                    return "NEED SYNC";
+                }
+                else if ((Content as Note).Backuped == 0)
+                {
+                    return "SYNCHED";
+                }
+                else if ((Content as Note).Backuped == 1)
+                {
+                    return "NEED SYNC";
+                }
+                return "";
+            }
+        }
         public string Title { get { return (Content as Note).Title; } set { (Content as Note).Title = value; } }
         public DateTime DateCreate { get { return (Content as Note).DateCreate; } set { (Content as Note).DateCreate = value;  } }
         public DateTime DateChanged { get { return (Content as Note).DateChanged; } set { (Content as Note).DateChanged = value; } }

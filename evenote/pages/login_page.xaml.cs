@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DataBaseAPI;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace evenote.pages
 {
@@ -30,18 +31,32 @@ namespace evenote.pages
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
+            string pass = password.Password;
             try
             {
-                Evennote.Authorization(login.Text, password.Password);
+                if (Evennote.Authorization(login.Text, password.Password))
+                {
+                    (Application.Current.MainWindow as MainWindow).ChangePage("pages/menu_page.xaml");
+
+                    Evennote.SetUserDirectory(login.Text);
+
+                    //Считываем с диска существующие заметки
+                    Notebook.LoadNotes();
+
+                    //Сохраняем логин пароль для автовхода
+                    if (checkBox.IsChecked.Value)
+                        Evennote.WriteConfigFile(pass);
+                }
+                else
+                {
+                    MessageBox.Show("Login or password incorrect.");
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 return;
             }
-
-            //Перенаправляем на главное меню
-            (Application.Current.MainWindow as MainWindow).ChangePage("pages/menu_page.xaml");
         }
 
         //Просто методы для удобства интерфейса 
@@ -83,6 +98,53 @@ namespace evenote.pages
         {
             Regex regex = new Regex("[^A-Za-z0-9_]+"); //regex that matches disallowed text
             return !regex.IsMatch(text);
+        }
+
+        private void Page_Initialized(object sender, EventArgs e)
+        {
+            if (!File.Exists(Evennote.ConfigFile))
+            {
+                if (Evennote.AutoLogin)
+                    Evennote.SetConfigurateFile();
+                return;
+            }
+            else
+            {
+                checkBox.IsChecked = true;
+                string config = Evennote.ReadConfigFile();
+                if (config.Equals("")) return;
+                try
+                {
+                    if (Evennote.Authorization(config.Split(' ').First(), config.Split(' ').Last()))
+                    {
+                        (Application.Current.MainWindow as MainWindow).ChangePage("pages/menu_page.xaml");
+
+                        Evennote.SetUserDirectory(config.Split(' ').First());
+
+                        //Считываем с диска существующие заметки
+                        Notebook.LoadNotes();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Login or password incorrect.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+            }
+        }
+
+        private void checkBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Evennote.AutoLogin = false;
+        }
+
+        private void checkBox_Checked(object sender, RoutedEventArgs e)
+        {
+            Evennote.AutoLogin = true;
         }
     }
 }

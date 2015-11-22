@@ -23,7 +23,7 @@ namespace evenote
 
         public static void LoadNotes()
         {
-            string[] notes = Directory.GetFiles(Evennote.path);
+            string[] notes = Directory.GetFiles(Evennote.path, "*.note");
 
             for (int i = 0; i < notes.Length; i++)
             {
@@ -37,7 +37,7 @@ namespace evenote
         {
             try
             {
-                File.Move(String.Format("{0}{1}.note", Evennote.path, n.Title), String.Format("{0}{1}\\{2}.note", Evennote.path, ".del", n.Title));
+                File.Move(String.Format("{0}{1}.note", Evennote.path, n.Title), String.Format("{0}\\{1}.note", Evennote.DeleteDirectory, n.Title));
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
 
