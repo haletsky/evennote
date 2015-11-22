@@ -31,6 +31,16 @@ namespace evenote.pages
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
+            if (Evennote.OfflineMode)
+            {
+                if (!Directory.Exists(String.Format("C:\\Users\\{0}\\Documents\\evennote\\{1}\\", Environment.UserName, login.Text))) return;
+                Evennote.SetUserDirectory(login.Text);
+
+                //Считываем с диска существующие заметки
+                Notebook.LoadNotes();
+                (Application.Current.MainWindow as MainWindow).ChangePage("pages/menu_page.xaml");
+                return;
+            }
             string pass = password.Password;
             try
             {
@@ -145,6 +155,18 @@ namespace evenote.pages
         private void checkBox_Checked(object sender, RoutedEventArgs e)
         {
             Evennote.AutoLogin = true;
+        }
+
+        private void checkBoxOffline_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Evennote.OfflineMode = false;
+            signUp_button.IsEnabled = true;
+        }
+
+        private void checkBoxOffline_Checked(object sender, RoutedEventArgs e)
+        {
+            Evennote.OfflineMode = true;
+            signUp_button.IsEnabled = false;
         }
     }
 }

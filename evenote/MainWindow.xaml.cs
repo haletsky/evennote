@@ -37,6 +37,7 @@ namespace evenote
 
         private void mainwindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            if (Evennote.OfflineMode) return;
             if (Evennote.user != null && Evennote.user.online == true)
             {
                 MyDataBase.ConnectToDB();

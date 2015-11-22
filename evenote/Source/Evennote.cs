@@ -20,9 +20,26 @@ namespace evenote
         public static User contextUser;
         public static string path;
 
+        private static bool offlineMode = false;
+        public static bool OfflineMode
+        {
+            get
+            {
+                if (!offlineMode)
+                {
+                    if (!GetInternetConnect())
+                    {
+                        offlineMode = true;
+                    }
+                }
+                return offlineMode;
+            }
+            set
+            {
+                offlineMode = value;
+            }
+        }
         public static bool AutoLogin { get; set; }
-        public static Color ColorNote { get; set; }
-        public static string ConfigUserFile { get; set; }
         public static string ConfigFile { get { return String.Format("C:\\Users\\{0}\\Documents\\evennote\\config.ini", Environment.UserName); } }
         public static string DeleteDirectory { get; set; }
 
@@ -40,20 +57,7 @@ namespace evenote
 
             path = String.Format("C:\\Users\\{0}\\Documents\\evennote\\{1}\\", Environment.UserName, username);
 
-            ConfigUserFile = path + "user.ini";
             DeleteDirectory = path + ".del";
-
-            if (!File.Exists(ConfigUserFile))
-            {
-                StreamWriter x = File.CreateText(ConfigUserFile);
-                x.Close();
-            }
-            else
-            {
-                ColorNote = new Color();
-                //Color.xFile.ReadAllText(ConfigUserFile);
-
-            }
 
             Directory.CreateDirectory(DeleteDirectory);
         }
@@ -224,6 +228,8 @@ namespace evenote
 
         public static void SyncNotes()
         {
+            if (!GetInternetConnect()) return;
+
             //Удаление заметок из бд и из системы.
             MyDataBase.ConnectToDB();
 
@@ -376,6 +382,7 @@ namespace evenote
 
         public static int GetCountNotesFromDB()
         {
+            if (OfflineMode) return -1;
             MyDataBase.ConnectToDB();
 
             MyDataBase.ExecuteCommand("SELECT COUNT(idnote) FROM evennote_db.notes WHERE notes.iduser = "+ user.id +";");
@@ -393,6 +400,29 @@ namespace evenote
             MyDataBase.CloseConnectToDB();
 
             return x;
+        }
+
+        public static bool GetInternetConnect()
+        {
+            bool isConnected = false;
+            using (var tcpClient = new System.Net.Sockets.TcpClient())
+            {
+                tcpClient.SendTimeout = 10;
+                tcpClient.ReceiveTimeout = 10;
+                tcpClient.NoDelay = true;
+
+                try {
+                    tcpClient.Connect("64.233.161.113", 443); // google
+                    isConnected = tcpClient.Connected;
+                }
+                catch { }
+                finally
+                {
+                    isConnected = tcpClient.Connected;
+                }
+            }
+
+            return isConnected;
         }
     }
 }

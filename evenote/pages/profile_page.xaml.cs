@@ -24,19 +24,12 @@ namespace evenote.pages
         public profile_page()
         {
             InitializeComponent();
-            if (Evennote.contextUser == Evennote.user)
-            {
-                logout_btn.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                logout_btn.Visibility = Visibility.Hidden;
-            }
         }
 
         //Когда открываем страницу профиля  - заполняем данные о пользователе
         private void Grid_Initialized(object sender, EventArgs e)
         {
+            if (Evennote.OfflineMode) return;
             if (Evennote.contextUser.avatar != null)
                 image.Fill = new ImageBrush(Evennote.contextUser.avatar);
 
@@ -60,11 +53,28 @@ namespace evenote.pages
                 SolidColorBrush color = new SolidColorBrush(c);
                 labeloline.Foreground = color;
             }
+
+            if (Evennote.contextUser == Evennote.user)
+            {
+                logout_btn.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                logout_btn.Visibility = Visibility.Hidden;
+            }
         }
 
         private void logout_btn_Click(object sender, RoutedEventArgs e)
         {
             Notebook.notebook.RemoveRange(0, Notebook.notebook.Count);
+            if (Evennote.OfflineMode)
+            {
+                (Application.Current.MainWindow as MainWindow).ChangePage("pages/login_page.xaml");
+                System.IO.File.Delete(Evennote.ConfigFile);
+                Evennote.OfflineMode = false;
+                return;
+            }
+
             Evennote.user.online = false;
             (Application.Current.MainWindow as MainWindow).ChangePage("pages/login_page.xaml");
             Evennote.AutoLogin = false;

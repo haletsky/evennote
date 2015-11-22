@@ -29,6 +29,7 @@ namespace evenote
         */
         public string Backuped {
             get {
+                if (Evennote.OfflineMode) return "";
                 (Content as Note).RefreshNoteState(Evennote.user.id);
                 if((Content as Note).Backuped == -2)
                 {

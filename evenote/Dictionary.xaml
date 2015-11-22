@@ -48,7 +48,13 @@
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
-                                <VisualState x:Name="Disabled"/>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle">
+                                            <EasingColorKeyFrame KeyTime="0" Value="#FFD1F0B8"/>
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <Rectangle x:Name="rectangle" Fill="#FFF4F4F5" RenderTransformOrigin="0.262,0.675" Stroke="Black" RadiusX="3" RadiusY="3" Width="90" Height="30"/>
@@ -59,7 +65,9 @@
                         <Trigger Property="IsDefaulted" Value="True"/>
                         <Trigger Property="IsMouseOver" Value="True"/>
                         <Trigger Property="IsPressed" Value="True"/>
-                        <Trigger Property="IsEnabled" Value="False"/>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" TargetName="rectangle" Value="0.35"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

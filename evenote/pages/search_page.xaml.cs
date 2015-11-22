@@ -24,6 +24,7 @@ namespace evenote.pages
         public search_page()
         {
             InitializeComponent();
+            searchBtn.IsEnabled = !Evennote.OfflineMode;
         }
 
         private void searchBtn_Click(object sender, RoutedEventArgs e)

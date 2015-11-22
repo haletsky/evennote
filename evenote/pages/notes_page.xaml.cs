@@ -31,6 +31,9 @@ namespace evenote.pages
         {
             InitializeComponent();
             Notebook.rememberThis = null;
+
+            syncnote_btn.IsEnabled = !Evennote.OfflineMode;
+
             RefreshStatusBackup();
         }
 
@@ -55,8 +58,15 @@ namespace evenote.pages
 
         private void sendnote_btn_Click(object sender, RoutedEventArgs e)
         {
-            Dispatcher.BeginInvoke(new ThreadStart(Evennote.SyncNotes)); //Executes the specified delegate asynchronously with the specified arguments, at the specified priority, on the thread that the Dispatcher was created on.
-            RefreshStatusBackup();
+            try {
+                Evennote.SyncNotes();
+                //Dispatcher.BeginInvoke(new ThreadStart(Evennote.SyncNotes)); //Executes the specified delegate asynchronously with the specified arguments, at the specified priority, on the thread that the Dispatcher was created on.
+                RefreshStatusBackup();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void listView_Initialized(object sender, EventArgs e)
@@ -83,7 +93,12 @@ namespace evenote.pages
 
         public void RefreshStatusBackup()
         {
-            statusBackup.Content = String.Format("Backup: {0}", Evennote.GetCountNotesFromDB());
+            int temp = Evennote.GetCountNotesFromDB();
+            string result = "";
+            if (temp == -1) result = "You are offline.";
+            else result = String.Format("Backup: {0}", temp);
+
+            statusBackup.Content = result;
         }
     }
 }
