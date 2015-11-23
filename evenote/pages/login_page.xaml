@@ -14,7 +14,7 @@
         <PasswordBox x:Name="password" Password="password" HorizontalAlignment="Center" Width="200" Style="{DynamicResource PassBoxStyle}" LostFocus="password_LostFocus" GotFocus="password_GotFocus" PreviewTextInput="login_PreviewTextInput"/>
         <Button x:Name="button" Content="Log In" Style="{DynamicResource ButtonStyle}" Height="30" HorizontalAlignment="Center" Width="90" Click="button_Click" IsDefault="True" Margin="0,150,110,0" />
         <Button x:Name="signUp_button" Content="Sign Up" Style="{DynamicResource ButtonStyle}" Height="30" HorizontalAlignment="Center" Width="90" Click="signUp_button_Click" Margin="110,150,0,0" />
-        <Image x:Name="image" HorizontalAlignment="Center" Source="/evenote;component/images/notesynched.png" VerticalAlignment="Center" Margin="0,0,0,300" Width="100"/>
+        <Image x:Name="image" HorizontalAlignment="Center" Source="/evenote;component/images/logo.png" VerticalAlignment="Center" Margin="0,0,0,300" Width="100"/>
         <Label Content="by Bogdan Khaletsky" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontFamily="Microsoft YaHei UI Light" Foreground="Gray" FontSize="16"/>
         <CheckBox x:Name="checkBox" Content="Remember me" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI Light" Margin="0,75,100,0" Unchecked="checkBox_Unchecked" Checked="checkBox_Checked"/>
         <CheckBox x:Name="checkBoxOffline" Content="Offline mode" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI Light" Margin="100,75,0,0" Unchecked="checkBoxOffline_Unchecked" Checked="checkBoxOffline_Checked"/>

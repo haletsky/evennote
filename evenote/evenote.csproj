@@ -50,7 +50,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>images\notesynched.ico</ApplicationIcon>
+    <ApplicationIcon>images\logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DataBaseAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -220,7 +220,8 @@
     <Content Include="APIs\MySql.Data.Entity.EF6.dll" />
     <Content Include="APIs\MySql.Fabric.Plugin.dll" />
     <Content Include="APIs\MySql.Web.dll" />
-    <Resource Include="images\notesynched.ico" />
+    <Resource Include="images\logo.ico" />
+    <Resource Include="images\logo.png" />
     <Resource Include="images\notelocal.png" />
     <Resource Include="images\noteneedsync.png" />
     <Resource Include="images\notesynched.png" />

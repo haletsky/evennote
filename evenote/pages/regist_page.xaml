@@ -26,7 +26,7 @@
         <PasswordBox x:Name="repeat_password" Password="password" Margin="0" HorizontalAlignment="Center" Width="200" Style="{DynamicResource PassBoxStyle}" LostFocus="password_LostFocus" GotFocus="password_GotFocus" PreviewTextInput="login_PreviewTextInput"/>
         <DatePicker x:Name="datepicker" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,0" Width="200" FirstDayOfWeek="Monday"/>
 
-        <Label x:Name="imagelabel" Margin="322,200,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Choose image" HorizontalContentAlignment="Stretch" Width="298" Foreground="#FF2C5A08" FontFamily="Microsoft YaHei UI Light" FontSize="13.333"/>
+        <Label x:Name="imagelabel" Margin="322,200,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Choose image" HorizontalContentAlignment="Stretch" Width="298" Foreground="#2A3132" FontFamily="Microsoft YaHei UI Light" FontSize="16"/>
         <Button x:Name="selectbutton" Margin="0,200,100,0" Style="{DynamicResource ButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Select" Click="selectbutton_Click" Width="90" Height="30"/>
 
         <Button x:Name="button" Content="Done" Style="{DynamicResource ButtonStyle}" Height="30" HorizontalAlignment="Center" Width="90" Click="button_Click" IsDefault="True" Margin="100,300,0,0" />

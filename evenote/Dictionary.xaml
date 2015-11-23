@@ -330,15 +330,15 @@
     <ControlTemplate x:Key="TryListViewItemWork" TargetType="{x:Type local:NoteListItem}">
         <Grid>
             <Border BorderThickness="0" CornerRadius="5" Name="border"
-                    TextBlock.Foreground="Black" Background="Transparent" Margin="10,10,10,0" Height="50"/>
-            <Image Source="{Binding Path=Backuped, RelativeSource={RelativeSource TemplatedParent}}" Margin="15,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Uniform" Width="40" Height="40"/>
+                    TextBlock.Foreground="Black" Background="Transparent" Margin="10,10,10,0" Height="56"/>
+            <Image Source="{Binding Path=Backuped, RelativeSource={RelativeSource TemplatedParent}}" Margin="15,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Uniform" Width="40" Height="46"/>
             <TextBlock x:Name="Title" Foreground="#FF112700" Margin="70,20,10,10" Text="{Binding Path=Title, RelativeSource={RelativeSource TemplatedParent}}" FontWeight="Bold" FontFamily="Microsoft YaHei UI Light" FontSize="21.333"/>
 
             <TextBlock x:Name="CreatedLabel" Foreground="#FF464646" Margin="0,15,20,0" Text="{Binding Path=GetShortDateCreate, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI Light"/>
-            <TextBlock x:Name="ChangedLabel" Foreground="#FF5E9732" Margin="0,40,20,0" Text="{Binding Path=GetShortDateChanged, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI Light"/>
+            <TextBlock x:Name="ChangedLabel" Foreground="#7F7B27" Margin="0,46,20,0" Text="{Binding Path=GetShortDateChanged, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI Light"/>
 
             <TextBlock x:Name="CreatedText" Text="Created:" Foreground="#FF464646" Margin="0,15,110,0" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI Light"/>
-            <TextBlock x:Name="ChangedText" Text="Changed:" Foreground="#FF5E9732" Margin="0,40,110,0" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI Light"/>
+            <TextBlock x:Name="ChangedText" Text="Changed:" Foreground="#7F7B27" Margin="0,46,110,0" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI Light"/>
 
             
         </Grid>
@@ -346,9 +346,9 @@
             <Trigger Property="IsSelected" Value="True">
                 <Setter TargetName="border" Property="Background" Value="#DDB25139"></Setter>
                 <Setter TargetName="CreatedText" Property="Foreground" Value="#DED"/>
-                <Setter TargetName="ChangedText" Property="Foreground" Value="LawnGreen"/>
+                <Setter TargetName="ChangedText" Property="Foreground" Value="#FFF79F"/>
                 <Setter TargetName="CreatedLabel" Property="Foreground" Value="#DED"/>
-                <Setter TargetName="ChangedLabel" Property="Foreground" Value="LawnGreen"/>
+                <Setter TargetName="ChangedLabel" Property="Foreground" Value="#FFF79F"/>
                 <Setter TargetName="Title" Property="Foreground" Value="#DED"/>
             </Trigger>
         </ControlTemplate.Triggers>

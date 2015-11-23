@@ -15,8 +15,6 @@ using System.Windows.Shapes;
 using DataBaseAPI;
 using System.Diagnostics;
 using System.IO;
-using Windows.UI.Notifications;
-using Windows.Data.Xml.Dom;
 
 namespace evenote
 {
