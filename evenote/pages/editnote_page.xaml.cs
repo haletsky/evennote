@@ -131,5 +131,16 @@ namespace evenote.pages
         {
             //File.AppendAllText(Evennote.ConfigUserFile, Evennote.ColorNote.ToString());
         }
+
+        private void titleTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+        }
+
+        private bool IsTextAllowed(string text)
+        {
+            System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex("[^A-Za-z0-9_]+"); //regex that matches disallowed text
+            return !regex.IsMatch(text);
+        }
     }
 }

@@ -3,24 +3,8 @@
                     xmlns:local="clr-namespace:evenote">
 
     <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
-    <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#99763626"/>
-    <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF763626"/>
-
-    <!--
-    A2EB96
-    72C765
-    3C8D2F
-    16520D
-    020D00
-    -->
-
-    <!--
-    A2EB96
-    72C765
-    3C8D2F
-    16520D
-    020D00
-    -->
+    <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#996BA3BA"/>
+    <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF6BA3BA"/>
 
     <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Template">
