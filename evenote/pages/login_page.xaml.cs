@@ -38,24 +38,30 @@ namespace evenote.pages
 
                 //Считываем с диска существующие заметки
                 Notebook.LoadNotes();
+
                 (Application.Current.MainWindow as MainWindow).ChangePage("pages/menu_page.xaml");
                 return;
             }
             string pass = password.Password;
             try
             {
+                //Если авторизация успешна то..
                 if (Evennote.Authorization(login.Text, password.Password))
                 {
+                    //Пересылаем окно на страницу меню приложения
                     (Application.Current.MainWindow as MainWindow).ChangePage("pages/menu_page.xaml");
 
+                    //Создаем пользовательскую директорию
                     Evennote.SetUserDirectory(login.Text);
 
                     //Считываем с диска существующие заметки
                     Notebook.LoadNotes();
 
+                    Evennote.user.online = true;
+
                     //Сохраняем логин пароль для автовхода
                     if (checkBox.IsChecked.Value)
-                        Evennote.WriteConfigFile(pass);
+                        Evennote.WriteConfigFile(login.Text + " " + pass);
                 }
                 else
                 {
@@ -65,33 +71,7 @@ namespace evenote.pages
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                return;
             }
-        }
-
-        //Просто методы для удобства интерфейса 
-        private void login_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if ((sender as TextBox).Text == "login")
-                (sender as TextBox).Text = "";
-        }
-
-        private void login_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if ((sender as TextBox).Text == "")
-                (sender as TextBox).Text = "login";
-        }
-
-        private void password_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if ((sender as PasswordBox).Password == "")
-                (sender as PasswordBox).Password = "password";
-        }
-
-        private void password_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if ((sender as PasswordBox).Password == "password")
-                (sender as PasswordBox).Password = "";
         }
 
         private void signUp_button_Click(object sender, RoutedEventArgs e)
@@ -99,6 +79,7 @@ namespace evenote.pages
             (Application.Current.MainWindow as MainWindow).ChangePage("pages/regist_page.xaml");
         }
 
+        //Регулярное выражение на пароль и логин
         private void login_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !IsTextAllowed(e.Text);
@@ -110,6 +91,7 @@ namespace evenote.pages
             return !regex.IsMatch(text);
         }
 
+        //Проверяем поставленные чекбоксы (если remember me == true то авторизируем пользователя)
         private void Page_Initialized(object sender, EventArgs e)
         {
             if (!File.Exists(Evennote.ConfigFile))
@@ -168,5 +150,32 @@ namespace evenote.pages
             Evennote.OfflineMode = true;
             signUp_button.IsEnabled = false;
         }
+
+
+        //Просто методы для удобства интерфейса 
+        private void login_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if ((sender as TextBox).Text == "login")
+                (sender as TextBox).Text = "";
+        }
+
+        private void login_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if ((sender as TextBox).Text == "")
+                (sender as TextBox).Text = "login";
+        }
+
+        private void password_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if ((sender as PasswordBox).Password == "")
+                (sender as PasswordBox).Password = "password";
+        }
+
+        private void password_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if ((sender as PasswordBox).Password == "password")
+                (sender as PasswordBox).Password = "";
+        }
+
     }
 }

@@ -14,16 +14,18 @@ namespace evenote
     //Класс-описание заметки
     public class Note
     {
-        public int Backuped { get; set; }
         /*
+        Backuped - определяет статус заметки с сервером
+        (см. метод RefreshNoteState)
         -2 на бд нет заметки
         -1 на бд старая заметка
         0 заметки равны
         1 на бд новая заметка
         */
+        public int Backuped { get; set; }
         public int Id { get; set; }
         public string Title { get; set; }
-        public FlowDocument Text { get; set; }
+        public FlowDocument Text { get; set; } //Содержание заметки (форматированный текст и изображения)
         public DateTime DateCreate { get; set; }
         public DateTime DateChanged { get; set; }
 
@@ -42,8 +44,6 @@ namespace evenote
             Text = new FlowDocument();
             DateCreate = new DateTime();
             DateChanged = new DateTime();
-            //DateChanged = DateChanged.ToUniversalTime();
-            //DateCreate = DateCreate.ToUniversalTime();
         }
 
         public override string ToString()
@@ -85,6 +85,7 @@ namespace evenote
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
+        //Сравнивает даты локальной заметки и сохраненной на сервере
         public void RefreshNoteState(int userid)
         {
             MyDataBase.ConnectToDB();

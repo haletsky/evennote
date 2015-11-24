@@ -14,6 +14,8 @@ namespace evenote
     public static class Notebook
     {
         public static List<Note> notebook = new List<Note>();
+
+        //Необходимый буфер для редактирования, удаления выбранной в списке заметки
         public static Note rememberThis = null;
 
         public static void Add(Note n)

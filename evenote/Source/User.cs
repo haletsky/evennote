@@ -11,6 +11,7 @@ using System.Net;
 
 namespace evenote
 {
+    //Класс - описание пользователя
     public class User
     {
         public int id { get; set; }

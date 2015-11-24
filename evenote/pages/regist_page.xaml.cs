@@ -34,7 +34,7 @@ namespace evenote.pages
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            Regex x = new Regex(@"^\w+@\w+[.]\w+$");
+            Regex x = new Regex(@"^[\w.]+@\w+[.]\w+$");
 
             if (login.Text == "login" || password.Password == "password" || password.Password != repeat_password.Password || datepicker.SelectedDate == null || email.Text == "e@mail.com" || !x.IsMatch(email.Text))
             {
@@ -45,33 +45,6 @@ namespace evenote.pages
             Evennote.Registration(login.Text, password.Password, datepicker.SelectedDate.Value, email.Text, image);
 
             (Application.Current.MainWindow as MainWindow).ChangePage("pages/login_page.xaml");
-        }
-
-        private void login_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if ((sender as TextBox).Text == "login" || (sender as TextBox).Text == "e@mail.com")
-                (sender as TextBox).Text = "";
-        }
-
-        private void login_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if ((sender as TextBox).Text == "")
-            {
-                if((sender as TextBox).Tag as string == "email")(sender as TextBox).Text = "e@mail.com";
-                else (sender as TextBox).Text = "login";
-            }
-        }
-
-        private void password_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if ((sender as PasswordBox).Password == "password")
-                (sender as PasswordBox).Password = "";
-        }
-
-        private void password_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if ((sender as PasswordBox).Password == "")
-                (sender as PasswordBox).Password = "password";
         }
 
         private void selectbutton_Click(object sender, RoutedEventArgs e)
@@ -104,5 +77,35 @@ namespace evenote.pages
         {
             (Application.Current.MainWindow as MainWindow).ChangePage("pages/login_page.xaml");
         }
+
+
+        //Просто методы для удобного интерфейса
+        private void login_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if ((sender as TextBox).Text == "login" || (sender as TextBox).Text == "e@mail.com")
+                (sender as TextBox).Text = "";
+        }
+
+        private void login_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if ((sender as TextBox).Text == "")
+            {
+                if((sender as TextBox).Tag as string == "email")(sender as TextBox).Text = "e@mail.com";
+                else (sender as TextBox).Text = "login";
+            }
+        }
+
+        private void password_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if ((sender as PasswordBox).Password == "password")
+                (sender as PasswordBox).Password = "";
+        }
+
+        private void password_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if ((sender as PasswordBox).Password == "")
+                (sender as PasswordBox).Password = "password";
+        }
+
     }
 }

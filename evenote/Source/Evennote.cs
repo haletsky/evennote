@@ -14,6 +14,11 @@ using System.Windows.Media;
 
 namespace evenote
 {
+    /*
+    Класс Evennote содержит основные методы и свойства программы такие как: информацию 
+    о авторизированном пользователе, пути папок, режимы офлайнмода и автологина, синхронизация 
+    заметок с сервером и т.д.
+    */
     public static class Evennote
     {
         public static User user;
@@ -21,6 +26,8 @@ namespace evenote
         public static string path;
 
         private static bool offlineMode = false;
+
+        //Свойство офлайна. Может включатся вручную или по пропаже(?) интернета
         public static bool OfflineMode
         {
             get
@@ -39,21 +46,20 @@ namespace evenote
                 offlineMode = value;
             }
         }
+
+        //Свойство "Remember me", котороей включается на странице логина
         public static bool AutoLogin { get; set; }
+
+        //Свойство пути к файлу конфига, который содержит логин и пароль
         public static string ConfigFile { get { return String.Format("C:\\Users\\{0}\\Documents\\evennote\\config.ini", Environment.UserName); } }
+
+        //Свойство пути папки "корзины" для заметок пользователя
         public static string DeleteDirectory { get; set; }
 
         public static void SetUserDirectory(string username)
         {
-            if (!Directory.Exists(String.Format("C:\\Users\\{0}\\Documents\\evennote\\", Environment.UserName)))
-            {
-                Directory.CreateDirectory(String.Format("C:\\Users\\{0}\\Documents\\evennote\\", Environment.UserName));
-            }
 
-            if (!Directory.Exists(String.Format("C:\\Users\\{0}\\Documents\\evennote\\{1}\\", Environment.UserName, user)))
-            {
-                Directory.CreateDirectory(String.Format("C:\\Users\\{0}\\Documents\\evennote\\{1}\\", Environment.UserName, username));
-            }
+            Directory.CreateDirectory(String.Format("C:\\Users\\{0}\\Documents\\evennote\\{1}\\", Environment.UserName, username));
 
             path = String.Format("C:\\Users\\{0}\\Documents\\evennote\\{1}\\", Environment.UserName, username);
 
@@ -70,9 +76,10 @@ namespace evenote
             //Проверяем совпадают ли имя и пароли
             MyDataBase.ExecuteCommand("SELECT * FROM users WHERE users.username = '" + username + "' AND users.userpass = '" + password + "'");
 
+            //Проверка, нашли ли мы вообще такого пользователя в БД
             if (MyDataBase.rdr.HasRows == false)
             {
-                //Надо сделать throwException
+                //Надо сделать throwException //ай, потом..
                 MyDataBase.rdr.Close();
                 MyDataBase.CloseConnectToDB();
                 return false;
@@ -93,9 +100,8 @@ namespace evenote
 
             MyDataBase.rdr.Close();
 
-            //Пишем что мы онлайн
+            //Пишем что мы онлайн в БД
             MyDataBase.SetOnlineUser(user.id);
-            user.online = true;
 
             //Отключаемся от БД
             MyDataBase.CloseConnectToDB();
@@ -144,8 +150,8 @@ namespace evenote
             MyDataBase.ExecuteCommand("SELECT * FROM users WHERE users.username = '" + username + "' OR users.email = '" + email + "'");
 
             if (MyDataBase.rdr.HasRows)
-            {
-                MessageBox.Show("This user already exist.");
+            {           
+                MessageBox.Show("This user already exist.");//Некрасиво тут содержать MessageBox, но всё же.
                 return false;
             }
 
@@ -164,7 +170,7 @@ namespace evenote
             return true;
         }
 
-        public static Note OpenNote(string pathnote)
+        public static Note OpenNoteFromFile(string pathnote)
         {
             Note temp = new Note();
             using (FileStream fs = new FileStream(pathnote, FileMode.Open, FileAccess.ReadWrite))
@@ -377,7 +383,7 @@ namespace evenote
 
         public static void WriteConfigFile(string data)
         {
-            File.WriteAllText(ConfigFile, user.username + " " + data);
+            File.WriteAllText(ConfigFile, data);
         }
 
         public static int GetCountNotesFromDB()

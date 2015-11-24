@@ -27,9 +27,12 @@ namespace evenote.pages
             InitializeComponent();
         }
 
+        //Если пользователь редактирует заметку, выводим содержмиое в контролы
         private void Page_Initialized(object sender, EventArgs e)
         {
+            //Почему то richTextBox.Document добавляет пустой блок (пробел) при создании. Некрасиво.
             richTextBox.Document.Blocks.Remove(richTextBox.Document.Blocks.LastBlock);
+
             if (Notebook.rememberThis == null) return;
             titleTextBox.Text = Notebook.rememberThis.Title;
 
@@ -57,7 +60,7 @@ namespace evenote.pages
 
             if (openFileDialog1.ShowDialog() == true)
             {
-                Note temp = Evennote.OpenNote(openFileDialog1.FileName);
+                Note temp = Evennote.OpenNoteFromFile(openFileDialog1.FileName);
 
                 titleTextBox.Text = temp.Title;
 
@@ -109,29 +112,21 @@ namespace evenote.pages
             {
                 foreach (Note x in Notebook.notebook)
                 {
-                    if (titleTextBox.Text == x.Title)
+                    if (titleTextBox.Text.ToLower().Equals(x.Title.ToLower()))
                     {
                         MessageBox.Show("Note with same title already exist.");
                         return;
                     }
                 }
             }
+
             Notebook.Add(new Note(titleTextBox.Text, richTextBox.Document, temp, DateTime.Now));
             Notebook.Last().SaveToFile(String.Format("{0}{1}.note", Evennote.path, Notebook.Last().Title));
             File.SetCreationTime(String.Format("{1}{0}.note", Notebook.Last().Title, Evennote.path), temp);
             ((Application.Current.MainWindow as MainWindow).mainframe.Content as menu_page).frame.Source = new Uri("notes_page.xaml", UriKind.Relative);
         }
 
-        private void colorpickerbtn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void colorpicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
-        {
-            //File.AppendAllText(Evennote.ConfigUserFile, Evennote.ColorNote.ToString());
-        }
-
+        //Регулярное выражения для названия заметки.
         private void titleTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !IsTextAllowed(e.Text);
@@ -139,7 +134,7 @@ namespace evenote.pages
 
         private bool IsTextAllowed(string text)
         {
-            System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex("[^A-Za-z0-9_]+"); //regex that matches disallowed text
+            System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"[^\w0-9_]+"); //regex that matches disallowed text
             return !regex.IsMatch(text);
         }
     }

@@ -2,6 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:evenote">
 
+    
+    <!-- Тут определены стили интерфейса -->
+    
+    
     <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
     <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#996BA3BA"/>
     <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF6BA3BA"/>

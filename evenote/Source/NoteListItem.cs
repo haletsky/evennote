@@ -8,6 +8,7 @@ using System.Windows.Documents;
 
 namespace evenote
 {
+    //Класс-обёртка для класса Note, имеющая уникальный стиль для ListView
     public class NoteListItem : ListViewItem
     {
         public NoteListItem(Note n)
@@ -22,10 +23,7 @@ namespace evenote
         }
 
         /*
-        -2 на бд нет заметки
-        -1 на бд старая заметка
-        0 заметки равны
-        1 на бд новая заметка
+        Возвращает необходимую картинку под статус заметки
         */
         public string Backuped {
             get {
