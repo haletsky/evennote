@@ -113,6 +113,7 @@ namespace evenote.pages
 
                         Evennote.SetUserDirectory(config.Split(' ').First());
 
+                        Evennote.user.online = true;
                         //Считываем с диска существующие заметки
                         Notebook.LoadNotes();
                     }
