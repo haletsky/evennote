@@ -88,12 +88,15 @@ namespace evenote
             //Читаем данные
             while (MyDataBase.rdr.Read())
             {
+                MySql.Data.Types.MySqlDateTime x = (MySql.Data.Types.MySqlDateTime)MyDataBase.rdr[5];
+                DateTime tempDate = new DateTime(x.Year, x.Month, x.Day);
+
                 //Сохраняем данные о себе
                 user = new User(Convert.ToInt32(MyDataBase.rdr[0].ToString()),
                     MyDataBase.rdr[1].ToString(),
                     MyDataBase.rdr[3].ToString(),
                     MyDataBase.rdr[4] as byte[],
-                    MyDataBase.rdr[5] as DateTime?);
+                    tempDate);
             }
 
             contextUser = user;
@@ -123,12 +126,15 @@ namespace evenote
 
             while (MyDataBase.rdr.Read())
             {
-                //Сохраняем данные о пользователе
-                temp = new User(Convert.ToInt32(MyDataBase.rdr[0].ToString()),
+                MySql.Data.Types.MySqlDateTime x = (MySql.Data.Types.MySqlDateTime)MyDataBase.rdr[5];
+                DateTime tempDate = new DateTime(x.Year, x.Month, x.Day);
+
+                //Сохраняем данные о себе
+                user = new User(Convert.ToInt32(MyDataBase.rdr[0].ToString()),
                     MyDataBase.rdr[1].ToString(),
                     MyDataBase.rdr[3].ToString(),
                     MyDataBase.rdr[4] as byte[],
-                    MyDataBase.rdr[5] as DateTime?);
+                    tempDate);
 
                 if (MyDataBase.rdr[6].ToString().Equals("True"))
                 {
@@ -158,7 +164,7 @@ namespace evenote
             MyDataBase.rdr.Close();
             MyDataBase.AddWithValue("@avatar", avatar);
             MyDataBase.ExecuteCommand(
-                "INSERT INTO `evennote_db`.`users` (`username`, `userpass`, `email`, `avatar`, `datebirth`)" +
+                "INSERT INTO `users` (`username`, `userpass`, `email`, `avatar`, `datebirth`)" +
                 "VALUES ('" + username + "', '" + password + "', '" + email + "', @avatar, '"
                 + birth.Year + "-"
                 + birth.Month + "-"
@@ -243,7 +249,7 @@ namespace evenote
 
             for (int i = 0; i < notes.Length; i++)
             {
-                MyDataBase.ExecuteCommand("DELETE FROM `evennote_db`.`notes` WHERE `iduser`='" + Evennote.user.id + "' AND `title`='" + notes[i].Split('\\').Last().Split('.').First() + "';");
+                MyDataBase.ExecuteCommand("DELETE FROM `notes` WHERE `iduser`='" + Evennote.user.id + "' AND `title`='" + notes[i].Split('\\').Last().Split('.').First() + "';");
                 //Разбиваем путь по слэшам, берем имя файла с расширением. Разюиваем имя файла и вытягиваем имя заметки.
                 File.Delete(notes[i]);
 
@@ -337,7 +343,7 @@ namespace evenote
                         DateTime cH = x.DateChanged;
 
                         MyDataBase.AddWithValue("@notefile", mem.ToArray());
-                        MyDataBase.ExecuteCommand("INSERT INTO `evennote_db`.`notes` (`iduser`, `title`, `note`, `dateCreate`, `dateChanged`) VALUES (" + user.id + ", '" + x.Title + "', @noteFile, " + cR.Ticks + ", " + cH.Ticks + ");");
+                        MyDataBase.ExecuteCommand("INSERT INTO `notes` (`iduser`, `title`, `note`, `dateCreate`, `dateChanged`) VALUES (" + user.id + ", '" + x.Title + "', @noteFile, " + cR.Ticks + ", " + cH.Ticks + ");");
                     }
                 }
             });
@@ -391,7 +397,7 @@ namespace evenote
             if (OfflineMode) return -1;
             MyDataBase.ConnectToDB();
 
-            MyDataBase.ExecuteCommand("SELECT COUNT(idnote) FROM evennote_db.notes WHERE notes.iduser = "+ user.id +";");
+            MyDataBase.ExecuteCommand("SELECT COUNT(idnote) FROM notes WHERE notes.iduser = "+ user.id +";");
 
             if (!MyDataBase.rdr.HasRows) return 0;
 
