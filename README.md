@@ -11,3 +11,5 @@ MainWindow.xaml has just one frame, which contain pages (`login_page.xaml`, `reg
  * class NoteListItem - over-class for 'Note', have styles for ListViewItem.
  * class User - all information about user.
  * static class Notebook - contain users note, and methods for them.
+
+ P.S. DataBaseAPI.dll it is my class for connect to own DataBase.
