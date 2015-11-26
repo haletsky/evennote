@@ -80,12 +80,12 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
-                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="#EFFF" SnapsToDevicePixels="True">
                         <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsFocused" Value="false">
-                            <Setter Property="Opacity" TargetName="border" Value="0.85"/>
+                            <Setter Property="Background" TargetName="border" Value="#AFFF"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Opacity" TargetName="border" Value="0.40"/>
@@ -119,12 +119,12 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type PasswordBox}">
-                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="#EFFF" SnapsToDevicePixels="True">
                         <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsFocused" Value="false">
-                            <Setter Property="Opacity" TargetName="border" Value="0.85"/>
+                            <Setter Property="Background" TargetName="border" Value="#AFFF"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Opacity" TargetName="border" Value="0.40"/>
@@ -328,7 +328,7 @@
             <TextBlock x:Name="CreatedText" Text="Created:" Foreground="#FF464646" Margin="0,15,110,0" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI Light"/>
             <TextBlock x:Name="ChangedText" Text="Changed:" Foreground="#7F7B27" Margin="0,46,110,0" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI Light"/>
 
-            
+
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsSelected" Value="True">
@@ -341,5 +341,22 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+
+    <Style x:Key="LabelTip" TargetType="{x:Type Label}">
+        <Setter Property="FontFamily" Value="Comic Sans MS"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Foreground" Value="#EE000000"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Label}">
+                    <Grid x:Name="gridkek">
+                        <Rectangle RadiusX="15" RadiusY="15" Fill="#77FFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="135" Height="28"/>
+                        <ContentPresenter RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 </ResourceDictionary>

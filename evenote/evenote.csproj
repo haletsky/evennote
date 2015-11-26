@@ -220,6 +220,8 @@
     <Content Include="APIs\MySql.Data.Entity.EF6.dll" />
     <Content Include="APIs\MySql.Fabric.Plugin.dll" />
     <Content Include="APIs\MySql.Web.dll" />
+    <Resource Include="images\bg_blur.png" />
+    <Resource Include="images\bg.jpg" />
     <Resource Include="images\logo.ico" />
     <Resource Include="images\logo.png" />
     <Resource Include="images\notelocal.png" />

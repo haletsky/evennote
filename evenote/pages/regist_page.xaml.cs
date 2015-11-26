@@ -24,7 +24,6 @@ namespace evenote.pages
     /// </summary>
     public partial class regist_page : Page
     {
-
         byte[] image;
 
         public regist_page()
@@ -106,6 +105,5 @@ namespace evenote.pages
             if ((sender as PasswordBox).Password == "")
                 (sender as PasswordBox).Password = "password";
         }
-
     }
 }
