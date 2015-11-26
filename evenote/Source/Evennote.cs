@@ -11,6 +11,7 @@ using System.Windows.Documents;
 using Microsoft.Win32;
 using evenote.pages;
 using System.Windows.Media;
+using System.Security.Cryptography;
 
 namespace evenote
 {
@@ -51,7 +52,7 @@ namespace evenote
         public static bool AutoLogin { get; set; }
 
         //Свойство пути к файлу конфига, который содержит логин и пароль
-        public static string ConfigFile { get { return String.Format("C:\\Users\\{0}\\Documents\\evennote\\config.ini", Environment.UserName); } }
+        public static string ConfigFile { get { return String.Format("C:\\Users\\{0}\\Documents\\evennote\\config", Environment.UserName); } }
 
         //Свойство пути папки "корзины" для заметок пользователя
         public static string DeleteDirectory { get; set; }
@@ -130,7 +131,7 @@ namespace evenote
                 DateTime tempDate = new DateTime(x.Year, x.Month, x.Day);
 
                 //Сохраняем данные о себе
-                user = new User(Convert.ToInt32(MyDataBase.rdr[0].ToString()),
+                temp = new User(Convert.ToInt32(MyDataBase.rdr[0].ToString()),
                     MyDataBase.rdr[1].ToString(),
                     MyDataBase.rdr[3].ToString(),
                     MyDataBase.rdr[4] as byte[],
@@ -379,17 +380,57 @@ namespace evenote
 
         public static void SetConfigurateFile()
         {
-            StreamWriter sw = File.CreateText(ConfigFile);
+            FileStream sw = File.Create(ConfigFile);
             sw.Close();
         }
 
-        public static string ReadConfigFile() { 
-            return File.ReadAllText(ConfigFile);
+        public static byte[] ReadConfigFile(string sKey) {
+            DESCryptoServiceProvider DES = new DESCryptoServiceProvider();
+            //A 64 bit key and IV is required for this provider.
+            //Set secret key For DES algorithm.
+            DES.Key = ASCIIEncoding.ASCII.GetBytes(sKey);
+            //Set initialization vector.
+            DES.IV = ASCIIEncoding.ASCII.GetBytes(sKey);
+
+            //Create a file stream to read the encrypted file back.
+            FileStream fsread = new FileStream(ConfigFile,
+                                           FileMode.Open,
+                                           FileAccess.Read);
+            //Create a DES decryptor from the DES instance.
+            ICryptoTransform desdecrypt = DES.CreateDecryptor();
+            //Create crypto stream set to read and do a 
+            //DES decryption transform on incoming bytes.
+            CryptoStream cryptostreamDecr = new CryptoStream(fsread,
+                                                         desdecrypt,
+                                                         CryptoStreamMode.Read);
+            byte[] data = new byte[fsread.Length-8];
+            //byte[] key = new byte[8];
+            cryptostreamDecr.Read(data, 0, data.Length);
+            //cryptostreamDecr.Read(key, data.Length - 8, 7);
+            //MessageBox.Show(new string(Encoding.UTF8.GetChars(key)));
+            cryptostreamDecr.Close();
+            return data;
         }
 
-        public static void WriteConfigFile(string data)
+        public static void WriteConfigFile(byte[] data,
+        string sKey)
         {
-            File.WriteAllText(ConfigFile, data);
+            FileStream fsEncrypted = new FileStream(ConfigFile,
+                            FileMode.Create,
+                            FileAccess.Write);
+
+            DESCryptoServiceProvider DES = new DESCryptoServiceProvider();
+
+            DES.Key = ASCIIEncoding.ASCII.GetBytes(sKey);
+            DES.IV = ASCIIEncoding.ASCII.GetBytes(sKey);
+
+            ICryptoTransform desencrypt = DES.CreateEncryptor();
+            CryptoStream cryptostream = new CryptoStream(fsEncrypted,
+                                desencrypt,
+                                CryptoStreamMode.Write);
+            
+            cryptostream.Write(data, 0, data.Length);
+            cryptostream.Close();
         }
 
         public static int GetCountNotesFromDB()
@@ -435,6 +476,20 @@ namespace evenote
             }
 
             return isConnected;
+        }
+
+        //  Call this function to remove the key from memory after use for security.
+        [System.Runtime.InteropServices.DllImport("KERNEL32.DLL", EntryPoint = "RtlZeroMemory")]
+        public static extern bool ZeroMemory(ref string Destination, int Length);
+
+        // Function to Generate a 64 bits Key.
+        static string GenerateKey()
+        {
+            // Create an instance of Symetric Algorithm. Key and IV is generated automatically.
+            DESCryptoServiceProvider desCrypto = (DESCryptoServiceProvider)DESCryptoServiceProvider.Create();
+
+            // Use the Automatically generated key for Encryption. 
+            return ASCIIEncoding.ASCII.GetString(desCrypto.Key);
         }
     }
 }

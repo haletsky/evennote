@@ -61,7 +61,7 @@ namespace evenote.pages
 
                     //Сохраняем логин пароль для автовхода
                     if (checkBox.IsChecked.Value)
-                        Evennote.WriteConfigFile(login.Text + " " + pass);
+                        Evennote.WriteConfigFile(Encoding.UTF8.GetBytes(login.Text + " " + pass), "3v3nn0t3");
                 }
                 else
                 {
@@ -103,7 +103,7 @@ namespace evenote.pages
             else
             {
                 checkBox.IsChecked = true;
-                string config = Evennote.ReadConfigFile();
+                string config = new string(Encoding.UTF8.GetChars(Evennote.ReadConfigFile("3v3nn0t3")));
                 if (config.Equals("")) return;
                 try
                 {
