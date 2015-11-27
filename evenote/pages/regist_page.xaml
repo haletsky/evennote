@@ -9,30 +9,41 @@
       Title="regist_page">
 
     <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="/evenote;component/images/bg_blur.png" Stretch="UniformToFill"/>
-        </Grid.Background>
 
-        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Unique username:" Foreground="#EE000000" Margin="0,0,350,300" FontFamily="Comic Sans MS" HorizontalContentAlignment="Right" Style="{StaticResource LabelTip}"/>
-        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Unique email:" Foreground="#EE000000" Margin="0,0,350,200" FontFamily="Comic Sans MS" HorizontalContentAlignment="Right" Style="{StaticResource LabelTip}"/>
-        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Input password:" Foreground="#EE000000" Margin="0,0,350,100" FontFamily="Comic Sans MS" HorizontalContentAlignment="Right" Style="{StaticResource LabelTip}"/>
-        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Repeat password:" Foreground="#EE000000" Margin="0,0,350,0" FontFamily="Comic Sans MS" HorizontalContentAlignment="Right" Style="{StaticResource LabelTip}"/>
-        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Your date of birth:" Foreground="#EE000000" Margin="0,100,350,0" FontFamily="Comic Sans MS" HorizontalContentAlignment="Right" Style="{StaticResource LabelTip}"/>
-        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Image for profile:" Foreground="#EE000000" Margin="0,200,350,0" FontFamily="Comic Sans MS" HorizontalContentAlignment="Right" Style="{StaticResource LabelTip}"/>
+        <Image x:Name="BackgroundContainer" Source="/evenote;component/images/bg.jpg" Stretch="UniformToFill"/>
 
         <Label Content="by Bogdan Khaletsky 2015" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontFamily="Microsoft YaHei UI Light" Foreground="White" FontSize="16" Opacity="0.5" Background="Black"/>
+        
+        <Border Background="#8111" HorizontalAlignment="Center" VerticalAlignment="Center" Width="240" Height="370" CornerRadius="0" BorderBrush="#568DCB" BorderThickness="1" >
+            <Border Opacity="1"  >
+                <Border.BitmapEffect>
+                    <BlurBitmapEffect Radius="20"/>
+                </Border.BitmapEffect>
+                <Border.Background>
+                    <VisualBrush  Visual="{Binding ElementName=BackgroundContainer}" Stretch="None" />
+                </Border.Background>
+            </Border>
+        </Border>
+
+        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Unique username:" Foreground="#EE000000" Margin="0,0,400,300" FontFamily="Comic Sans MS" HorizontalContentAlignment="Right" Style="{StaticResource LabelTip}"/>
+        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Unique email:" Foreground="#EE000000" Margin="0,0,400,200" FontFamily="Comic Sans MS" HorizontalContentAlignment="Right" Style="{StaticResource LabelTip}"/>
+        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Input password:" Foreground="#EE000000" Margin="0,0,400,100" FontFamily="Comic Sans MS" HorizontalContentAlignment="Right" Style="{StaticResource LabelTip}"/>
+        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Repeat password:" Foreground="#EE000000" Margin="0,0,400,0" FontFamily="Comic Sans MS" HorizontalContentAlignment="Right" Style="{StaticResource LabelTip}"/>
+        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Your date of birth:" Foreground="#EE000000" Margin="0,100,400,0" FontFamily="Comic Sans MS" HorizontalContentAlignment="Right" Style="{StaticResource LabelTip}"/>
+        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Image for profile:" Foreground="#EE000000" Margin="0,200,400,0" FontFamily="Comic Sans MS" HorizontalContentAlignment="Right" Style="{StaticResource LabelTip}"/>
+      
 
         <TextBox x:Name="login" Text="login" Margin="0,0,0,300" HorizontalAlignment="Center" Width="200" Style="{DynamicResource TextBoxStyle}" GotFocus="login_GotFocus" LostFocus="login_LostFocus" PreviewTextInput="login_PreviewTextInput"/>
         <TextBox x:Name="email" Text="e@mail.com" Margin="0,0,0,200" HorizontalAlignment="Center" Width="200" Style="{DynamicResource TextBoxStyle}" GotFocus="login_GotFocus" LostFocus="login_LostFocus" Tag="email"/>
 
         <PasswordBox x:Name="password" Password="password" Margin="0,0,0,100" HorizontalAlignment="Center" Width="200" Style="{DynamicResource PassBoxStyle}" LostFocus="password_LostFocus" GotFocus="password_GotFocus" PreviewTextInput="login_PreviewTextInput"/>
         <PasswordBox x:Name="repeat_password" Password="password" Margin="0" HorizontalAlignment="Center" Width="200" Style="{DynamicResource PassBoxStyle}" LostFocus="password_LostFocus" GotFocus="password_GotFocus" PreviewTextInput="login_PreviewTextInput"/>
-        <DatePicker x:Name="datepicker" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,0" Width="200" FirstDayOfWeek="Monday"/>
+        <DatePicker x:Name="datepicker" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,0" Width="200" FirstDayOfWeek="Monday" BorderBrush="{x:Null}" Background="{x:Null}" BorderThickness="0" DisplayDate="1990-01-01"/>
 
-        <Label x:Name="imagelabel" Margin="322,200,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Choose image" HorizontalContentAlignment="Stretch" Width="298" Foreground="#FF9FAFBB" FontFamily="Microsoft YaHei UI Light" FontSize="16"/>
-        <Button x:Name="selectbutton" Margin="0,200,100,0" Style="{DynamicResource ButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Select" Click="selectbutton_Click" Width="90" Height="30"/>
+        <Label x:Name="imagelabel" Margin="310,310,210,110" HorizontalAlignment="Center" VerticalAlignment="Center" Content="" HorizontalContentAlignment="Stretch" Width="110" Foreground="#FF9FAFBB" FontFamily="Microsoft YaHei UI Light" FontSize="13.333"/>
+        <Button x:Name="selectbutton" Margin="0,200,110,0" Style="{DynamicResource ButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Select" Click="selectbutton_Click" Width="90" Height="30"/>
 
-        <Button x:Name="button" Content="Done" Style="{DynamicResource ButtonStyle}" Height="30" HorizontalAlignment="Center" Width="90" Click="button_Click" IsDefault="True" Margin="100,300,0,0" />
-        <Button x:Name="backbutton" Content="Back" Style="{DynamicResource ButtonStyle}" Height="30" HorizontalAlignment="Center" Width="90" Click="backbutton_Click" Margin="0,300,100,0" IsCancel="True" />
+        <Button x:Name="button" Content="Done" Style="{DynamicResource ButtonStyle}" Height="30" HorizontalAlignment="Center" Width="90" Click="button_Click" IsDefault="True" Margin="110,300,0,0" />
+        <Button x:Name="backbutton" Content="Back" Style="{DynamicResource ButtonStyle}" Height="30" HorizontalAlignment="Center" Width="90" Click="backbutton_Click" Margin="0,300,110,0" IsCancel="True" />
     </Grid>
 </Page>

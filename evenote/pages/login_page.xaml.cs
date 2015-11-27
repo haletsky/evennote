@@ -177,6 +177,5 @@ namespace evenote.pages
             if ((sender as PasswordBox).Password == "password")
                 (sender as PasswordBox).Password = "";
         }
-
     }
 }

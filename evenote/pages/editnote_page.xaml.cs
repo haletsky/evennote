@@ -123,6 +123,7 @@ namespace evenote.pages
             Notebook.Add(new Note(titleTextBox.Text, richTextBox.Document, temp, DateTime.Now));
             Notebook.Last().SaveToFile(String.Format("{0}{1}.note", Evennote.path, Notebook.Last().Title));
             File.SetCreationTime(String.Format("{1}{0}.note", Notebook.Last().Title, Evennote.path), temp);
+            Notebook.Last().DateChanged = File.GetLastWriteTime(String.Format("{1}{0}.note", Notebook.Last().Title, Evennote.path));
             ((Application.Current.MainWindow as MainWindow).mainframe.Content as menu_page).frame.Source = new Uri("notes_page.xaml", UriKind.Relative);
         }
 

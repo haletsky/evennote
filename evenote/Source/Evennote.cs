@@ -241,7 +241,7 @@ namespace evenote
 
         public static void SyncNotes()
         {
-            if (!GetInternetConnect()) return;
+            if (OfflineMode) return;
 
             //Удаление заметок из бд и из системы.
             MyDataBase.ConnectToDB();
@@ -323,7 +323,7 @@ namespace evenote
                                 textRange.Save(mem, DataFormats.XamlPackage);
 
                                 MyDataBase.AddWithValue("@notefile", mem.ToArray());
-                                MyDataBase.ExecuteCommand("UPDATE notes SET note = @notefile, dateChanged = '" + x.DateChanged.Ticks + "' WHERE notes.idnote = " + idnote);
+                                MyDataBase.ExecuteCommand("UPDATE notes SET note = @notefile, dateChanged = " + x.DateChanged.Ticks + " WHERE notes.idnote = " + idnote);
                             }
                             break;
                         }

@@ -112,7 +112,7 @@ namespace evenote
                 }
                 else
                 {
-                    Backuped = 0; ;
+                    Backuped = 0;
                 }
             }
 

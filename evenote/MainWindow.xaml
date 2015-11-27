@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:evenote"
         mc:Ignorable="d"
-        Title="Even note" Height="450" Width="700" MinWidth="625" MinHeight="375" WindowStartupLocation="CenterScreen" Closing="mainwindow_Closing" WindowState="Maximized">
+        Title="Even note" Height="450" Width="700" MinWidth="625" MinHeight="430" WindowStartupLocation="CenterScreen" Closing="mainwindow_Closing" WindowState="Normal">
     <Grid>
         <Frame x:Name="mainframe" NavigationUIVisibility="Hidden" Source="pages/login_page.xaml" Focusable="False" JournalOwnership="UsesParentJournal"/>
     </Grid>
