@@ -14,16 +14,7 @@
 
         <Label Content="by Bogdan Khaletsky 2015" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontFamily="Microsoft YaHei UI Light" Foreground="White" FontSize="16" Opacity="0.5" Background="Black"/>
 
-        <Border Background="#88777777" HorizontalAlignment="Center" VerticalAlignment="Center" Width="240" Height="300" BorderBrush="#568DCB" BorderThickness="1" CornerRadius="10" >
-            <Border Opacity="1"  >
-                <Border.BitmapEffect>
-                    <BlurBitmapEffect Radius="20"/>
-                </Border.BitmapEffect>
-                <Border.Background>
-                    <VisualBrush  Visual="{Binding ElementName=BackgroundContainer}" Stretch="None" />
-                </Border.Background>
-            </Border>
-        </Border>
+        <Border Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="240" Height="300" BorderBrush="#772A3132" BorderThickness="1" CornerRadius="3"/>
 
         <TextBox x:Name="login" Text="login" Margin="0,0,0,100" HorizontalAlignment="Center" Width="200" Style="{DynamicResource TextBoxStyle}" GotFocus="login_GotFocus" LostFocus="login_LostFocus" PreviewTextInput="login_PreviewTextInput"/>
         <PasswordBox x:Name="password" Password="password" HorizontalAlignment="Center" Width="200" Style="{DynamicResource PassBoxStyle}" LostFocus="password_LostFocus" GotFocus="password_GotFocus" PreviewTextInput="login_PreviewTextInput"/>
@@ -31,8 +22,8 @@
         <Button x:Name="signUp_button" Content="Sign Up" Style="{DynamicResource ButtonStyle}" Height="30" HorizontalAlignment="Center" Width="90" Click="signUp_button_Click" Margin="110,230,0,0" FontFamily="Microsoft YaHei UI Light" />
         <Image x:Name="logo" HorizontalAlignment="Center" Source="/evenote;component/images/logo.png" VerticalAlignment="Center" Margin="0,0,0,300" Width="120"/>
 
-        <CheckBox x:Name="checkBox" Content="Remember me" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI Light" Margin="0,80,100,0" Unchecked="checkBox_Unchecked" Checked="checkBox_Checked" Foreground="White" Opacity="0.9" BorderThickness="0"/>
-        <CheckBox x:Name="checkBoxOffline" Content="Offline mode" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI Light" Margin="100,80,0,0" Unchecked="checkBoxOffline_Unchecked" Checked="checkBoxOffline_Checked" Background="White" Foreground="White" Opacity="0.9" BorderThickness="0"/>
+        <CheckBox x:Name="checkBox" Content="Remember me" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI" Margin="0,90,80,0" Unchecked="checkBox_Unchecked" Checked="checkBox_Checked" Foreground="Black" Opacity="0.9" BorderThickness="1" FontSize="13.333"/>
+        <CheckBox x:Name="checkBoxOffline" Content="Offline mode" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI" Margin="0,150,90,0" Unchecked="checkBoxOffline_Unchecked" Checked="checkBoxOffline_Checked" Background="White" Foreground="Black" Opacity="0.9" BorderThickness="1" FontSize="13.333"/>
 
 
     </Grid>

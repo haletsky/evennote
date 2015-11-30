@@ -7,8 +7,8 @@
     
     
     <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
-    <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#996BA3BA"/>
-    <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF6BA3BA"/>
+    <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#90afc5"/>
+    <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#336b87"/>
 
     <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Template">
@@ -317,9 +317,13 @@
 
     <ControlTemplate x:Key="TryListViewItemWork" TargetType="{x:Type local:NoteListItem}">
         <Grid>
-            <Border BorderThickness="0" CornerRadius="5" Name="border"
+            <Border BorderThickness="0" CornerRadius="3" Name="border"
                     TextBlock.Foreground="Black" Background="Transparent" Margin="10,10,10,0" Height="56"/>
-            <Image ToolTip="{Binding Path=ToolTipText, RelativeSource={RelativeSource TemplatedParent}}" Source="{Binding Path=Backuped, RelativeSource={RelativeSource TemplatedParent}}" Margin="15,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Uniform" Width="40" Height="46"/>
+            <Image x:Name="kekkik" ToolTip="{Binding Path=ToolTipText, RelativeSource={RelativeSource TemplatedParent}}" Source="{Binding Path=Backuped, RelativeSource={RelativeSource TemplatedParent}}" Margin="15,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Uniform" Width="40" Height="46">
+                <Image.Effect>
+                    <DropShadowEffect Opacity="0" BlurRadius="7" Color="#FF2A3132"/>
+                </Image.Effect>
+            </Image>
             <TextBlock x:Name="Title" Foreground="#FF112700" Margin="70,20,10,10" Text="{Binding Path=Title, RelativeSource={RelativeSource TemplatedParent}}" FontWeight="Bold" FontFamily="Microsoft YaHei UI Light" FontSize="21.333"/>
 
             <TextBlock x:Name="CreatedLabel" Foreground="#FF464646" Margin="0,15,20,0" Text="{Binding Path=GetShortDateCreate, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI Light"/>
@@ -327,12 +331,10 @@
 
             <TextBlock x:Name="CreatedText" Text="Created:" Foreground="#FF464646" Margin="0,15,110,0" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI Light"/>
             <TextBlock x:Name="ChangedText" Text="Changed:" Foreground="#7F7B27" Margin="0,46,110,0" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI Light"/>
-
-
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsSelected" Value="True">
-                <Setter TargetName="border" Property="Background" Value="#DDB25139"></Setter>
+                <Setter TargetName="border" Property="Background" Value="#dd2a3132"></Setter>
                 <Setter TargetName="CreatedText" Property="Foreground" Value="#DED"/>
                 <Setter TargetName="ChangedText" Property="Foreground" Value="#FFF79F"/>
                 <Setter TargetName="CreatedLabel" Property="Foreground" Value="#DED"/>
