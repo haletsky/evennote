@@ -14,7 +14,7 @@
 
         <Label Content="by Bogdan Khaletsky 2015" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontFamily="Microsoft YaHei UI Light" Foreground="White" FontSize="16" Opacity="0.5" Background="Black"/>
 
-        <Border Background="#8111" HorizontalAlignment="Center" VerticalAlignment="Center" Width="240" Height="300" CornerRadius="0" BorderBrush="#568DCB" BorderThickness="1" >
+        <Border Background="#88777777" HorizontalAlignment="Center" VerticalAlignment="Center" Width="240" Height="300" BorderBrush="#568DCB" BorderThickness="1" CornerRadius="10" >
             <Border Opacity="1"  >
                 <Border.BitmapEffect>
                     <BlurBitmapEffect Radius="20"/>

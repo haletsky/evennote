@@ -54,6 +54,7 @@ namespace evenote.pages
             if (Notebook.rememberThis == null) return;
             Notebook.Delete(Notebook.rememberThis);
             SyncListView();
+            Notebook.rememberThis = null;
         }
 
         private void sendnote_btn_Click(object sender, RoutedEventArgs e)

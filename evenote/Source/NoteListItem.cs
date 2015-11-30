@@ -28,12 +28,14 @@ namespace evenote
         public string Backuped {
             get {
                 if (Evennote.OfflineMode) return @"images\notelocal.png";
-                (Content as Note).RefreshNoteState(Evennote.user.id);
-                if((Content as Note).Backuped == -2)
+
+                //(Content as Note).RefreshNoteState(Evennote.user.id); //Чтобы вдвое уменьшить запросы к БД, вызываем RefreshNoteState() только у ToolTipText.
+
+                if ((Content as Note).Backuped == -2)
                 {
                     return @"images\notelocal.png";
                 }
-                else if((Content as Note).Backuped == -1)
+                else if ((Content as Note).Backuped == -1)
                 {
                     return @"images\noteneedsync.png";
                 }
@@ -45,6 +47,18 @@ namespace evenote
                 {
                     return @"images\noteneedsync.png";
                 }
+                return "";
+            }
+        }
+        public string ToolTipText
+        {
+            get
+            {
+                (Content as Note).RefreshNoteState(Evennote.user.id);
+                if ((Content as Note).Backuped == -2) return "Local note.";
+                else if ((Content as Note).Backuped == -1) return "Need to sync!";
+                else if ((Content as Note).Backuped == 0) return "Synched note.";
+                else if ((Content as Note).Backuped == 1) return "Need to sync!";
                 return "";
             }
         }
