@@ -88,6 +88,12 @@ namespace evenote
         //Сравнивает даты локальной заметки и сохраненной на сервере
         public void RefreshNoteState(int userid)
         {
+            if(Evennote.OfflineMode == true)
+            {
+                Backuped = -2;
+                return;
+            }
+
             MyDataBase.ConnectToDB();
 
             MyDataBase.ExecuteCommand("SELECT dateChanged FROM notes WHERE iduser = " + userid  + " AND title = '" + Title + "';");

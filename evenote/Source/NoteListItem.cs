@@ -54,7 +54,10 @@ namespace evenote
         {
             get
             {
+                if (Evennote.OfflineMode) return @"Local note.";
+
                 (Content as Note).RefreshNoteState(Evennote.user.id);
+
                 if ((Content as Note).Backuped == -2) return "Local note.";
                 else if ((Content as Note).Backuped == -1) return "Need to sync!";
                 else if ((Content as Note).Backuped == 0) return "Synched note.";
