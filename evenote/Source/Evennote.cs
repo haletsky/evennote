@@ -384,7 +384,7 @@ namespace evenote
             sw.Close();
         }
 
-        public static byte[] ReadConfigFile(string sKey) {
+        public static string ReadConfigFile(string sKey) {
             DESCryptoServiceProvider DES = new DESCryptoServiceProvider();
             //A 64 bit key and IV is required for this provider.
             //Set secret key For DES algorithm.
@@ -403,16 +403,20 @@ namespace evenote
             CryptoStream cryptostreamDecr = new CryptoStream(fsread,
                                                          desdecrypt,
                                                          CryptoStreamMode.Read);
-            byte[] data = new byte[fsread.Length-8];
-            //byte[] key = new byte[8];
-            cryptostreamDecr.Read(data, 0, data.Length);
-            //cryptostreamDecr.Read(key, data.Length - 8, 7);
-            //MessageBox.Show(new string(Encoding.UTF8.GetChars(key)));
+            
+            StreamReader sReader = new StreamReader(cryptostreamDecr);
+
+            string data = sReader.ReadLine();
+
+
+
+            sReader.Close();
             cryptostreamDecr.Close();
+            fsread.Close();
             return data;
         }
 
-        public static void WriteConfigFile(byte[] data,
+        public static void WriteConfigFile(string data,
         string sKey)
         {
             FileStream fsEncrypted = new FileStream(ConfigFile,
@@ -428,9 +432,13 @@ namespace evenote
             CryptoStream cryptostream = new CryptoStream(fsEncrypted,
                                 desencrypt,
                                 CryptoStreamMode.Write);
-            
-            cryptostream.Write(data, 0, data.Length);
+
+            StreamWriter sw = new StreamWriter(cryptostream);
+            sw.WriteLine(data);
+
+            sw.Close();
             cryptostream.Close();
+            fsEncrypted.Close();
         }
 
         public static int GetCountNotesFromDB()
