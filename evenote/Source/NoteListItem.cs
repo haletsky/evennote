@@ -14,6 +14,7 @@ namespace evenote
         public NoteListItem(Note n)
         {
             Content = n;
+            n.RefreshNoteState();
             this.Template = (ControlTemplate)this.FindResource("TryListViewItemWork");
         }
 
@@ -55,8 +56,6 @@ namespace evenote
             get
             {
                 if (Evennote.OfflineMode) return @"Local note.";
-
-                (Content as Note).RefreshNoteState(Evennote.user.id);
 
                 if ((Content as Note).Backuped == -2) return "Local note.";
                 else if ((Content as Note).Backuped == -1) return "Need to sync!";

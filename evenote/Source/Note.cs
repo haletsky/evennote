@@ -35,8 +35,6 @@ namespace evenote
             Text = text;
             DateCreate = dtCR;
             DateChanged = dtCH;
-            //DateChanged = DateChanged.ToUniversalTime();
-            //DateCreate = DateCreate.ToUniversalTime();
         }
 
         public Note()
@@ -86,7 +84,7 @@ namespace evenote
         }
 
         //Сравнивает даты локальной заметки и сохраненной на сервере
-        public void RefreshNoteState(int userid)
+        public void RefreshNoteState()
         {
             if(Evennote.OfflineMode == true)
             {
@@ -96,7 +94,7 @@ namespace evenote
 
             MyDataBase.ConnectToDB();
 
-            MyDataBase.ExecuteCommand("SELECT dateChanged FROM notes WHERE iduser = " + userid  + " AND title = '" + Title + "';");
+            MyDataBase.ExecuteCommand("SELECT dateChanged FROM notes WHERE iduser = " + Evennote.user.id  + " AND title = '" + Title + "';");
 
             if (!MyDataBase.rdr.HasRows)
             {
